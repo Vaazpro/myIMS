@@ -6,9 +6,9 @@ import TabBarIcon from '../components/TabBarIcon';
 /* import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen'; */
-import ProfileScreen from '../screens/ProfileScreen';
-import TaskScreen from '../screens/TasksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import TaskScreen from '../screens/TasksScreen/TasksScreen';
+import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,

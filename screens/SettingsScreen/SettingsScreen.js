@@ -6,10 +6,11 @@ import {
     SafeAreaView
 } from 'react-native'
 
-class ProfileScreen extends Component {
+class SettingsScreen extends Component {
+
     static navigationOptions = {
         header: null,
-      };
+    };
 
     constructor(props) {
         super(props)
@@ -20,14 +21,14 @@ class ProfileScreen extends Component {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 
-            <View>
-            {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
-             <View style={{height: StatusBar.currentHeight}}></View>
-                <Text>This is a Profile Screen!!!!!!</Text>
-            </View>
+                <View>
+                    {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
+                    <View style={{height: StatusBar.currentHeight}}></View>
+                    <Text>This is a Settings Screen!!!!!!</Text>
+                </View>
             </SafeAreaView>
         )
     }
 }
 
-export default ProfileScreen
+export default SettingsScreen
