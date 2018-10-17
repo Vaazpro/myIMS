@@ -5,6 +5,10 @@
     "slug": "myIMSmobile",
     "privacy": "public",
     "sdkVersion": "30.0.0",
+    "android":{
+      "package": "com.myIMS.mobile",
+      "versionCode":1
+    },
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",

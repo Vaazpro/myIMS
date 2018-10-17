@@ -3,16 +3,19 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+/* import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import SettingsScreen from '../screens/SettingsScreen'; */
+import ProfileScreen from '../screens/ProfileScreen';
+import TaskScreen from '../screens/TasksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const ProfileStack = createStackNavigator({
+  profile: ProfileScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'PERFIL',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -25,12 +28,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const TasksStack = createStackNavigator({
+  tasks: TaskScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+TasksStack.navigationOptions = {
+  tabBarLabel: 'TAREFAS',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -40,11 +43,11 @@ LinksStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  settings: SettingsScreen,
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'CONFIGURAÇÕES',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -54,7 +57,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  ProfileStack,
+  TasksStack,
   SettingsStack,
 });

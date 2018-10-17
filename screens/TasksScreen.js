@@ -4,7 +4,7 @@ import {
     View
 } from 'react-native'
 
-class SettingsScreen extends Component {
+class TasksScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -14,10 +14,10 @@ class SettingsScreen extends Component {
     render() {
         return (
             <View>
-                <Text>This is a SettingsScreen!!!!!</Text>
+                <Text>This is a TasksScreen!!!</Text>
             </View>
         )
     }
 }
 
-export default SettingsScreen
+export default TasksScreen
