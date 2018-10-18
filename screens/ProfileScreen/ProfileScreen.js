@@ -3,7 +3,7 @@ import {
     Text,
     View,
     StatusBar,
-    SafeAreaView,
+    Button
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import SlideTest from './SlideTest'
@@ -19,14 +19,21 @@ class ProfileScreen extends Component {
 
     constructor(props) {
         super(props)
+        const h1 = (Dimensions.get('window').height / 4) - getStatusBarHeight()
         this.state={
-            pos: '',
-            h: (Dimensions.get('window').height / 4) - getStatusBarHeight()
-
+            clicked: false,
+            h: h1,
+            displaystatus: 'none'
         }
     }
 
+    
+
+    
+
     render() {
+        h1 = (Dimensions.get('window').height / 4) - getStatusBarHeight()
+        h2 = (Dimensions.get('window').height / 1.7)
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <View style={styles.container}> 
@@ -39,7 +46,6 @@ class ProfileScreen extends Component {
 
                     </View>
 
-                    </View>
                     <View style={{flex: 2}}>
                         <InitialOptions/>
                     </View>
@@ -48,14 +54,43 @@ class ProfileScreen extends Component {
 
                     </View>
 
-                    <View style={{justifyContent:'center',
-                            alignItems:'center',
-                            alignSelf:'center',
-                            position:'absolute',
-                            marginTop: getStatusBarHeight(),
-                            backgroundColor:'blue',
-                            height: this.state.h,
-                            width: Dimensions.get('window').width }}>
+                    <View style={{ flex: 1, position: 'absolute' }}>
+                        <View style={{justifyContent:'center',
+                                alignItems:'center',
+                                alignSelf:'center',
+                                marginTop: getStatusBarHeight(),
+                                backgroundColor:'blue',
+                                height: this.state.h,
+                                width: Dimensions.get('window').width }}>
+                                
+                                <Button title={'Click Me!'} onPress={() => {
+                                    if(!this.state.clicked){
+                                        this.setState({
+                                            h: h2,
+                                            clicked: true,
+                                            displaystatus: 'flex'
+                                        })
+                                    }else{
+                                        this.setState({
+                                            h: h1,
+                                            clicked: false,
+                                            displaystatus: 'none'
+                                            
+                                        })
+                                    }
+                                }}></Button>
+                        </View>
+                        <View style={{
+                            height:(Dimensions.get('window').height - this.state.h),
+                            backgroundColor: 'black',
+                            opacity: 0.2,
+                            display: this.state.displaystatus}}>
+
+                        </View>
+                    </View>
+
+                    
+                    
                 </View>
             </View> 
         )
