@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    TouchableOpacity,
-    Image
+    TouchableOpacity
 } from 'react-native'
 
 import styles from '../../constants/Styles'
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+
 
 class ButtonInitialOptions extends Component {
 
@@ -19,22 +20,13 @@ class ButtonInitialOptions extends Component {
         }
     }
 
-    //JUST TESTING STUFF
-    makeButtonInitialOption( image, maintext, secondarytext ){
-        this.setState({
-            image: image,
-            maintext: maintext,
-            secondarytext: secondarytext
-        })
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={this.handlerButtonOnClick}>
                     <View style={styles.row}>
                         <View style={{ flex: 1, alignItems:'center', justifyContent: 'center' }}>
-                            <Image source={require('../../assets/images/myIMSicons/keyIcon.png')} style = {{width:20, height:20}} />
+                            <MaterialIcons name="beach-access" size={32} color="#00659D" /> 
                         </View>
                         <View style={{ flex: 2, justifyContent: 'center' }}>
                             <View style={{ flex: 3 }}>

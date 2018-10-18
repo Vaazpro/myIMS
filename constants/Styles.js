@@ -22,7 +22,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         alignSelf:'stretch',
         justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: 'black'
+        borderWidth: 0.5,
+        borderColor: '#C2C3C9'
     }
 })
