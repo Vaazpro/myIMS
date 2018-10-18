@@ -4,7 +4,9 @@ import {
     View,
     StatusBar,
     NativeModules,
-    LayoutAnimation
+    LayoutAnimation,
+    Platform,
+    Animated
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import SlideTest from './SlideTest'
@@ -24,29 +26,36 @@ class ProfileScreen extends Component {
 
     constructor(props) {
         super(props)
-        const h1 = (Dimensions.get('window').height / 4) - getStatusBarHeight()
+        const h1 = (Dimensions.get('window').height / 4)
         this.state={
             clicked: false,
             h: h1,
             displaystatus: 'none',
             opacity: 1
         }
+        this.rotation = new Animated.Value(0)
     }
 
-    
-
-    
-
     render() {
-        h1 = (Dimensions.get('window').height / 4) - getStatusBarHeight()
+        /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
+        h1 = (Dimensions.get('window').height / 4) 
         h2 = (Dimensions.get('window').height / 1.7)
+        iconsize = 32
+        const gap = Platform.OS === 'ios' ? (iconsize) : 10
+
+        /* Realizar a Animação da arrow */
+        const { style, rotation } = this.props
+        const rotate = this.rotation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg','180deg'],
+          })
+        
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <View style={styles.container}> 
                 <View style={styles.container}>
                     {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
                     <View style={{height: StatusBar.currentHeight}}></View>
-                    
                     
                     <View style={{flex: 1}}>
 
@@ -96,22 +105,35 @@ class ProfileScreen extends Component {
                         <View style={{
                             flex: 1,
                             position: 'absolute',
-                            width: 32,
-                            height:32,
-                            borderRadius: 16,
-                            left: Dimensions.get('window').width / 2 - 16,
-                            /* top: this.state.h, */
-                            top: this.state.h,
+                            width: iconsize,
+                            height: iconsize,
+                            borderRadius: iconsize/2,
+                            left: Dimensions.get('window').width / 2 - (iconsize/2),
+                            top: this.state.h + gap,
                             alignItems:'center',
                             justifyContent: 'center',
                             backgroundColor: '#F2F2F2',
-                            paddingTop: 7}}>
+                            paddingTop: 3,
+                            elevation: 5,
+                            shadowRadius: 3,
+                            shadowColor: 'black',
+                            shadowOffset:{
+                                height: 1,
+                                width: 1
+                            },
+                            shadowOpacity: 0.2}}>
 
                             
-                            <View style={{ flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                            <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center'}}>
                                 <TouchableOpacity style={{flex: 1}} onPress={() => {
                                     if(!this.state.clicked){
                                         LayoutAnimation.spring()
+                                        Animated.spring(this.rotation, {
+                                            toValue: 1,
+                                            tension: 150,
+                                            friction: 5,
+                                            useNativeDriver: true,
+                                        }).start()
                                         this.setState({
                                             h: h2,
                                             clicked: true,
@@ -119,6 +141,12 @@ class ProfileScreen extends Component {
                                         })
                                     }else{
                                         LayoutAnimation.spring()
+                                        Animated.spring(this.rotation, {
+                                            toValue: 0,
+                                            tension: 150,
+                                            friction: 5,
+                                            useNativeDriver: true,
+                                        }).start()
                                         this.setState({
                                             h: h1,
                                             clicked: false,
@@ -127,11 +155,11 @@ class ProfileScreen extends Component {
                                         })
                                     }
                             }}>
-                                    <Ionicons name="ios-arrow-down" size={25} color="#007FB7"/>
+                                    <Ionicons name="ios-arrow-down" size={iconsize} color="#007FB7"/>
                                 </TouchableOpacity>
                                 
                                 
-                            </View>
+                            </Animated.View>
 
                         </View>
                     </View>
