@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import {
-    Text,
+    TouchableOpacity,
     View,
     StatusBar,
-    Button
+    NativeModules,
+    LayoutAnimation
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import SlideTest from './SlideTest'
 import styles from '../../constants/Styles'
 import { Dimensions } from 'react-native'
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+
+const { UIManager } = NativeModules
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 
 class ProfileScreen extends Component {
@@ -23,7 +28,8 @@ class ProfileScreen extends Component {
         this.state={
             clicked: false,
             h: h1,
-            displaystatus: 'none'
+            displaystatus: 'none',
+            opacity: 1
         }
     }
 
@@ -59,11 +65,11 @@ class ProfileScreen extends Component {
                                 alignItems:'center',
                                 alignSelf:'center',
                                 marginTop: getStatusBarHeight(),
-                                backgroundColor:'blue',
                                 height: this.state.h,
-                                width: Dimensions.get('window').width }}>
+                                width: Dimensions.get('window').width,
+                                backgroundColor: '#F2F2F2'}}>
                                 
-                                <Button title={'Click Me!'} onPress={() => {
+                                {/* <Button title={'Click Me!'} onPress={() => {
                                     if(!this.state.clicked){
                                         this.setState({
                                             h: h2,
@@ -78,13 +84,54 @@ class ProfileScreen extends Component {
                                             
                                         })
                                     }
-                                }}></Button>
+                            }}></Button> */}
                         </View>
                         <View style={{
                             height:(Dimensions.get('window').height - this.state.h),
                             backgroundColor: 'black',
-                            opacity: 0.2,
+                            opacity: 0.4,
                             display: this.state.displaystatus}}>
+
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            position: 'absolute',
+                            width: 32,
+                            height:32,
+                            borderRadius: 16,
+                            left: Dimensions.get('window').width / 2 - 16,
+                            /* top: this.state.h, */
+                            top: this.state.h,
+                            alignItems:'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#F2F2F2',
+                            paddingTop: 7}}>
+
+                            
+                            <View style={{ flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                                <TouchableOpacity style={{flex: 1}} onPress={() => {
+                                    if(!this.state.clicked){
+                                        LayoutAnimation.spring()
+                                        this.setState({
+                                            h: h2,
+                                            clicked: true,
+                                            displaystatus: 'flex'
+                                        })
+                                    }else{
+                                        LayoutAnimation.spring()
+                                        this.setState({
+                                            h: h1,
+                                            clicked: false,
+                                            displaystatus: 'none'
+                                            
+                                        })
+                                    }
+                            }}>
+                                    <Ionicons name="ios-arrow-down" size={25} color="#007FB7"/>
+                                </TouchableOpacity>
+                                
+                                
+                            </View>
 
                         </View>
                     </View>

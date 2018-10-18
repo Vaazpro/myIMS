@@ -23,6 +23,6 @@ export default StyleSheet.create({
         alignSelf:'stretch',
         justifyContent: 'center',
         borderWidth: 0.5,
-        borderColor: '#C2C3C9'
+        borderColor: '#F2F2F2'
     }
 })
