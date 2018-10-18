@@ -7,7 +7,8 @@ import {
     LayoutAnimation,
     Platform,
     Animated,
-    Text
+    Text,
+    Image
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import styles from '../../constants/Styles'
@@ -27,7 +28,7 @@ class SlideTest extends Component {
             clicked: false,
             h: h1,
             displaystatus: 'none',
-            opacity: 1
+            expanded: 'none'
         }
         this.rotation = new Animated.Value(0)
     }
@@ -54,7 +55,26 @@ class SlideTest extends Component {
                                 width: Dimensions.get('window').width,
                                 backgroundColor: '#F2F2F2'}}>
                                 
-                                <Text>ola</Text>
+                                
+                                    <View style={{flex: 1, width: Dimensions.get('window').width , position: 'relative'  }}>
+                                        <View style={{flex: 1, margin: 20, flexDirection: 'row'}}>
+                                            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                                                <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
+                                                        style={{ width: 100,
+                                                                height: 100, 
+                                                                borderRadius: 150/2}} />
+                                            </View>                            
+                                            <View style={{flex: 2, flexDirection: 'column', justifyContent: 'center'}}>
+                                                <Text style={{fontFamily: 'Roboto', fontSize: 20}}>Ana Rita Viana</Text>
+                                                <Text style={{fontFamily: 'Roboto', fontSize: 14}}>SparkleIT</Text>
+                                                <Text style={{fontFamily: 'Roboto', fontSize: 10}}>25 anos</Text>
+                                            </View>           
+                                        </View>
+                                    </View>
+                                    <View style={{flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
+
+                                    </View>
+                                
                         </View>
                         <View style={{
                             height:(Dimensions.get('window').height - this.state.h),
@@ -98,7 +118,8 @@ class SlideTest extends Component {
                                         this.setState({
                                             h: h2,
                                             clicked: true,
-                                            displaystatus: 'flex'
+                                            displaystatus: 'flex',
+                                            expanded: 'flex'
                                         })
                                     }else{
                                         LayoutAnimation.spring()
@@ -111,7 +132,8 @@ class SlideTest extends Component {
                                         this.setState({
                                             h: h1,
                                             clicked: false,
-                                            displaystatus: 'none'
+                                            displaystatus: 'none',
+                                            expanded: 'none'
                                             
                                         })
                                     }
