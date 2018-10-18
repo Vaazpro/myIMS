@@ -17,31 +17,41 @@ class ButtonInitialOptions extends Component {
             image: '',
             maintext: '',
             secondarytext: ''
+            
         }
+        
     }
 
+    
+    
     render() {
+
+       
+       
+       
         return (
+            
             <View style={styles.container}>
-                <TouchableOpacity style={styles.button} onPress={this.handlerButtonOnClick}>
+                <TouchableOpacity style={styles.button} onPress={() => {{console.warn('fgre')}}}>
                     <View style={styles.row}>
                         <View style={{ flex: 1, alignItems:'center', justifyContent: 'center' }}>
-                            <MaterialIcons name="beach-access" size={32} color="#00659D" /> 
+                            <MaterialIcons name={this.props.icon} size={32} color="#00659D" />
                         </View>
                         <View style={{ flex: 2, justifyContent: 'center' }}>
                             <View style={{ flex: 3 }}>
                                     
                             </View>
                             <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{fontSize: 20}}>lol1</Text>
+                                <Text style={{fontSize: 20}}>{this.props.name}</Text>
                             </View>
                             <View style={{ flex: 3 }}>
-                                <Text style={{ paddingTop:5 }}>lol2</Text>
+                                <Text style={{ paddingTop:5 }}>{this.props.name2}</Text>
                             </View>
                         </View>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </View> 
+            
         )
     }
 }

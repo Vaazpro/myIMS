@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import {
+    TouchableOpacity,
     View,
     StatusBar,
-    SafeAreaView
+    NativeModules,
+    LayoutAnimation,
+    Platform,
+    Animated,
+    Text
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import styles from '../../constants/Styles'
+import { Dimensions } from 'react-native'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
 class SlideTest extends Component {
     static navigationOptions = {
@@ -14,20 +22,109 @@ class SlideTest extends Component {
 
     constructor(props) {
         super(props)
-        this.state={}
+        h1 = (Dimensions.get('window').height / 4) 
+        this.state={
+            clicked: false,
+            h: h1,
+            displaystatus: 'none',
+            opacity: 1
+        }
+        this.rotation = new Animated.Value(0)
     }
 
     render() {
+         /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
+         h1 = (Dimensions.get('window').height / 4) 
+         h2 = (Dimensions.get('window').height / 1.7)
+         iconsize = 32
+         const gap = Platform.OS === 'ios' ? (iconsize) : 10
+         /* Realizar a Animação da arrow */
+         const { style, rotation } = this.props
+         const rotate = this.rotation.interpolate({
+             inputRange: [0, 1],
+             outputRange: ['0deg','180deg'],
+           })
         return (
-            <View style={ styles.container }>
-                <View style={{flex: 1}}>
+            <View style={{ flex: 1, position: 'absolute' }}>
+                        <View style={{justifyContent:'center',
+                                alignItems:'center',
+                                alignSelf:'center',
+                                marginTop: getStatusBarHeight(),
+                                height: this.state.h,
+                                width: Dimensions.get('window').width,
+                                backgroundColor: '#F2F2F2'}}>
+                                
+                                <Text>ola</Text>
+                        </View>
+                        <View style={{
+                            height:(Dimensions.get('window').height - this.state.h),
+                            backgroundColor: 'black',
+                            opacity: 0.4,
+                            display: this.state.displaystatus}}>
 
-                </View>
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            position: 'absolute',
+                            width: iconsize,
+                            height: iconsize,
+                            borderRadius: iconsize/2,
+                            left: Dimensions.get('window').width / 2 - (iconsize/2),
+                            top: this.state.h + gap,
+                            alignItems:'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#F2F2F2',
+                            paddingTop: 3,
+                            elevation: 5,
+                            shadowRadius: 3,
+                            shadowColor: 'black',
+                            shadowOffset:{
+                                height: 1,
+                                width: 1
+                            },
+                            shadowOpacity: 0.2}}>
 
-                <View style={{flex: 3, opacity: 1}}>
-                    
-                </View>
-            </View>
+                            
+                            <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                                <TouchableOpacity style={{flex: 1}} onPress={() => {
+                                    if(!this.state.clicked){
+                                        LayoutAnimation.spring()
+                                        Animated.spring(this.rotation, {
+                                            toValue: 1,
+                                            tension: 150,
+                                            friction: 5,
+                                            useNativeDriver: true,
+                                        }).start()
+                                        this.setState({
+                                            h: h2,
+                                            clicked: true,
+                                            displaystatus: 'flex'
+                                        })
+                                    }else{
+                                        LayoutAnimation.spring()
+                                        Animated.spring(this.rotation, {
+                                            toValue: 0,
+                                            tension: 150,
+                                            friction: 5,
+                                            useNativeDriver: true,
+                                        }).start()
+                                        this.setState({
+                                            h: h1,
+                                            clicked: false,
+                                            displaystatus: 'none'
+                                            
+                                        })
+                                    }
+                            }}>
+                                    <Ionicons name="ios-arrow-down" size={iconsize} color="#007FB7"/>
+                                </TouchableOpacity>
+                                
+                                
+                            </Animated.View>
+
+                        </View>
+
+                    </View>
         )
     }
 }
