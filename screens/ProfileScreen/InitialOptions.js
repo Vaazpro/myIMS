@@ -21,12 +21,12 @@ class InitialOptions extends Component {
         return (
             <View style={{flex:1, alignItems:'center'}}>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions name='Presenças' name2='0 faltas'  icon='beach-access'/>
-                    <ButtonInitialOptions name='Férias' name2='Aprovado' icon='flag'/>
+                    <ButtonInitialOptions name='Presenças' name2='0 faltas' biblio=''  icon='beach-access'/>
+                    <ButtonInitialOptions name='Férias' name2='Aprovado' biblio='' icon='flag'/>
                 </View>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions name='Reuniões' name2='Sem Reuniões' icon='people'/>
-                    <ButtonInitialOptions name='Recibos' name2='29-10-2018' icon='euro-symbol'/>
+                    <ButtonInitialOptions name='Reuniões' name2='Sem Reuniões' biblio='' icon='people'/>
+                    <ButtonInitialOptions name='Recibos' name2='29-10-2018' biblio='' icon='euro-symbol'/>
                 </View> 
             </View>
         )

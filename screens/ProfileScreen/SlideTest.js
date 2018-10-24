@@ -14,7 +14,7 @@ import InitialOptions from './InitialOptions'
 import styles from '../../constants/Styles'
 import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
 
 class SlideTest extends Component {
     static navigationOptions = {
@@ -62,17 +62,77 @@ class SlideTest extends Component {
                                                 <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
                                                         style={{ width: 100,
                                                                 height: 100, 
-                                                                borderRadius: 150/2}} />
+                                                                borderRadius: 100/2}} />
                                             </View>                            
-                                            <View style={{flex: 2, flexDirection: 'column', justifyContent: 'center'}}>
-                                                <Text style={{fontFamily: 'Roboto', fontSize: 20}}>Ana Rita Viana</Text>
-                                                <Text style={{fontFamily: 'Roboto', fontSize: 14}}>SparkleIT</Text>
-                                                <Text style={{fontFamily: 'Roboto', fontSize: 10}}>25 anos</Text>
+                                            <View style={{flex: 2,flexDirection: 'row'}}>
+                                                <View style={{flex: 8,justifyContent: 'center'}}>
+                                                    <Text style={{fontSize: 24}}>Ana Rita Viana</Text>
+                                                    <Text style={{fontSize: 18}}>SparkleIT</Text>
+                                                    <Text style={{fontSize: 14}}>25 anos</Text>
+                                                    
+                                                </View>    
+                                                <View style={{flex: 1}}>
+                                                    <TouchableOpacity style={{flex: 1}} onPress={() => {
+                                                        
+                                                    }}>
+                                                        <FontAwesome style={{ alignSelf: 'flex-end'}} name="unlock-alt" size={iconsize} color="grey"/>
+                                                    </TouchableOpacity>
+                                                                    
+                                                </View>
                                             </View>           
                                         </View>
+                                         
                                     </View>
-                                    <View style={{flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
-
+                                    <View style={{paddingHorizontal:20 ,flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
+                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1,borderTopColor: 'rgba(216,217,221,0.5)',borderTopWidth: 1,alignItems: 'flex-end', flexDirection: 'row'}}>
+                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
+                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
+                                            </View>
+                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
+                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
+                                            </View>
+                                                         
+                                        </View>
+                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
+                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
+                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
+                                            </View>
+                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
+                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
+                                            </View>
+                                                         
+                                        </View>
+                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
+                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
+                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
+                                            </View>
+                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
+                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
+                                            </View>
+                                                         
+                                        </View>
+                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
+                                            <View style={{flex: 9,alignItems: 'flex-start', }}>
+                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
+                                            </View>
+                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
+                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
+                                            </View>
+                                                         
+                                        </View>
+                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
+                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
+                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
+                                            </View>
+                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
+                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
+                                            </View>
+                                                         
+                                        </View>  
+                                        <View style={{flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}>
+                                           
+                                                         
+                                        </View>      
                                     </View>
                                 
                         </View>
