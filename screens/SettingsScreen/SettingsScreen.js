@@ -5,6 +5,9 @@ import {
     StatusBar,
     SafeAreaView
 } from 'react-native'
+import styles from '../../constants/Styles'
+import HeaderView from '../../components/HeaderView'
+
 
 class SettingsScreen extends Component {
 
@@ -18,14 +21,18 @@ class SettingsScreen extends Component {
     }
 
     render() {
+
+        function xpto(){
+            console.log("CJASDPOJASPDOJ")
+        }
+
         return (
-            /* SafeAreaView avoids the iPhone X's notch  */
-           <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 
-                <View>
-                    {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
-                    <View style={{height: StatusBar.currentHeight}}></View>
-                    <Text>This is a Settings Screen!!!!!!</Text>
-                </View>
+            <SafeAreaView style={{flex:1}}>
+                <View style={{height: StatusBar.currentHeight}}></View>
+                    <View style={{flex:2}}>
+                        <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressBtn={this.xpto} />
+                    </View>
+                <View style={{flex:8}}></View>
             </SafeAreaView>
         )
     }

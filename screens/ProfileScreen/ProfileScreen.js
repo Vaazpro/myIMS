@@ -7,7 +7,8 @@ import {
     LayoutAnimation,
     Platform,
     Animated,
-    Text
+    Text,
+    SafeAreaView
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import SlideTest from './SlideTest'
@@ -40,8 +41,7 @@ class ProfileScreen extends Component {
         
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-           <View style={styles.container}> 
-                <View style={styles.container}>
+                <SafeAreaView style={styles.container}>
                     {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
                     <View style={{height: StatusBar.currentHeight}}></View>
                     
@@ -61,8 +61,7 @@ class ProfileScreen extends Component {
 
                     
                     
-                </View>
-            </View> 
+                </SafeAreaView>
         )
     }
 }

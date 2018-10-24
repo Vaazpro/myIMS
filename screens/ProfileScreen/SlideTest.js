@@ -15,6 +15,8 @@ import styles from '../../constants/Styles'
 import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
+import ElevatedView from 'react-native-elevated-view'
+import {createStackNavigator} from 'react-navigation';
 
 class SlideTest extends Component {
     static navigationOptions = {
@@ -72,9 +74,7 @@ class SlideTest extends Component {
                                                     
                                                 </View>    
                                                 <View style={{flex: 1}}>
-                                                    <TouchableOpacity style={{flex: 1}} onPress={() => {
-                                                        
-                                                    }}>
+                                                    <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('unlock')}>
                                                         <FontAwesome style={{ alignSelf: 'flex-end'}} name="unlock-alt" size={iconsize} color="grey"/>
                                                     </TouchableOpacity>
                                                                     
@@ -143,7 +143,7 @@ class SlideTest extends Component {
                             display: this.state.displaystatus}}>
 
                         </View>
-                        <View style={{
+                        <ElevatedView style={{
                             flex: 1,
                             position: 'absolute',
                             width: iconsize,
@@ -154,15 +154,7 @@ class SlideTest extends Component {
                             alignItems:'center',
                             justifyContent: 'center',
                             backgroundColor: '#F2F2F2',
-                            paddingTop: 3,
-                            elevation: 5,
-                            shadowRadius: 3,
-                            shadowColor: 'black',
-                            shadowOffset:{
-                                height: 1,
-                                width: 1
-                            },
-                            shadowOpacity: 0.2}}>
+                            paddingTop: 3}}  elevation={5}>
 
                             
                             <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center'}}>
@@ -204,7 +196,7 @@ class SlideTest extends Component {
                                 
                             </Animated.View>
 
-                        </View>
+                        </ElevatedView>
 
                     </View>
         )

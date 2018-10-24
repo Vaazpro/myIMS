@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View,
-    TouchableOpacity,
-    Button
+    View
 } from 'react-native'
 
-import styles from '../../constants/Styles'
 import * as array from '@expo/vector-icons'
-import IconSearch from '../../components/IconSearch'
 
 
 /*
@@ -22,7 +18,7 @@ import IconSearch from '../../components/IconSearch'
 *After that we create the element.
 
 */
-/* const Tag = (props) => {
+const Tag = (props) => {
     let icon = null
     let found = false
     let keyFound = null
@@ -61,49 +57,22 @@ import IconSearch from '../../components/IconSearch'
 
     //console.log(icon)
     return icon
-} */
+}
 
-class ButtonInitialOptions extends Component {
+class IconSearch extends Component {
 
     constructor(props) {
         super(props)
-        this.state={
-            image: '',
-            maintext: '',
-            secondarytext: ''
-        }
-        /* console.log(this.state);
-        console.log(this.props);
-         */
+        this.state={}
     }
 
     render() {
-       
         return (
-            
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.button} onPress={() => {{console.warn('fgre')}}}>
-                    <View style={styles.row}>
-                        <View style={{ flex: 1, alignItems:'center', justifyContent: 'center' }}>
-                            <IconSearch name={this.props.icon} biblio={this.props.biblio} size={32} color="#007FB7"></IconSearch>
-                        </View>
-                        <View style={{ flex: 2, justifyContent: 'center' }}>
-                            <View style={{ flex: 3 }}>
-                                    
-                            </View>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{fontSize: 20}}>{this.props.name}</Text>
-                            </View>
-                            <View style={{ flex: 3 }}>
-                                <Text style={{ paddingTop:5 }}>{this.props.name2}</Text>
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View> 
-            
+            <View>
+                <Tag name={this.props.name} biblio={this.props.biblio} size={this.props.size} color={this.props.color}></Tag>
+            </View>
         )
     }
 }
 
-export default ButtonInitialOptions
+export default IconSearch

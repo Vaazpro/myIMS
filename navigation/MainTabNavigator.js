@@ -9,9 +9,11 @@ import SettingsScreen from '../screens/SettingsScreen'; */
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import TaskScreen from '../screens/TasksScreen/TasksScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
+import UnlockScreen from '../screens/ProfileScreen/UnlockScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
+  unlock: UnlockScreen,
 });
 
 ProfileStack.navigationOptions = {
