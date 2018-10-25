@@ -11,12 +11,13 @@ import {
     Image
 } from 'react-native'
 import InitialOptions from './InitialOptions'
-import styles from '../../constants/Styles'
+import Styles from '../../constants/Styles'
 import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 import ElevatedView from 'react-native-elevated-view'
-import {createStackNavigator} from 'react-navigation';
+import IconSearch from '../../components/IconSearch'
+import TextIcon from '../../components/TextIcon'
 
 class SlideTest extends Component {
     static navigationOptions = {
@@ -35,7 +36,9 @@ class SlideTest extends Component {
         this.rotation = new Animated.Value(0)
     }
 
+
     render() {
+
          /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
          h1 = (Dimensions.get('window').height / 4) 
          h2 = (Dimensions.get('window').height / 1.7)
@@ -48,7 +51,7 @@ class SlideTest extends Component {
              outputRange: ['0deg','180deg'],
            })
         return (
-            <View style={{ flex: 1, position: 'absolute' }}>
+            <View style={{ flex: 1, position: 'absolute'}}>
                         <View style={{justifyContent:'center',
                                 alignItems:'center',
                                 alignSelf:'center',
@@ -73,66 +76,23 @@ class SlideTest extends Component {
                                                     <Text style={{fontSize: 14}}>25 anos</Text>
                                                     
                                                 </View>    
-                                                <View style={{flex: 1}}>
-                                                    <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('unlock')}>
-                                                        <FontAwesome style={{ alignSelf: 'flex-end'}} name="unlock-alt" size={iconsize} color="grey"/>
-                                                    </TouchableOpacity>
-                                                                    
-                                                </View>
+                                                <TouchableOpacity style={{flex: 1}} onPress={this.props.onP}>
+                                                    <View style={{flex: 1}}>
+                                                        <IconSearch style={{ alignSelf: 'flex-end'}} name="unlock-alt" biblio='FontAwesome' size={iconsize} color="grey"/>
+                                                    </View>
+                                                </TouchableOpacity>
                                             </View>           
                                         </View>
                                          
                                     </View>
                                     <View style={{paddingHorizontal:20 ,flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
-                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1,borderTopColor: 'rgba(216,217,221,0.5)',borderTopWidth: 1,alignItems: 'flex-end', flexDirection: 'row'}}>
-                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
-                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
-                                            </View>
-                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
-                                            </View>
-                                                         
-                                        </View>
-                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
-                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
-                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
-                                            </View>
-                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
-                                            </View>
-                                                         
-                                        </View>
-                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
-                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
-                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
-                                            </View>
-                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
-                                            </View>
-                                                         
-                                        </View>
-                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
-                                            <View style={{flex: 9,alignItems: 'flex-start', }}>
-                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
-                                            </View>
-                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
-                                            </View>
-                                                         
-                                        </View>
-                                        <View style={{paddingBottom: 5,flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 ,alignItems: 'flex-end', flexDirection: 'row'}}>
-                                            <View style={{flex: 9,alignItems: 'flex-start'}}>
-                                                <Text style={{color: '#9A999E'}}>Olá</Text>        
-                                            </View>
-                                            <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                                                <FontAwesome  name="unlock-alt" size={16} color="grey"/>       
-                                            </View>
-                                                         
-                                        </View>  
-                                        <View style={{flex: 1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}>
-                                           
-                                                         
-                                        </View>      
+                                        <View style={{height: 10, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}></View>
+                                        <TextIcon name='rafamorais@gmail.com' icon='mail' biblio='Entypo'></TextIcon>
+                                        <TextIcon name='rafamorais@gmail.com' icon='skype' biblio='FontAwesome'></TextIcon>
+                                        <TextIcon name='999 999 999' icon='phone' biblio='FontAwesome'></TextIcon>
+                                        <TextIcon name='432 432 423' icon='phone' biblio='FontAwesome'></TextIcon>
+                                        <TextIcon name='7 de Dezembro' icon='birthday-cake' biblio='FontAwesome'></TextIcon>
+                                        <View style={{flex: 1}}></View>
                                     </View>
                                 
                         </View>
@@ -143,7 +103,7 @@ class SlideTest extends Component {
                             display: this.state.displaystatus}}>
 
                         </View>
-                        <ElevatedView style={{
+                        <View style={[Styles.shadowArrow,{
                             flex: 1,
                             position: 'absolute',
                             width: iconsize,
@@ -154,10 +114,11 @@ class SlideTest extends Component {
                             alignItems:'center',
                             justifyContent: 'center',
                             backgroundColor: '#F2F2F2',
-                            paddingTop: 3}}  elevation={5}>
+                            paddingTop: 3, elevation: 5}]
+                            }>
 
                             
-                            <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                            <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
                                 <TouchableOpacity style={{flex: 1}} onPress={() => {
                                     if(!this.state.clicked){
                                         LayoutAnimation.spring()
@@ -190,13 +151,12 @@ class SlideTest extends Component {
                                         })
                                     }
                             }}>
-                                    <Ionicons name="ios-arrow-down" size={iconsize} color="#007FB7"/>
+                                    <IconSearch name="ios-arrow-down" biblio="Ionicons" size={iconsize} color="#007FB7"/>
                                 </TouchableOpacity>
-                                
                                 
                             </Animated.View>
 
-                        </ElevatedView>
+                        </View>
 
                     </View>
         )

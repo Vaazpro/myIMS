@@ -10,7 +10,6 @@ import {
     Text,
     Image
 } from 'react-native'
-import Styles from '../../constants/Styles'
 import InitialOptions from './InitialOptions'
 import SlideTest from './SlideTest'
 import styles from '../../constants/Styles'
@@ -41,9 +40,9 @@ class ProfileScreen extends Component {
 
     render() {
         return (
-            <View style={[Styles.shadow, { flex: 1, margin: 10, borderRadius: 5, elevation: 1}]}>
+            <View style={{ flex: 1, margin: 10, borderRadius: 5, elevation: 0}}>
                 <TouchableOpacity style={{ flex:1 }} onPress={ () => { console.warn('Clicked!')}} >
-                    <View style={{ flex:11, backgroundColor: 'white', borderColor: 'grey', borderRadius: 5}}>
+                    <View style={{ flex:11, backgroundColor: 'white', borderColor: 'grey', borderRadius: 5 }}>
                         {/* <Image style={{ flex: 1 }} source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png%27%7D%7D%3E</Image> */}
                         <Image style={{ flex: 1, width: null, height: null, resizeMode: 'cover', borderRadius: 5 }} source={this.props.link}></Image>
                     </View>

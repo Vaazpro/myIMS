@@ -30,7 +30,7 @@ class SettingsScreen extends Component {
             <SafeAreaView style={{flex:1}}>
                 <View style={{height: StatusBar.currentHeight}}></View>
                     <View style={{flex:2}}>
-                        <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressBtn={this.xpto} />
+                        <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
                     </View>
                 <View style={{flex:8}}></View>
             </SafeAreaView>

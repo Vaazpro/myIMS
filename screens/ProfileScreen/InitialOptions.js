@@ -3,12 +3,15 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from 'react-native'
 import styles from '../../constants/Styles'
-import Card from '../ProfileScreen/Card'
+import Card from './Card'
 import ButtonInitialOptions from './ButtonInitialOptions'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
+import CardAndroid from './CardAndroid'
+import CardIOS from './Card'
 
 
 
@@ -20,6 +23,9 @@ class InitialOptions extends Component {
     }
 
     render() {
+
+        //const Card = Platform.OS === 'ios' ? CardIOS : CardAndroid
+
         return (
             <View style={{flex:1, alignItems:'center', marginTop: getStatusBarHeight()}}>
                 <View style={ styles.row }>

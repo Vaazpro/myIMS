@@ -4,12 +4,13 @@ import {
     View,
     StatusBar,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    SafeAreaView
 } from 'react-native'
 import styles from '../../constants/Styles'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
+import IconSearch from '../../components/IconSearch'
 
 
 class UnlockScreen extends Component {
@@ -26,8 +27,7 @@ class UnlockScreen extends Component {
     render() {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-            <View style={styles.container}> 
-                <View style={styles.container}>
+                <SafeAreaView style={styles.container}>
                     {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
                     <View style={{height: StatusBar.currentHeight}}></View>
                     
@@ -39,7 +39,7 @@ class UnlockScreen extends Component {
 
                         </View>
                     </View> */}
-                    <HeaderView textTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" OnPressIcon={() => console.log()} />
+                    <HeaderView textTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
                         <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
                                                         style={{ width: 50,
@@ -64,19 +64,15 @@ class UnlockScreen extends Component {
                             padding: 30
                             }}>
 
-                            
-                            <View style={{ flex: 1, alignItems:'center', justifyContent: 'center'}}>
-                                <TouchableOpacity  onPress={() => {
-                                            }}>
-                                    <FontAwesome name="unlock-alt" size={100} color="#007FB7"/>
-                                </TouchableOpacity>   
-                            </View>
+                            <TouchableOpacity  onPress={() => {}}>
+                                <View style={{ flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                                    <IconSearch name='unlock-alt' biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
+                                </View>
+                            </TouchableOpacity>
 
                         </ElevatedView>
-                        </View>
-                </View>
-            </View>
-
+                    </View>
+                </SafeAreaView>
         )
     }
 }

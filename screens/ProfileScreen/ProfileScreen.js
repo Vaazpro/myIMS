@@ -8,6 +8,7 @@ import {
     Platform,
     Animated,
     Text,
+    Button,
     SafeAreaView
 } from 'react-native'
 import InitialOptions from './InitialOptions'
@@ -21,7 +22,7 @@ const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 
-class ProfileScreen extends Component {
+class ProfileScreen extends Component{
     static navigationOptions = {
         header: null,
     };
@@ -34,10 +35,13 @@ class ProfileScreen extends Component {
         
     }
 
+    unlockPressedHandler = () => {
+        this.props.navigation.navigate('unlock');
+      };
+
     render() {
        
-
-       
+        
         
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -49,17 +53,14 @@ class ProfileScreen extends Component {
 
                     </View>
 
-                    <View style={{flex: 2}}>
+                    <View style={{flex: 2, elevation:0}}>
                         <InitialOptions/>
                     </View>
 
                     <View style={{flex: 1}}>
-
+                    
                     </View>
-                    <SlideTest/>
-                    
-
-                    
+                    <SlideTest onP={this.unlockPressedHandler}/>
                     
                 </SafeAreaView>
         )

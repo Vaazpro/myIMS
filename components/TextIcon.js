@@ -20,7 +20,7 @@ TextIcon extends Component {
     render() {
         return (
             
-                <View style={{paddingBottom: 5,height: 50,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1, alignItems: 'flex-end', flexDirection: 'row'}}>
+                <View style={{paddingBottom: 5,flex:1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1, alignItems: 'flex-end', flexDirection: 'row'}}>
                     <View style={{flex: 9,alignItems: 'flex-start'}}>
                         <Text style={{color: '#9A999E'}}>{this.props.name}</Text>        
                     </View>

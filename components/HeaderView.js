@@ -25,6 +25,7 @@ class HeaderView extends Component {
     nameIcon
     biblioIcon
     onPressBtn
+    onPressIcon
 
     */
 
@@ -32,7 +33,9 @@ class HeaderView extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex:1, justifyContent: 'center', padding:3}}>
-                    <IconSearch name={this.props.nameIcon} biblio={this.props.biblioIcon} color={this.props.colorIcon} size={25} style={{display: this.props.displayIcon}} />
+                    <TouchableOpacity style={{flex:1}} onPress={this.props.onPressIcon}>
+                        <IconSearch name={this.props.nameIcon} biblio={this.props.biblioIcon} color={this.props.colorIcon} size={25} style={{display: this.props.displayIcon}} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{flex:1, flexDirection: "row"}}>
                     <View style={{flex:1, justifyContent:'center', padding:10}}>
