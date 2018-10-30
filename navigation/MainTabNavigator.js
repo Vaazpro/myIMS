@@ -10,7 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import TaskScreen from '../screens/TasksScreen/TasksScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import UnlockScreen from '../screens/ProfileScreen/UnlockScreen';
-import SlideTest from '../screens/ProfileScreen/SlideTest';
+import NotificationsScreen from '../screens/SettingsScreen/NotificationScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
@@ -47,6 +47,7 @@ TasksStack.navigationOptions = {
 
 const SettingsStack = createStackNavigator({
   settings: SettingsScreen,
+  notifications: NotificationsScreen
 });
 
 SettingsStack.navigationOptions = {

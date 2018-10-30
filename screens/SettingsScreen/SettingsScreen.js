@@ -21,20 +21,23 @@ class SettingsScreen extends Component {
         this.state={}
     }
 
+    notificationsOptionHandler = () => {
+        this.props.navigation.navigate('notifications')
+    };
+
+    xpto = () => {
+        console.warn("CENAS")
+    }
+
     render() {
-
-        function xpto(){
-            console.log("CJASDPOJASPDOJ")
-        }
-
         return (
             <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                    <View style={{flex:2}}>
-                        <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
-                    </View>
+                <View style={{flex:2}}>
+                    <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
+                </View>
                 <View style={{flex:8, margin: 10}}>
-                    <BtnTextIcon name='Notificações' icon='bell' biblio='' />
+                    <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
                     <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
                     <BtnTextIcon name='Password' icon='key' biblio='' />
                     <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' />
