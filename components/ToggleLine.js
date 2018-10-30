@@ -23,6 +23,7 @@ class ToggleLine extends Component {
         //this avoids having the wrong value printed when updating the state value of, in this case, isToggled
         Promise.resolve(this.setState({isToggled: !this.state.isToggled}))
         .then(this.xpto)
+
     }
 
     xpto = () => {

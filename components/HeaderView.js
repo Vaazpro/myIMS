@@ -38,10 +38,10 @@ class HeaderView extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex:1, flexDirection: "row"}}>
-                    <View style={{flex:1, justifyContent:'center', padding:10}}>
+                    <View style={{flex:1, justifyContent: 'flex-start', paddingLeft: 10}}>
                         <Text style={{fontSize:20}}>{this.props.txtTitle}</Text>
                     </View>
-                    <View style={{flex:1, justifyContent:'center', alignItems: 'flex-end', padding:10}}>
+                    <View style={{flex:1}}>
                         <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
                             <Text style={{fontSize:16}}>{this.props.txtBtn}</Text>
                         </TouchableOpacity>
