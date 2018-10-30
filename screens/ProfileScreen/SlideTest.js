@@ -18,6 +18,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import ElevatedView from 'react-native-elevated-view'
 import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
+import CircularPhoto from '../../components/CircularPhoto';
 
 class SlideTest extends Component {
     static navigationOptions = {
@@ -64,10 +65,8 @@ class SlideTest extends Component {
                                     <View style={{flex: 1, width: Dimensions.get('window').width , position: 'relative'  }}>
                                         <View style={{flex: 1, margin: 20, flexDirection: 'row'}}>
                                             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-                                                <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
-                                                        style={{ width: 100,
-                                                                height: 100, 
-                                                                borderRadius: 100/2}} />
+                                                
+                                                                <CircularPhoto image='https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D' size={100}/>
                                             </View>                            
                                             <View style={{flex: 2,flexDirection: 'row'}}>
                                                 <View style={{flex: 8,justifyContent: 'center'}}>

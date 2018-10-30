@@ -11,10 +11,12 @@ import TaskScreen from '../screens/TasksScreen/TasksScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import UnlockScreen from '../screens/ProfileScreen/UnlockScreen';
 import NotificationsScreen from '../screens/SettingsScreen/NotificationScreen';
+import Teams from '../screens/ProfileScreen/Teams';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
-  unlock: UnlockScreen
+  unlock: UnlockScreen,
+  teams: Teams
 });
 
 ProfileStack.navigationOptions = {

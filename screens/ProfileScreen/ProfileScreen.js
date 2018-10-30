@@ -38,6 +38,9 @@ class ProfileScreen extends Component{
     unlockPressedHandler = () => {
         this.props.navigation.navigate('unlock');
       };
+    TeamsPressedHandler = () => {
+        this.props.navigation.navigate('teams');
+    };
 
     render() {
        
@@ -54,7 +57,7 @@ class ProfileScreen extends Component{
                     </View>
 
                     <View style={{flex: 2, elevation:0}}>
-                        <InitialOptions/>
+                        <InitialOptions teamsP= {this.TeamsPressedHandler}/>
                     </View>
 
                     <View style={{flex: 1}}>

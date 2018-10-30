@@ -16,6 +16,10 @@ import CardIOS from './Card'
 
 
 class InitialOptions extends Component {
+    static navigationOptions = {
+        header: null,
+    };
+
 
     constructor(props) {
         super(props)
@@ -31,7 +35,7 @@ class InitialOptions extends Component {
                 <View style={ styles.row }>
                     {/* <ButtonInitialOptions name='Presenças' name2='0 faltas' biblio=''  icon='beach-access'/>
                     <ButtonInitialOptions name='Férias' name2='Aprovado' biblio='MaterialIcons' icon='flag'/> */}
-                    <Card name='Presenças' name2='0 Faltas' link={require('../../assets/images/presencas.jpg')}></Card>
+                    <Card nextPage={this.props.teamsP} name='Presenças' name2='0 Faltas' link={require('../../assets/images/presencas.jpg') }></Card>
                     <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card>
                 </View>
                 <View style={ styles.row }>

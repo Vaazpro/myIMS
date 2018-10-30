@@ -26,7 +26,7 @@ const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 
-class ProfileScreen extends Component {
+class Card extends Component {
     static navigationOptions = {
         header: null,
     };
@@ -42,7 +42,7 @@ class ProfileScreen extends Component {
     render() {
         return (
             <View style={[Styles.shadow, { flex: 1, margin: 10, borderRadius: 5, elevation: 1}]}>
-                <TouchableOpacity style={{ flex:1 }} onPress={ () => { console.warn('Clicked!')}} >
+                <TouchableOpacity style={{ flex:1 }} onPress={this.props.nextPage} >
                     <View style={{ flex:11, backgroundColor: 'white', borderColor: 'grey', borderRadius: 5}}>
                         {/* <Image style={{ flex: 1 }} source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png%27%7D%7D%3E</Image> */}
                         <Image style={{ flex: 1, width: null, height: null, resizeMode: 'cover', borderRadius: 5 }} source={this.props.link}></Image>
@@ -61,4 +61,4 @@ class ProfileScreen extends Component {
     }
 }
 
-export default ProfileScreen
+export default Card
