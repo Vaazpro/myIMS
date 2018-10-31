@@ -11,7 +11,10 @@ import ToggleLine from '../../components/ToggleLine';
 class NotificationsScreen extends Component {
 
     static navigationOptions = {
-        title: 'Notificações'
+        title: 'Notificações',
+        headerTitleStyle: {
+            flex:1
+        }
     };
 
     constructor(props) {

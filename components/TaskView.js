@@ -31,15 +31,17 @@ TeamView extends Component {
 
     render() {
         return (
-            <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,margin: 10,padding: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>
-                <View style= {{flex: 2, justifyContent: 'center'}}>
+            <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>
+                <View style= {{flex: 1, justifyContent: 'flex-end'}}>
                     <Text style={{fontSize:15}}>{this.props.txt}</Text>  
                 </View>
-                <View style= {{flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row', }}>
-                    <View style={{flex:1, justifyContent: 'flex-start'}}>
+                <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
+                    <View style={{flex:1, justifyContent: 'center'}}>
                         <CircularPhoto image={this.props.photo2} size={20}/>
                     </View>
-                    <Text style={{fontSize:14, color: 'grey'}}>{this.props.time}</Text>  
+                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}>
+                        <Text style={{fontSize:14, color: 'grey'}}>{this.props.time}</Text>  
+                    </View>
                 </View>
             </View>
         )

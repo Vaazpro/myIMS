@@ -18,6 +18,14 @@ import * as array from '@expo/vector-icons'
 *After that we create the element.
 
 */
+
+
+/* props:
+    name
+    biblio
+    color
+    size
+*/ 
 const Tag = (props) => {
     let icon = null
     let found = false
