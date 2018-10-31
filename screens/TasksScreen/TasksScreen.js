@@ -4,10 +4,12 @@ import {
     View,
     StatusBar,
     SafeAreaView, 
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native'
 import IconSearch from '../../components/IconSearch';
 import HeaderView from '../../components/HeaderView';
+import TaskView from '../../components/TaskView';
 
 class TasksScreen extends Component {
 
@@ -36,26 +38,56 @@ class TasksScreen extends Component {
                     </View>
                 </View>
                 <View style={{flex:10}}>
-                    <View style={{flex:1, backgroundColor: 'red', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
+                    <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>ABERTO</Text>
                     </View>
-                    <View style={{flex:4, backgroundColor: 'yellow'}}></View>
-                    <View style={{flex:1, backgroundColor: 'red', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
+                    <View style={{flex:4, backgroundColor: 'white'}}>
+                        <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        </ScrollView>
+                    </View>
+                    <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>PLANEADO</Text>
                     </View>
-                    <View style={{flex:4, backgroundColor: 'yellow'}}></View>
-                    <View style={{flex:1, backgroundColor: 'red', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
+                    <View style={{flex:4, backgroundColor: 'white'}}>
+                    <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        </ScrollView>
+                    </View>
+                    <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>PROGRESSO</Text>
                     </View>
-                    <View style={{flex:4, backgroundColor: 'yellow'}}></View>
-                    <View style={{flex:1, backgroundColor: 'red', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
+                    <View style={{flex:4, backgroundColor: 'white'}}>
+                    <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        </ScrollView>
+                    </View>
+                    <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>TESTE</Text>
                     </View>
-                    <View style={{flex:4, backgroundColor: 'yellow'}}></View>
-                    <View style={{flex:1, backgroundColor: 'red', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
+                    <View style={{flex:4, backgroundColor: 'white'}}>
+                    <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        </ScrollView>
+                    </View>
+                    <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>FEITO</Text>
                     </View>
-                    <View style={{flex:4, backgroundColor: 'yellow'}}></View>
+                    <View style={{flex:4, backgroundColor: 'white'}}>
+                    <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        </ScrollView>
+                    </View>
                 </View>
             </SafeAreaView>
         )

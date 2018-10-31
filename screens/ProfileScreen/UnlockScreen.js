@@ -39,7 +39,9 @@ class UnlockScreen extends Component {
 
                         </View>
                     </View> */}
-                    <HeaderView textTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                    <View style={{flex:2}}>
+                        <HeaderView txtTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                    </View>
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
                         <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
                                                         style={{ width: 50,
@@ -54,23 +56,25 @@ class UnlockScreen extends Component {
                         <Text style={{fontSize: 18}}>24/10/18</Text>                                                
                     </View>
                     <View style={{flex: 5,justifyContent: 'center', alignItems:'center'}}>
-                    <ElevatedView elevation={5} style={{
-                            width: 200,
-                            height: 200,
-                            borderRadius: 200/2,
-                            alignItems:'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#F2F2F2',
-                            padding: 30
-                            }}>
+                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {}}>
+                        <ElevatedView elevation={5} 
+                            style={{
+                                width: 150,
+                                height: 150,
+                                borderRadius: 150/2,
+                                alignItems:'center',
+                                justifyContent: 'center',
+                                backgroundColor: '#F2F2F2',
+                                borderWidth:2, 
+                                borderColor: '#007FB7'
+                                }}> 
 
-                            <TouchableOpacity  onPress={() => {}}>
-                                <View style={{ flex: 1, alignItems:'center', justifyContent: 'center'}}>
+                            
+                                <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
                                     <IconSearch name='unlock-alt' biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
                                 </View>
-                            </TouchableOpacity>
-
-                        </ElevatedView>
+                            </ElevatedView>
+                    </TouchableOpacity>
                     </View>
                 </SafeAreaView>
         )

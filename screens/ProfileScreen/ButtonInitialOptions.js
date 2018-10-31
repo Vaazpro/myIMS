@@ -82,7 +82,7 @@ class ButtonInitialOptions extends Component {
         return (
             
             <View style={styles.container}>
-                <TouchableOpacity style={styles.button} onPress={() => {{console.warn('fgre')}}}>
+                <TouchableOpacity style={styles.button} onPress={this.props.nextPage}>
                     <View style={styles.row}>
                         <View style={{ flex: 1, alignItems:'center', justifyContent: 'center' }}>
                             <IconSearch name={this.props.icon} biblio={this.props.biblio} size={32} color="#007FB7"></IconSearch>

@@ -55,7 +55,7 @@ class Teams extends Component {
                             photo3='https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' 
                             photo4='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TeamView>
                             <View style={{flexDirection: 'row'}}>
-                                <TaskView  txt='Nome da tarefa' time='0.30h' color='blue'></TaskView>
+                                <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                                 <TaskView  txt='Nome da tarefa' time='0.20h' color='purple'></TaskView>
                                 <TaskView  txt='Nome da tarefa' time='0.30h' color='blue'></TaskView>
                             </View>
