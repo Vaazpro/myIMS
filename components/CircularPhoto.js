@@ -7,6 +7,13 @@ import {
 import styles from '../constants/Styles'
 import IconSearch from '../components/IconSearch'
 
+/*
+    props:
+
+    image
+    size
+*/
+
 class 
 CircularPhoto extends Component {
 

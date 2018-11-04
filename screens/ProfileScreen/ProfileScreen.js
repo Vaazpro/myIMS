@@ -41,6 +41,9 @@ class ProfileScreen extends Component{
     TeamsPressedHandler = () => {
         this.props.navigation.navigate('teams');
     };
+    VacationsPressedHandler = () => {
+        this.props.navigation.navigate('vacations');
+    }
 
     render() {
        
@@ -57,7 +60,7 @@ class ProfileScreen extends Component{
                     </View>
 
                     <View style={{flex: 2, elevation:0}}>
-                        <InitialOptions teamsP= {this.TeamsPressedHandler}/>
+                        <InitialOptions teamsP= {this.TeamsPressedHandler} vacationsP={this.VacationsPressedHandler}/>
                     </View>
 
                     <View style={{flex: 1}}>
