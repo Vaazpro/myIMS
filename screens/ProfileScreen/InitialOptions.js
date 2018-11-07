@@ -1,17 +1,10 @@
 import React, { Component } from 'react'
 import {
-    Text,
-    View,
-    TouchableOpacity,
-    Image,
-    Platform
+    View
 } from 'react-native'
 import styles from '../../constants/Styles'
-import Card from './Card'
 import ButtonInitialOptions from './ButtonInitialOptions'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import CardAndroid from './CardAndroid'
-import CardIOS from './Card'
 
 
 

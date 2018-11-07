@@ -3,7 +3,6 @@ import {
     Text,
     View
 } from 'react-native'
-import ToggleSwitch from 'toggle-switch-react-native'
 import { Switch } from 'react-native-switch';
 
 class ToggleLine extends Component {

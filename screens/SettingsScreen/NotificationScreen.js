@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import {
-    Text,
     View,
     SafeAreaView,
     StatusBar
 } from 'react-native'
-import HeaderView from '../../components/HeaderView';
 import ToggleLine from '../../components/ToggleLine';
 
 class NotificationsScreen extends Component {

@@ -2,25 +2,11 @@ import React, { Component } from 'react'
 import {
     TouchableOpacity,
     View,
-    StatusBar,
     NativeModules,
-    LayoutAnimation,
-    Platform,
-    Animated,
     Text,
     Image
 } from 'react-native'
 import Styles from '../../constants/Styles'
-import InitialOptions from './InitialOptions'
-import SlideTest from './SlideTest'
-import styles from '../../constants/Styles'
-import { Dimensions } from 'react-native'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import ElevatedView from 'react-native-elevated-view'
-
-
-
 
 const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)

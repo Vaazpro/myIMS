@@ -2,25 +2,19 @@ import React, { Component } from 'react'
 import {
     TouchableOpacity,
     View,
-    StatusBar,
-    NativeModules,
     LayoutAnimation,
     Platform,
     Animated,
-    Text,
-    Image
+    Text
 } from 'react-native'
-import InitialOptions from './InitialOptions'
 import Styles from '../../constants/Styles'
 import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { FontAwesome } from '@expo/vector-icons'
-import ElevatedView from 'react-native-elevated-view'
 import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
 import CircularPhoto from '../../components/CircularPhoto';
 
-class SlideTest extends Component {
+class SlideScreen extends Component {
     static navigationOptions = {
         header: null,
     };
@@ -162,4 +156,4 @@ class SlideTest extends Component {
     }
 }
 
-export default SlideTest
+export default SlideScreen

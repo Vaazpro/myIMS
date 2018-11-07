@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
 import {
-    TouchableOpacity,
     View,
     StatusBar,
     NativeModules,
-    LayoutAnimation,
-    Platform,
-    Animated,
-    Text,
-    Button,
     SafeAreaView
 } from 'react-native'
 import InitialOptions from './InitialOptions'
-import SlideTest from './SlideTest'
+import SlideScreen from './SlideScreen'
 import styles from '../../constants/Styles'
-import { Dimensions } from 'react-native'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
 const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -66,7 +57,7 @@ class ProfileScreen extends Component{
                     <View style={{flex: 1}}>
                     
                     </View>
-                    <SlideTest onP={this.unlockPressedHandler}/>
+                    <SlideScreen onP={this.unlockPressedHandler}/>
                     
                 </SafeAreaView>
         )

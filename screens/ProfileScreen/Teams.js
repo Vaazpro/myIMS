@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import {
-    Text,
     View,
     StatusBar,
-    Image,
-    TouchableOpacity,
     SafeAreaView
 } from 'react-native'
 import styles from '../../constants/Styles'
-import ElevatedView from 'react-native-elevated-view'
-import HeaderView from '../../components/HeaderView'
 import TeamView from '../../components/TeamView'
-import TaskView from '../../components/TaskView'
 
 
 class Teams extends Component {

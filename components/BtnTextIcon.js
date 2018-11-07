@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    Image,
     TouchableOpacity
 } from 'react-native'
-import styles from '../constants/Styles'
 import IconSearch from '../components/IconSearch'
 
 class BtnTextIcon extends Component {

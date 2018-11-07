@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    TouchableOpacity,
-    Button
+    TouchableOpacity
 } from 'react-native'
 
 import styles from '../../constants/Styles'
-import * as array from '@expo/vector-icons'
 import IconSearch from '../../components/IconSearch'
 
 

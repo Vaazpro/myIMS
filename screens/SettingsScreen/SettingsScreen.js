@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import {
-    Text,
     View,
     StatusBar,
     SafeAreaView
 } from 'react-native'
-import styles from '../../constants/Styles'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon';
 
@@ -36,7 +34,7 @@ class SettingsScreen extends Component {
                 <View style={{flex:2}}>
                     <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
                 </View>
-                <View style={{flex:8, margin: 10}}>
+                <View style={{flex:10, margin: 10}}>
                     <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
                     <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
                     <BtnTextIcon name='Password' icon='key' biblio='' />

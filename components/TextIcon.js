@@ -4,7 +4,6 @@ import {
     View,
     Image
 } from 'react-native'
-import styles from '../constants/Styles'
 import IconSearch from '../components/IconSearch'
 
 class 

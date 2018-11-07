@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View,
-    Image,
-    TouchableOpacity
+    View
 } from 'react-native'
 import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto';
