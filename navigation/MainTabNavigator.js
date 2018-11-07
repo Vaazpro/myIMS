@@ -13,6 +13,7 @@ import UnlockScreen from '../screens/ProfileScreen/UnlockScreen';
 import NotificationsScreen from '../screens/SettingsScreen/NotificationScreen';
 import Teams from '../screens/ProfileScreen/Teams';
 import VacationScreen from '../screens/ProfileScreen/VacationScreen';
+import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
@@ -37,6 +38,7 @@ ProfileStack.navigationOptions = {
 
 const TasksStack = createStackNavigator({
   tasks: TaskScreen,
+  filters: FiltersScreen
 });
 
 TasksStack.navigationOptions = {

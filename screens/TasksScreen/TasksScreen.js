@@ -28,13 +28,16 @@ class TasksScreen extends Component {
            <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{flex:2, flexDirection: 'row'}}>
-                    <View style={{flex:9}}>
+                    <View style={{flex:9, justifyContent:'center'}}>
                         <HeaderView txtTitle="Tarefas" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={() =>{}} onPressBtn={() =>{}} />
                     </View>
-                    <View style={{flex:1, justifyContent:'flex-end', paddingBottom:18, backgroundColor: 'white'}}>
-                        <TouchableOpacity>
-                            <IconSearch style={{ alignSelf: 'flex-end'}} name="sliders" biblio='' size={22} color="black"/>
-                        </TouchableOpacity>    
+                    <View style={{flex:1, flexDirection:'column'}}>
+                        <View style={{flex:1, backgroundColor: 'white'}}></View>
+                        <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
+                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters')}} style={{justifyContent:'center'}}>
+                                <IconSearch name="sliders" biblio='' size={22} color="black"/>
+                            </TouchableOpacity>    
+                        </View>
                     </View>
                 </View>
                 <View style={{flex:10}}>

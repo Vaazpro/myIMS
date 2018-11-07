@@ -32,15 +32,15 @@ class HeaderView extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex:1, justifyContent: 'center', padding:3}}>
-                    <TouchableOpacity style={{flex:1}} onPress={this.props.onPressIcon}>
+                    <TouchableOpacity style={{justifyContent:'center'}} onPress={this.props.onPressIcon}>
                         <IconSearch name={this.props.nameIcon} biblio={this.props.biblioIcon} color={this.props.colorIcon} size={25} style={{display: this.props.displayIcon}} />
                     </TouchableOpacity>
                 </View>
                 <View style={{flex:1, flexDirection: "row"}}>
-                    <View style={{flex:1, justifyContent: 'flex-start', paddingLeft: 10}}>
+                    <View style={{flex:1, justifyContent: 'center', paddingLeft: 10}}>
                         <Text style={{fontSize:20}}>{this.props.txtTitle}</Text>
                     </View>
-                    <View style={{flex:1}}>
+                    <View style={{flex:1,justifyContent:'center', alignItems:'flex-end', paddingRight:10, }}>
                         <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
                             <Text style={{fontSize:16}}>{this.props.txtBtn}</Text>
                         </TouchableOpacity>

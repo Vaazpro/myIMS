@@ -49,10 +49,6 @@ class VacationScreen extends Component {
         }
       }
 
-      checkPixelRatio(){
-        console.warn('X Clicked!') 
-      }
-
     colapse = () => {
         this.setState({
             clicked: false,
@@ -97,7 +93,7 @@ class VacationScreen extends Component {
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6', borderBottomColor:'gray'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
-                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={this.checkPixelRatio}>
+                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
                         </TouchableOpacity>
                     </View>
