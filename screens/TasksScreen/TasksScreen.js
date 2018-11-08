@@ -31,7 +31,7 @@ class TasksScreen extends Component {
                     <View style={{flex:9, justifyContent:'center'}}>
                         <HeaderView txtTitle="Tarefas" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={() =>{}} onPressBtn={() =>{}} />
                     </View>
-                    <View style={{flex:1, flexDirection:'column'}}>
+                    <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
                             <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters')}} style={{justifyContent:'center'}}>

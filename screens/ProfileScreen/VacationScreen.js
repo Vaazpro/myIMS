@@ -91,7 +91,7 @@ class VacationScreen extends Component {
             /* SafeAreaView avoids the iPhone X's notch  */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6', borderBottomColor:'gray'}}>
+                <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
@@ -129,7 +129,7 @@ class VacationScreen extends Component {
                 </Animated.View>
                 <View style={{flex:1}}>
                     <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
-                        <View style={{marginTop:10}} />
+                        <View style={{marginTop:40}} />
                         <VacationsView />
                         <VacationsView />
                         <VacationsView />
@@ -145,10 +145,10 @@ class VacationScreen extends Component {
                             height: iconsize,
                             borderRadius: iconsize/2,
                             left: Dimensions.get('window').width / 2 - (iconsize/2),
-                            top: this.state.hg + Dimensions.get('window').height*0.15+gap,
+                            top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap,
                             alignItems:'center',
                             justifyContent: 'center',
-                            backgroundColor: '#F2F2F2',
+                            backgroundColor: '#e6e6e6',
                             paddingTop: 3, elevation: 5}]
                             }>
                     <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>

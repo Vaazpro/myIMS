@@ -5,7 +5,7 @@ import {
     SafeAreaView
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
-import BtnTextIcon from '../../components/BtnTextIcon';
+import BtnTextIcon from '../../components/BtnTextIcon'
 
 
 class SettingsScreen extends Component {

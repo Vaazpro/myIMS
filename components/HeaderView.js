@@ -30,7 +30,7 @@ class HeaderView extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {borderBottomWidth:1, borderBottomColor: '#C2C3C9'}]}>
                 <View style={{flex:1, justifyContent: 'center', padding:3}}>
                     <TouchableOpacity style={{justifyContent:'center'}} onPress={this.props.onPressIcon}>
                         <IconSearch name={this.props.nameIcon} biblio={this.props.biblioIcon} color={this.props.colorIcon} size={25} style={{display: this.props.displayIcon}} />
