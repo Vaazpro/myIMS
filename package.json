@@ -21,6 +21,7 @@
     "react-native-calendar-picker": "^5.22.0",
     "react-native-elevated-view": "0.0.6",
     "react-native-material-switch": "0.0.4",
+    "react-native-responsive-screen": "^1.1.10",
     "react-native-status-bar-height": "^2.1.0",
     "react-native-switch": "^1.5.0",
     "react-navigation": "^2.16.0",

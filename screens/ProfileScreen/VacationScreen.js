@@ -11,6 +11,7 @@ import {
     LayoutAnimation
 } from 'react-native'
 import { Dimensions } from 'react-native'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import CircularPhoto from '../../components/CircularPhoto';
 import IconSearch from '../../components/IconSearch';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -58,19 +59,20 @@ class VacationScreen extends Component {
     }
 
     expand = () => {
-        if(Dimensions.get('window').height < 700){
+        if(Platform.OS==='ios'){
             this.setState({
                 clicked: true,
-                hg: (Dimensions.get('window').height*0.50),
+                hg: hp('40%'),
                 disp: 'flex'
             })
         }else{
             this.setState({
                 clicked: true,
-                hg: (Dimensions.get('window').height*0.40),
+                hg: hp('48%'),
                 disp: 'flex'
             })
-        }
+        } 
+       
     }
 
     render() {
@@ -93,7 +95,9 @@ class VacationScreen extends Component {
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
-                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {this.props.navigation.goBack()}}>
+                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
+                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
+                            this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
                         </TouchableOpacity>
                     </View>
