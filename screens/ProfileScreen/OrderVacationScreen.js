@@ -11,7 +11,9 @@ import {
     Button,
     Modal,
     TouchableHighlight,
-    Alert
+    Alert,
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native'
 import { Dimensions } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -150,23 +152,44 @@ class OrderVacationScreen extends Component {
                         </View>
                             
                     </TouchableOpacity>
+
+                    
                     <Modal
                     animationType="slide"
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {}}>
-                    <View style={{display:this.state.modalBackground ,flex: 1, backgroundColor: 'rgba(255,255,255,0.8)'}}></View>
-                    <View style={{top:'20%',left:'5%',alignItems: 'center',justifyContent: 'center', backgroundColor:'red', position: "absolute" ,height: '40%', width:'90%'}}>
-                        <View>
-                        <Text>Hello World!</Text>
-
-                        <TouchableHighlight
-                            onPress={() => {
-                            this.setModalVisible(!this.state.modalVisible);
-                            this.setState({modalBackground: 'none'})
-                            }}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
+                    <View style={{display:this.state.modalBackground ,flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}></View>
+                    <View style={{borderRadius: 5, borderWidth: 3, borderColor: '#007FB7', top:'15%',left:'5%', backgroundColor:'white', position: "absolute" ,height: '40%', width:'90%'}}>
+                        <View style={{flex: 1}}>
+                            <View style={{flex: 1, backgroundColor: '#007FB7', justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={{fontSize: 25, color: 'white'}}>Nota de Férias</Text>
+                            </View>
+                            <View style={{flex: 4, backgroundColor: 'white'}}>
+                            <TextInput
+                                placeholder="Insira o comentário que deseja anexar ao seu pedido de férias."
+                                style={{flex:1, backgroundColor:'white', margin: 5, padding: 5, borderRadius: 5, borderColor: 'lightgray', borderWidth: 2}}
+                                multiline={true}
+                                onChangeText={(text) => this.setState({text})}
+                                value={this.state.text}/>
+                            </View>
+                            <View style={{flex: 0.5, backgroundColor: 'white', flexDirection:'row'}}>
+                                <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                        this.setState({modalBackground: 'none'})}}>
+                                        <Text style={{color: "#007FB7", fontWeight: 'bold'}}>VOLTAR</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{flex: 1,  justifyContent: 'center', alignItems:'center'}}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                        this.setState({modalBackground: 'none'})}}>
+                                        <Text style={{color: "#007FB7", fontWeight: 'bold'}}>GUARDAR</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                
+                            </View>
                         </View>
                     </View>
                     </Modal>
