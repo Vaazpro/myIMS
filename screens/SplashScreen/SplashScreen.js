@@ -5,7 +5,8 @@ import {
     Animated,
     Easing,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView 
 } from 'react-native'
 import AppNavigator from '../../navigation/AppNavigator';
 
@@ -15,7 +16,8 @@ class SplashScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            topMyIMS: '0%'
         }
 
         this.animatedValue = new Animated.Value(0)
@@ -209,23 +211,23 @@ class SplashScreen extends Component {
             return <AppNavigator/>
         }else{
             return (
-                <View style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}}>
+                <KeyboardAvoidingView style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}} behavior="padding" enabled>
                     <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
-                        <Animated.View style={{ justifyContent:'center', opacity: opacityLogo}}>
+                        <Animated.View style={{opacity: opacityLogo}}>
                             <View style={{flexDirection: 'row'}}>
-                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, marginBottom: posX}}>my</Animated.Text>
-                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, fontWeight: 'bold', marginBottom: posX}}>IMS</Animated.Text>
+                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, marginBottom: posX, marginTop: this.state.topMyIMS}}>my</Animated.Text>
+                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, fontWeight: 'bold', marginBottom: posX, marginTop: this.state.topMyIMS}}>IMS</Animated.Text>
                             </View>
                         </Animated.View>
                     </View>
                     <View style={{flex:1, marginBottom: 40, backgroundColor: 'rgb(73, 144, 226)', justifyContent: 'flex-start', alignItems:'center'}}>
                         
                         <Animated.View style={{ borderRadius: 3, width:scaleValueXuser ,height: scaleValueYuser, opacity: opacityValueUser, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                        <TextInput placeholder='username' placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                        <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder='username' placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                         </Animated.View>
 
                         <Animated.View style={{ borderRadius: 3, width:scaleValueXpass, height: scaleValueYpass, opacity: opacityValuePass, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                        <TextInput underlineColorAndroid='transparent' placeholder='password' secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                        <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder='password' secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                         </Animated.View>
 
                         <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
@@ -235,7 +237,7 @@ class SplashScreen extends Component {
                         </Animated.View>
                         
                     </View>
-                </View>
+                </KeyboardAvoidingView>
             )
         }
             

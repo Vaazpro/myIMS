@@ -8,7 +8,10 @@ import {
     TouchableOpacity,
     ScrollView,
     Platform, 
-    Button
+    Button,
+    Modal,
+    TouchableHighlight,
+    Alert
 } from 'react-native'
 import { Dimensions } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -47,7 +50,11 @@ class OrderVacationScreen extends Component {
             disp: 'none',
             selectedStartDate: null,
             selectedEndDate: null,
-            clicked: false
+            clicked: false,
+            startDate : '',
+            endDate: '',
+            modalVisible: false,
+            modalBackground: 'none'
         }
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -56,13 +63,19 @@ class OrderVacationScreen extends Component {
         if (type === 'END_DATE') {
           this.setState({
             selectedEndDate: date,
+            endDate: date.toString()
           });
         } else {
           this.setState({
             selectedStartDate: date,
             selectedEndDate: null,
+            startDate: date.toString()
           });
         }
+      }
+
+      setModalVisible(visible) {
+        this.setState({modalVisible: visible});
       }
 
 
@@ -93,7 +106,7 @@ class OrderVacationScreen extends Component {
                 </View> */}
                 <View style={{flex: 4, backgroundColor:'#e6e6e6', paddingTop: 10}}>
                         <CalendarPicker
-                            weekdays={['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom']}
+                            weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
                             months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
                             previousTitle="   <   "
                             nextTitle=    "   >   "
@@ -110,18 +123,55 @@ class OrderVacationScreen extends Component {
 
                 <View style={{flex:2.5}}>
                     <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
-                        <View style={{marginTop:40}} />
-
-                        <View style={{ backgroundColor: '#F9F7F6' , paddingVertical: 16}}>
-                  
-                            <Hoshi label={'Data de Inicio'} borderColor={'rgb(123, 173, 232)'} maskColor={'#F9F7F6'} />
-                            <Hoshi label={'Data de Inicio'} borderColor={'rgb(123, 173, 232)'} maskColor={'#F9F7F6'} />
+                        <View style={{height: 10, backgroundColor: 'white'}}></View>
+                        <View style={{ backgroundColor: 'white'}}>
+                            <Hoshi editable={false}  label={'Data de Inicio'} value={this.state.startDate} borderColor={'rgb(123, 173, 232)'}/>
+                            <Hoshi  editable={false}   label={'Data de Fim'} value={this.state.endDate} borderColor={'rgb(123, 173, 232)'}/>      
+                            
                         </View>
                          
                     </ScrollView>
                 </View>
-                
+                <View style={[Styles.shadowArrow,{
+                    backgroundColor: '#007FB7',
+                    position: 'absolute',
+                    width: 60,
+                    height: 60,
+                    borderRadius: 60/2,
+                    right: 10,
+                    bottom: 10,
+                    alignItems:'center',
+                    justifyContent: 'center',
+                    elevation: 5}]}>
+                    <TouchableOpacity style={{flex: 1}} onPress={() => {this.setModalVisible(true); this.setState({modalBackground: 'flex'})}}>
+   
+                        <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center'}}>
+                            <IconSearch name='note' biblio='SimpleLineIcons' size={24} color="white"></IconSearch>
+                        </View>
+                            
+                    </TouchableOpacity>
+                    <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {}}>
+                    <View style={{display:this.state.modalBackground ,flex: 1, backgroundColor: 'rgba(255,255,255,0.8)'}}></View>
+                    <View style={{top:'20%',left:'5%',alignItems: 'center',justifyContent: 'center', backgroundColor:'red', position: "absolute" ,height: '40%', width:'90%'}}>
+                        <View>
+                        <Text>Hello World!</Text>
 
+                        <TouchableHighlight
+                            onPress={() => {
+                            this.setModalVisible(!this.state.modalVisible);
+                            this.setState({modalBackground: 'none'})
+                            }}>
+                            <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+                        </View>
+                    </View>
+                    </Modal>
+                </View>    
+                
                 
             </SafeAreaView>
         )
