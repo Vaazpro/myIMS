@@ -7,8 +7,7 @@ import {
     StatusBar,
     TouchableOpacity,
     ScrollView,
-    Platform,
-    LayoutAnimation
+    Platform
 } from 'react-native'
 import { Dimensions } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -20,10 +19,13 @@ import VacationsView from '../../components/VacationsView';
 
 
 
-class VacationScreen extends Component {
+class OrderVacationScreen extends Component {
 
     static navigationOptions = {
-        header: null,
+        title: 'Novo Pedido',
+        headerTitleStyle: {
+            flex:1
+        }
     };
 
     constructor(props) {
@@ -36,7 +38,6 @@ class VacationScreen extends Component {
             clicked: false
         }
         this.onDateChange = this.onDateChange.bind(this);
-        this.rotation = new Animated.Value(0);
     }
 
     onDateChange(date, type) {
@@ -52,30 +53,6 @@ class VacationScreen extends Component {
         }
       }
 
-    colapse = () => {
-        this.setState({
-            clicked: false,
-            hg: 0,
-            disp: 'none'
-        }) 
-    }
-
-    expand = () => {
-        if(Platform.OS==='ios'){
-            this.setState({
-                clicked: true,
-                hg: hp('40%'),
-                disp: 'flex'
-            })
-        }else{
-            this.setState({
-                clicked: true,
-                hg: hp('48%'),
-                disp: 'flex'
-            })
-        } 
-       
-    }
 
     render() {
         const { selectedStartDate, selectedEndDate } = this.state;
@@ -85,27 +62,15 @@ class VacationScreen extends Component {
         const endDate = selectedEndDate ? selectedEndDate.toString() : '';
         const iconsize = 32;
         const gap = Platform.OS === 'ios' ? (iconsize) : 10;
-        /* Realizar a Animação da arrow */
-        const rotate = this.rotation.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg','180deg'],
-        });
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <View style={{height: StatusBar.currentHeight}}></View>
-                <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
-                    <View style={{flex:1, justifyContent: 'center'}}>
-                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
-                            this.props.navigation.goBack()}}>
-                            <IconSearch name='cross' biblio='' color='black' size={25} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{flex:1, flexDirection: "row"}}>
+                <View style={{flex: 0.5, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
+                    
+                    <View style={{flex:1, flexDirection: "row", backgroundColor: 'red'}}>
                         <View style={{flex:1, justifyContent: 'center', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>Férias</Text>
+                            
                         </View>
                         <View style={{flex:1, alignItems: 'flex-end', justifyContent: 'center'}}>
                             <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
@@ -114,8 +79,7 @@ class VacationScreen extends Component {
                         </View>
                     </View>
                 </View>
-                <Animated.View style={{height: this.state.hg, backgroundColor:'#e6e6e6'}}>
-                    <View style={{backgroundColor:'#e6e6e6', display: this.state.disp}}>
+                <View style={{flex: 4, backgroundColor:'#e6e6e6'}}>
                         <CalendarPicker
                             weekdays={['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom']}
                             months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
@@ -129,11 +93,10 @@ class VacationScreen extends Component {
                             selectedDayColor="#007FB7"
                             selectedDayTextColor="#FFFFFF"
                             onDateChange={this.onDateChange}
-                        />
-                    </View>    
-                </Animated.View>
+                        />  
+                </View>
 
-                <View style={{flex:1}}>
+                <View style={{flex:2}}>
                     <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
                         <View style={{marginTop:40}} />
                         <VacationsView />
@@ -143,71 +106,12 @@ class VacationScreen extends Component {
                         <VacationsView />
                     </ScrollView>
                 </View>
-                <View style={[Styles.shadowArrow,{
-                    backgroundColor: '#007FB7',
-                    position: 'absolute',
-                    width: 60,
-                    height: 60,
-                    borderRadius: 60/2,
-                    right: 10,
-                    bottom: 10,
-                    alignItems:'center',
-                    justifyContent: 'center',
-                    elevation: 5}]}>
-                    <TouchableOpacity style={{flex: 1}} onPress={() => {this.props.navigation.navigate('orderVacations')}}>
-                        
+                
 
-                            
-                                <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
-                                    <IconSearch name='plus' biblio='Entypo' size={32} color="white"></IconSearch>
-                                </View>
-                            
-                    </TouchableOpacity>
-                </View>    
-
-                <View style={[Styles.shadowArrow,{
-                            flex: 1,
-                            position: 'absolute',
-                            width: iconsize,
-                            height: iconsize,
-                            borderRadius: iconsize/2,
-                            left: Dimensions.get('window').width / 2 - (iconsize/2),
-                            top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap,
-                            alignItems:'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#e6e6e6',
-                            paddingTop: 3, elevation: 5}]
-                            }>
-                    <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
-                        <TouchableOpacity style={{flex: 1}} onPress={() => {
-                            if(!this.state.clicked){
-                                LayoutAnimation.spring()
-                                Animated.spring(this.rotation, {
-                                    toValue: 1,
-                                    tension: 150,
-                                    friction: 5,
-                                    useNativeDriver: true,
-                                }).start()
-                                this.expand()
-                            }else{
-                                LayoutAnimation.spring()
-                                Animated.spring(this.rotation, {
-                                    toValue: 0,
-                                    tension: 150,
-                                    friction: 5,
-                                    useNativeDriver: true,
-                                }).start()
-                                this.colapse()
-                                }
-                            }}>
-                            <IconSearch name="ios-arrow-down" biblio="Ionicons" size={iconsize} color="#007FB7"/>
-                        </TouchableOpacity>
-                    </Animated.View>
-                </View>
                 
             </SafeAreaView>
         )
     }
 }
 
-export default VacationScreen
+export default OrderVacationScreen

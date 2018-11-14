@@ -18,7 +18,7 @@ AttendanceView extends Component {
 
     render() {
         return (
-            <View style={[Styles.shadow, {height: 60, flexDirection: 'row', borderRadius: 5, elevation: 1,marginBottom: 20,backgroundColor: '#F2F2F2', borderColor: 'red', borderWidth: 2}]}>
+            <View style={[Styles.shadow, {height: 60, flexDirection: 'row', borderRadius: 5, elevation: 1,marginBottom: 20,backgroundColor: '#F2F2F2', borderLeftColor: 'red', borderWidth: 2}]}>
                 <View style= {{flex: 2, paddingLeft: 10, borderRadius: 5 , flexDirection: 'column', justifyContent:'center'}}>
                     <View style={{justifyContent:'flex-end', flex:1}}>
                         <Text style={{fontSize: 20}}>05</Text>

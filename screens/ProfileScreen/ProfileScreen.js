@@ -35,6 +35,7 @@ class ProfileScreen extends Component{
     VacationsPressedHandler = () => {
         this.props.navigation.navigate('vacations');
     }
+    
 
     render() {
        
