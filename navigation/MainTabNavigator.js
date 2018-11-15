@@ -15,13 +15,15 @@ import Teams from '../screens/ProfileScreen/Teams';
 import VacationScreen from '../screens/ProfileScreen/VacationScreen';
 import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
+import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
   unlock: UnlockScreen,
   teams: Teams,
   vacations: VacationScreen,
-  orderVacations: OrderVacationScreen
+  orderVacations: OrderVacationScreen,
+  attendances: AttendanceScreen
 });
 
 ProfileStack.navigationOptions = {

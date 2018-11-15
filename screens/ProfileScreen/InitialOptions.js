@@ -26,7 +26,7 @@ class InitialOptions extends Component {
         return (
             <View style={{flex:1, alignItems:'center', marginTop: getStatusBarHeight()}}>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions name='Presenças' name2='0 faltas' biblio=''  icon='beach-access'/>
+                    <ButtonInitialOptions nextPage={this.props.attendancesP} name='Presenças' name2='0 faltas' biblio=''  icon='beach-access'/>
                     <ButtonInitialOptions nextPage={this.props.vacationsP} name='Férias' name2='Aprovado' biblio='MaterialIcons' icon='flag'/>
                     {/* <Card nextPage={this.props.teamsP} name='Presenças' name2='0 Faltas' link={require('../../assets/images/presencas.jpg') }></Card>
                     <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card> */}

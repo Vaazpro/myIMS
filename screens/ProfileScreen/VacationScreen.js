@@ -15,6 +15,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import CircularPhoto from '../../components/CircularPhoto';
 import IconSearch from '../../components/IconSearch';
 import CalendarPicker from 'react-native-calendar-picker';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import Styles from '../../constants/Styles'
 import VacationsView from '../../components/VacationsView';
 
@@ -115,22 +116,57 @@ class VacationScreen extends Component {
                     </View>
                 </View>
                 <Animated.View style={{height: this.state.hg, backgroundColor:'#e6e6e6'}}>
-                    <View style={{backgroundColor:'#e6e6e6', display: this.state.disp}}>
-                        <CalendarPicker
-                            weekdays={['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom']}
-                            months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
-                            previousTitle="   <   "
-                            nextTitle="   >   "
-                            startFromMonday={false}
-                            allowRangeSelection={true}
-                            minDate={minDate}
-                            maxDate={maxDate}
-                            todayBackgroundColor="gray"
-                            selectedDayColor="#007FB7"
-                            selectedDayTextColor="#FFFFFF"
-                            onDateChange={this.onDateChange}
+                    <View style={{display: this.state.disp, backgroundColor:'#e6e6e6', marginBottom:10}}>
+                    <Calendar
+
+                        // Collection of dates that have to be colored in a special way. Default = {}
+                        markedDates={
+                            {   
+                                '2018-11-22': {startingDay: true, color: '#007FB7', textColor: 'white'},
+                                '2018-11-23': {color: '#007FB7', textColor: 'white'},
+                                '2018-11-24': {color: '#007FB7', textColor: 'white'},
+                                '2018-11-25': {selected: true, endingDay: true, color: '#007FB7', textColor: 'white'},
+                                '2018-11-04': {disabled: true, startingDay: true, color: 'red', endingDay: true}
+                            }}
+                        // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+                        markingType={'period'}
+                        
+                        // Initially visible month. Default = Date()
+                        //current={'2012-03-01'}
+                        // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                        //minDate={'2012-05-10'}
+                        // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                        //maxDate={'2012-05-30'}
+                        // Handler which gets executed on day press. Default = undefined
+                        onDayPress={(day) => {console.log('selected day', day)}}
+                        // Handler which gets executed on day long press. Default = undefined
+                        onDayLongPress={(day) => {console.log('selected day', day)}}
+                        // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                        //monthFormat={'yyyy MM'}
+                        // Handler which gets executed when visible month changes in calendar. Default = undefined
+                        onMonthChange={(month) => {console.log('month changed', month)}}
+                        // Hide month navigation arrows. Default = false
+                        hideArrows={false}
+                        // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                        //renderArrow={(direction) => (<Arrow />)}
+                        // Do not show days of other months in month page. Default = false
+                        hideExtraDays={true}
+                        // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                        // day from another month that is visible in calendar page. Default = false
+                        disableMonthChange={false}
+                        // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                        //firstDay={1}
+                        // Hide day names. Default = false
+                        hideDayNames={false}
+                        // Show week numbers to the left. Default = false
+                        showWeekNumbers={false}
+                        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                        onPressArrowLeft={substractMonth => substractMonth()}
+                        // Handler which gets executed when press arrow icon left. It receive a callback can go next month
+                        onPressArrowRight={addMonth => addMonth()}
+                        theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
                         />
-                    </View>    
+                    </View>
                 </Animated.View>
 
                 <View style={{flex:1}}>

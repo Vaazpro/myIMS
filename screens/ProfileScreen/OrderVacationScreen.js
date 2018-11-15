@@ -188,7 +188,6 @@ class OrderVacationScreen extends Component {
                                         <Text style={{color: "#007FB7", fontWeight: 'bold'}}>GUARDAR</Text>
                                     </TouchableOpacity>
                                 </View>
-                                
                             </View>
                         </View>
                     </View>
