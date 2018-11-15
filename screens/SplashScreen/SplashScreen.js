@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView 
 } from 'react-native'
 import AppNavigator from '../../navigation/AppNavigator';
+import SecurityService from './SecurityService'
 
 class SplashScreen extends Component {
 
@@ -36,6 +37,11 @@ class SplashScreen extends Component {
 
     componentDidMount(){
         this.animate()
+    }
+
+    logIn = () =>{
+        var _securityService = new SecurityService();
+        _securityService.login()
     }
 
     animate = () => {
@@ -147,6 +153,12 @@ class SplashScreen extends Component {
     }
 
     render() {
+        /* var obj = {  
+                "email" : "Administrator",
+                "password" : "Adm!123",
+                "isLocalAccount" : true
+            } */
+
         const posX = this.animatedValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0%', '30%']
@@ -231,7 +243,7 @@ class SplashScreen extends Component {
                         </Animated.View>
 
                         <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
-                        <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {this.setState({loggedIn:true})}}>
+                        <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {this.logIn()/*this.setState({loggedIn:true})*/}}>
                             <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
                         </TouchableOpacity>
                         </Animated.View>
