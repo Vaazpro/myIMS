@@ -8,12 +8,14 @@ import {
     TouchableOpacity,
     Animated,
     Platform,
-    LayoutAnimation
+    LayoutAnimation,
+    ScrollView
 } from 'react-native'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import IconSearch from '../../components/IconSearch'
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars'
+import { Calendar } from 'react-native-calendars'
 import Styles from '../../constants/Styles'
+import AttendanceView from '../../components/AttendanceView'
 
 
 class AttendanceScreen extends Component {
@@ -44,25 +46,35 @@ class AttendanceScreen extends Component {
     }
 
     expand = () => {
-        if(Platform.OS==='ios'){
+        if(Platform.OS === 'ios'){ //André
             this.setState({
                 clicked: true,
-                hg: hp('40%'),
+                hg: hp('43%'),
                 disp: 'flex'
             })
         }else{
-            this.setState({
-                clicked: true,
-                hg: hp('48%'),
-                disp: 'flex'
-            })
-        } 
-       
+            if(Dimensions.get('window').height > 700){ //Rafa
+                this.setState({
+                    clicked: true,
+                    hg: hp('49%'),
+                    disp: 'flex'
+                })
+            }else{
+                this.setState({ //João
+                    clicked: true,
+                    hg: hp('55%'),
+                    disp: 'flex'
+                })
+            } 
+        }
+    }
+    onPressBtn = () =>{
+        console.log("WxH: " + Dimensions.get('window').width + "x" + Dimensions.get('window').height)
     }
 
     render() {
         const iconsize = 32;
-        const gap = Platform.OS === 'ios' ? (iconsize) : 10;
+        const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
         /* Realizar a Animação da arrow */
         const rotate = this.rotation.interpolate({
             inputRange: [0, 1],
@@ -85,79 +97,92 @@ class AttendanceScreen extends Component {
                     </View>
                     <View style={{flex:1, flexDirection: "row"}}>
                         <View style={{flex:1, justifyContent: 'center', alignItems:'flex-start', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>Férias</Text>
+                            <Text style={{fontSize:20}}>Presenças</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end', flexDirection: "row"}}>
-                            <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={this.onPressBtn} style={{display: this.props.displayBtn}}>
                                 <Text>Tudo</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={this.props.onPressBtn} style={{marginLeft: 10, display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={this.onPressBtn} style={{marginLeft: 10, display: this.props.displayBtn}}>
                                 <Text>Faltas</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <Animated.View style={{height: this.state.hg, backgroundColor:'#e6e6e6'}}>
-                    
-                </Animated.View>
 
+                <ScrollView style={{flex: 1, backgroundColor: 'white', paddingLeft: 10, paddingRight: 10}}>
+                    <View style={{height: this.state.hg + 25}}></View>
+                    <AttendanceView borderColor='red'></AttendanceView>
+                    <AttendanceView borderColor='green'></AttendanceView>
+                    <AttendanceView borderColor='orange'></AttendanceView>
+                </ScrollView>
+                    
                 <View style={{
+                    top: Platform.OS === 'ios' ? Dimensions.get('window').height*0.20 : Dimensions.get('window').height*0.18,
                     flex:1,
                     display: this.state.disp, 
-                    backgroundColor:'rgba(0,0,0,0.5)', 
-                    position: 'absolute', 
+                    backgroundColor:'#e6e6e6',
+                    position: 'absolute',
                     width:'100%',
-                    height: '80%',}}>
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
-                    <Calendar
-                        // Collection of dates that have to be colored in a special way. Default = {}
-                        style={{position:'relative', top: Dimensions.get('window').height*0.15 + tweak}}
-                        markedDates={
-                            {   
-                                '2018-11-22': {startingDay: true, color: '#007FB7', textColor: 'white'},
-                                '2018-11-23': {color: '#007FB7', textColor: 'white'},
-                                '2018-11-24': {color: '#007FB7', textColor: 'white'},
-                                '2018-11-25': {selected: true, endingDay: true, color: '#007FB7', textColor: 'white'},
-                                '2018-11-04': {disabled: true, startingDay: true, color: 'red', endingDay: true}
-                            }}
-                        // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-                        markingType={'period'}
-                        
-                        // Initially visible month. Default = Date()
-                        //current={'2012-03-01'}
-                        // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-                        //minDate={'2012-05-10'}
-                        // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-                        //maxDate={'2012-05-30'}
-                        // Handler which gets executed on day press. Default = undefined
-                        onDayPress={(day) => {console.log('selected day', day)}}
-                        // Handler which gets executed on day long press. Default = undefined
-                        onDayLongPress={(day) => {console.log('selected day', day)}}
-                        // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-                        //monthFormat={'yyyy MM'}
-                        // Handler which gets executed when visible month changes in calendar. Default = undefined
-                        onMonthChange={(month) => {console.log('month changed', month)}}
-                        // Hide month navigation arrows. Default = false
-                        hideArrows={false}
-                        // Replace default arrows with custom ones (direction can be 'left' or 'right')
-                        //renderArrow={(direction) => (<Arrow />)}
-                        // Do not show days of other months in month page. Default = false
-                        hideExtraDays={true}
-                        // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
-                        // day from another month that is visible in calendar page. Default = false
-                        disableMonthChange={false}
-                        // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
-                        //firstDay={1}
-                        // Hide day names. Default = false
-                        hideDayNames={false}
-                        // Show week numbers to the left. Default = false
-                        showWeekNumbers={false}
-                        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-                        onPressArrowLeft={substractMonth => substractMonth()}
-                        // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-                        onPressArrowRight={addMonth => addMonth()}
-                        theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
-                        />
+                    height: this.state.hg}}>
+                    <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+                        <View style={{display: this.state.disp}}>
+                            <Calendar
+                                // Collection of dates that have to be colored in a special way. Default = {}
+                                style={{position:'relative'}}
+                                markedDates={
+                                    {   
+                                        '2018-11-11': {marked: true, dotColor: 'rgb(245, 166, 35)'},
+                                        '2018-11-12': {marked: true, dotColor: 'rgb(245, 166, 35)'},
+                                        '2018-11-20': {selected: true, selectedColor: 'red'},
+                                        '2018-12-31': {selected: true, selectedColor: 'red'},
+                                        '2018-11-13': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-14': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-15': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-16': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-17': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-18': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                        '2018-11-19': {marked: true, dotColor: 'rgb(1, 231, 13)'},
+                                    }}
+                                // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+                                //markingType={'multi-dot'}
+                                
+                                // Initially visible month. Default = Date()
+                                //current={'2012-03-01'}
+                                // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                                //minDate={'2012-05-10'}
+                                // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                                //maxDate={'2012-05-30'}
+                                // Handler which gets executed on day press. Default = undefined
+                                onDayPress={(day) => {console.log('selected day', day)}}
+                                // Handler which gets executed on day long press. Default = undefined
+                                onDayLongPress={(day) => {console.log('selected day', day)}}
+                                // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                                //monthFormat={'yyyy MM'}
+                                // Handler which gets executed when visible month changes in calendar. Default = undefined
+                                onMonthChange={(month) => {console.log('month changed', month)}}
+                                // Hide month navigation arrows. Default = false
+                                hideArrows={false}
+                                // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                                //renderArrow={(direction) => (<Arrow />)}
+                                // Do not show days of other months in month page. Default = false
+                                hideExtraDays={true}
+                                // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                                // day from another month that is visible in calendar page. Default = false
+                                disableMonthChange={false}
+                                // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                                //firstDay={1}
+                                // Hide day names. Default = false
+                                hideDayNames={false}
+                                // Show week numbers to the left. Default = false
+                                showWeekNumbers={false}
+                                // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                                onPressArrowLeft={substractMonth => substractMonth()}
+                                // Handler which gets executed when press arrow icon left. It receive a callback can go next month
+                                onPressArrowRight={addMonth => addMonth()}
+                                theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
+                                />
+                            </View>
                         </SafeAreaView>
                     </View>
 

@@ -13,7 +13,6 @@ import SecurityService from './SecurityService'
 
 class SplashScreen extends Component {
 
-
     constructor(props) {
         super(props)
         this.state = {
@@ -243,7 +242,7 @@ class SplashScreen extends Component {
                         </Animated.View>
 
                         <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
-                        <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {this.logIn()/*this.setState({loggedIn:true})*/}}>
+                        <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {/* this.logIn() */this.setState({loggedIn:true})}}>
                             <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
                         </TouchableOpacity>
                         </Animated.View>

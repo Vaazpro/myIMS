@@ -11,7 +11,7 @@ import styles from '../../constants/Styles'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
 import IconSearch from '../../components/IconSearch'
-
+import { Asset, Audio, Font, Video } from 'expo';
 
 class UnlockScreen extends Component {
 
@@ -21,7 +21,20 @@ class UnlockScreen extends Component {
 
     constructor(props) {
         super(props)
-        this.state={}
+        this.state={
+            icon: 'lock'
+        }
+    }
+   
+    playMusic = async () => {
+        const soundObject = new Expo.Audio.Sound();
+        try {
+          await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
+          await soundObject.playAsync();
+          // Your sound is playing!
+        } catch (error) {
+          // An error occurred!
+        }
     }
 
     render() {
@@ -56,7 +69,7 @@ class UnlockScreen extends Component {
                         <Text style={{fontSize: 18}}>24/10/18</Text>                                                
                     </View>
                     <View style={{flex: 5,justifyContent: 'center', alignItems:'center'}}>
-                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {}}>
+                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {this.setState({icon: 'unlock-alt'}); this.playMusic() }}>
                         <ElevatedView elevation={5} 
                             style={{
                                 width: 150,
@@ -71,7 +84,7 @@ class UnlockScreen extends Component {
 
                             
                                 <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
-                                    <IconSearch name='unlock-alt' biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
+                                    <IconSearch name={this.state.icon} biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
                                 </View>
                             </ElevatedView>
                     </TouchableOpacity>

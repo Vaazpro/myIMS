@@ -23,6 +23,7 @@
     "react-native-elevated-view": "0.0.6",
     "react-native-material-switch": "0.0.4",
     "react-native-responsive-screen": "^1.1.10",
+    "react-native-sound": "^0.10.9",
     "react-native-status-bar-height": "^2.1.0",
     "react-native-switch": "^1.5.0",
     "react-native-textinput-effects": "^0.4.2",

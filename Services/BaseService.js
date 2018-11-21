@@ -68,7 +68,7 @@ tokenKey = 'access_token'
     storeToken = async (token) => {
         try {
             console.log("TOKEN ----> " + token)
-          await AsyncStorage.setItem(this.tokenKey, token);
+            await AsyncStorage.setItem(this.tokenKey, token);
         } catch (error) {
             console.log(error.message)
           // Error saving data
@@ -77,10 +77,10 @@ tokenKey = 'access_token'
 
     retrieveToken = async () => {
         try {
-          return await AsyncStorage.getItem(this.tokenKey);
-         } catch (error) {
+            return await AsyncStorage.getItem(this.tokenKey);
+        } catch (error) {
            return null
-         }
+        }
       }
 
 }

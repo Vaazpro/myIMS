@@ -16,6 +16,7 @@ import VacationScreen from '../screens/ProfileScreen/VacationScreen';
 import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
 import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
+import SplashScreen from '../screens/SplashScreen/SplashScreen';
 
 const ProfileStack = createStackNavigator({
   profile: ProfileScreen,
@@ -39,6 +40,10 @@ ProfileStack.navigationOptions = {
     />
   ),
 };
+
+cenas = () => {
+  console.log("Estou no cenas do MainTabNavigator.")
+}
 
 const TasksStack = createStackNavigator({
   tasks: TaskScreen,

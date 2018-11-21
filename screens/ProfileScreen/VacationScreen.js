@@ -14,8 +14,7 @@ import { Dimensions } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import CircularPhoto from '../../components/CircularPhoto';
 import IconSearch from '../../components/IconSearch';
-import CalendarPicker from 'react-native-calendar-picker';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar} from 'react-native-calendars';
 import Styles from '../../constants/Styles'
 import VacationsView from '../../components/VacationsView';
 
@@ -62,20 +61,27 @@ class VacationScreen extends Component {
     }
 
     expand = () => {
-        if(Platform.OS==='ios'){
+        if(Platform.OS === 'ios'){ //André
             this.setState({
                 clicked: true,
-                hg: hp('40%'),
+                hg: hp('45%'),
                 disp: 'flex'
             })
         }else{
-            this.setState({
-                clicked: true,
-                hg: hp('48%'),
-                disp: 'flex'
-            })
-        } 
-       
+            if(Dimensions.get('window').height > 700){ //Rafa
+                this.setState({
+                    clicked: true,
+                    hg: hp('50%'),
+                    disp: 'flex'
+                })
+            }else{
+                this.setState({ //João
+                    clicked: true,
+                    hg: hp('57%'),
+                    disp: 'flex'
+                })
+            } 
+        }
     }
 
     render() {
@@ -116,17 +122,21 @@ class VacationScreen extends Component {
                     </View>
                 </View>
                 <Animated.View style={{height: this.state.hg, backgroundColor:'#e6e6e6'}}>
-                    <View style={{display: this.state.disp, backgroundColor:'#e6e6e6', marginBottom:10}}>
+                    <View style={{display: this.state.disp, marginBottom:10}} >
                     <Calendar
 
                         // Collection of dates that have to be colored in a special way. Default = {}
                         markedDates={
                             {   
-                                '2018-11-22': {startingDay: true, color: '#007FB7', textColor: 'white'},
-                                '2018-11-23': {color: '#007FB7', textColor: 'white'},
-                                '2018-11-24': {color: '#007FB7', textColor: 'white'},
-                                '2018-11-25': {selected: true, endingDay: true, color: '#007FB7', textColor: 'white'},
-                                '2018-11-04': {disabled: true, startingDay: true, color: 'red', endingDay: true}
+                                '2018-11-22': {startingDay: true, color: 'rgb(245, 166, 35)', textColor: 'white'},
+                                '2018-11-23': {color: 'rgb(245, 166, 35)', textColor: 'white'},
+                                '2018-11-24': {color: 'rgb(245, 166, 35)', textColor: 'white'},
+                                '2018-11-25': {selected: true, endingDay: true, color: 'rgb(245, 166, 35)', textColor: 'white'},
+                                '2018-11-28': {selected: true, startingDay: true, color: 'rgb(159, 218, 95)', textColor: 'white'},
+                                '2018-11-29': {selected: true, endingDay: true, color: 'rgb(159, 218, 95)', textColor: 'white'},
+                                '2018-12-30': {selected: true, startingDay: true, color: 'rgb(159, 218, 95)', textColor: 'white'},
+                                '2018-12-31': {selected: true, endingDay: true, color: 'rgb(159, 218, 95)', textColor: 'white'},
+                                '2018-11-04': {disabled: true, startingDay: true, color: '#007FB7', endingDay: true}
                             }}
                         // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
                         markingType={'period'}

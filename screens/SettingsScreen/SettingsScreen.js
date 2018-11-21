@@ -2,16 +2,11 @@ import React, { Component } from 'react'
 import {
     View,
     StatusBar,
-    SafeAreaView,
-    StyleSheet,
-    Platform
+    SafeAreaView
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
 import SplashScreen from '../SplashScreen/SplashScreen'
-import App from '../../App'
-import Styles from '../../constants/Styles'
-import { NavigationActions } from 'react-navigation'
 
 
 class SettingsScreen extends Component {
@@ -53,8 +48,7 @@ class SettingsScreen extends Component {
             )
         } else {
             return (
-                  <SplashScreen/>
-                
+                  <SplashScreen></SplashScreen>
               )
         }
         
