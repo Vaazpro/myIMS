@@ -11,7 +11,6 @@ import styles from '../../constants/Styles'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
 import IconSearch from '../../components/IconSearch'
-import { Asset, Audio, Font, Video } from 'expo';
 
 class UnlockScreen extends Component {
 

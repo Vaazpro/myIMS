@@ -6,7 +6,9 @@ import {
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
-import SplashScreen from '../SplashScreen/SplashScreen'
+import IntroScreen from '../SplashScreen/IntroScreen'
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 
 class SettingsScreen extends Component {
@@ -18,7 +20,7 @@ class SettingsScreen extends Component {
     constructor(props) {
         super(props)
         this.state={
-            logedIn: true
+            clicked: false
         }
     }
 
@@ -30,8 +32,20 @@ class SettingsScreen extends Component {
         console.warn("CENAS")
     }
 
+    logoutHandler = () => {
+        this.setState({
+            clicked: true
+        })
+    }
+
+    goToIntroScreen = () => {
+        var introScreen = new IntroScreen();
+        
+        introScreen.reRender()
+    }
+
     render() {
-        if(this.state.logedIn){
+        if(!this.state.clicked){
             return (
                 <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
                     <View style={{height: StatusBar.currentHeight}}></View>
@@ -42,16 +56,25 @@ class SettingsScreen extends Component {
                         <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
                         <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
                         <BtnTextIcon name='Password' icon='key' biblio='' />
-                        <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' onPressBtn={()=>{this.setState({logedIn:false})}}/>
+                        <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' onPressBtn={()=>{
+                           /*  const resetAction = StackActions.reset({
+                                index: 0,
+                                actions: [NavigationActions.navigate({ routeName: 'intro'})]
+                            });
+                            this.props.navigation.dispatch(resetAction); */
+                            this.logoutHandler()
+                        }}/>
                     </View>
                 </SafeAreaView>
             )
-        } else {
-            return (
-                  <SplashScreen></SplashScreen>
-              )
+        }else{
+            return(
+                /* this.props.navigation.navigate('intro',{
+                    dadada: 3
+                }) */
+                this.props.navigation.navigate('intro')
+            )
         }
-        
     }
 }
 

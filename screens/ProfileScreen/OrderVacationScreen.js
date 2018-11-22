@@ -97,20 +97,20 @@ class OrderVacationScreen extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 
                 <View style={{width: '100%', height: this.getHeight(), backgroundColor:'#e6e6e6', paddingTop: 10}}>
-                        <CalendarPicker
-                            weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
-                            months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
-                            previousTitle="   <   "
-                            nextTitle=    "   >   "
-                            startFromMonday={false}
-                            allowRangeSelection={true}
-                            minDate={minDate}
-                            maxDate={maxDate}
-                            todayBackgroundColor="gray"
-                            selectedDayColor="#007FB7"
-                            selectedDayTextColor="#FFFFFF"
-                            onDateChange={this.onDateChange}
-                        />  
+                    <CalendarPicker
+                        weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
+                        months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
+                        previousTitle="   <   "
+                        nextTitle=    "   >   "
+                        startFromMonday={false}
+                        allowRangeSelection={true}
+                        minDate={minDate}
+                        maxDate={maxDate}
+                        todayBackgroundColor="gray"
+                        selectedDayColor="#007FB7"
+                        selectedDayTextColor="#FFFFFF"
+                        onDateChange={this.onDateChange}
+                    />  
                 </View>
 
                 <View style={{flex:2.5}}>
@@ -119,9 +119,7 @@ class OrderVacationScreen extends Component {
                         <View style={{ backgroundColor: 'white'}}>
                             <Hoshi editable={false} label={'Data de Inicio'} value={startDate} borderColor={'rgb(123, 173, 232)'}/>
                             <Hoshi editable={false} label={'Data de Fim'} value={endDate} borderColor={'rgb(123, 173, 232)'}/>      
-                            
                         </View>
-                         
                     </ScrollView>
                 </View>
             </SafeAreaView>

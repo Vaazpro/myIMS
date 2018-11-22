@@ -10,8 +10,13 @@ import {
 } from 'react-native'
 import AppNavigator from '../../navigation/AppNavigator';
 import SecurityService from './SecurityService'
+import ProfileScreen from '../ProfileScreen/ProfileScreen';
 
-class SplashScreen extends Component {
+class IntroScreen extends React.Component {
+
+    static navigationOptions = {
+        header: null
+    };
 
     constructor(props) {
         super(props)
@@ -37,7 +42,6 @@ class SplashScreen extends Component {
     componentDidMount(){
         this.animate()
     }
-
     logIn = () =>{
         var _securityService = new SecurityService();
         _securityService.login()
@@ -157,7 +161,10 @@ class SplashScreen extends Component {
                 "password" : "Adm!123",
                 "isLocalAccount" : true
             } */
+        
+       
 
+        console.log(this.state.dadada)
         const posX = this.animatedValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0%', '30%']
@@ -219,7 +226,7 @@ class SplashScreen extends Component {
         })
 
         if(this.state.loggedIn){
-            return <AppNavigator/>
+            return this.props.navigation.navigate('profile')
         }else{
             return (
                 <KeyboardAvoidingView style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}} behavior="padding" enabled>
@@ -254,5 +261,4 @@ class SplashScreen extends Component {
             
     }
 }
-
-export default SplashScreen
+export default IntroScreen

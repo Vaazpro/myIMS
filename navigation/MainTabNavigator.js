@@ -1,11 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
-/* import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen'; */
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import TaskScreen from '../screens/TasksScreen/TasksScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
@@ -16,9 +12,10 @@ import VacationScreen from '../screens/ProfileScreen/VacationScreen';
 import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
 import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
-import SplashScreen from '../screens/SplashScreen/SplashScreen';
+import IntroScreen from '../screens/SplashScreen/IntroScreen';
 
 const ProfileStack = createStackNavigator({
+  intro: IntroScreen,
   profile: ProfileScreen,
   unlock: UnlockScreen,
   teams: Teams,
@@ -27,19 +24,29 @@ const ProfileStack = createStackNavigator({
   attendances: AttendanceScreen
 });
 
-ProfileStack.navigationOptions = {
-  tabBarLabel: 'PERFIL',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
+
+ProfileStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = false
+  if(navigation.state.index > 0){
+    tabBarVisible = true
+  }
+  return {
+    swipeEnabled:false,
+    animationEnabled:false,
+    tabBarVisible,
+    tabBarLabel: 'PERFIL',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-information-circle${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    )
+  }
+}
 
 cenas = () => {
   console.log("Estou no cenas do MainTabNavigator.")
@@ -66,6 +73,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
+  
   tabBarLabel: 'CONFIGURAÇÕES',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
