@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
     View,
     StatusBar,
-    SafeAreaView
+    SafeAreaView,
+    Button
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
@@ -45,36 +46,27 @@ class SettingsScreen extends Component {
     }
 
     render() {
-        if(!this.state.clicked){
-            return (
-                <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
-                    <View style={{height: StatusBar.currentHeight}}></View>
-                    <View style={{flex:2}}>
-                        <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
-                    </View>
-                    <View style={{flex:10, margin: 10}}>
-                        <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
-                        <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
-                        <BtnTextIcon name='Password' icon='key' biblio='' />
-                        <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' onPressBtn={()=>{
-                           /*  const resetAction = StackActions.reset({
-                                index: 0,
-                                actions: [NavigationActions.navigate({ routeName: 'intro'})]
-                            });
-                            this.props.navigation.dispatch(resetAction); */
-                            this.logoutHandler()
-                        }}/>
-                    </View>
-                </SafeAreaView>
-            )
-        }else{
-            return(
-                /* this.props.navigation.navigate('intro',{
-                    dadada: 3
-                }) */
-                this.props.navigation.navigate('intro')
-            )
-        }
+        return (
+            <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
+                <View style={{height: StatusBar.currentHeight}}></View>
+                <View style={{flex:2}}>
+                    <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
+                </View>
+                <View style={{flex:10, margin: 10}}>
+                    <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
+                    <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
+                    <BtnTextIcon name='Password' icon='key' biblio='' />
+                    <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' onPressBtn={()=>{
+                        this.props.navigation.navigate('intro')
+                    }}/>
+                </View>
+
+                <Button title="LOGOUT" onPress={()=>{
+                    this.props.navigation.navigate('intro')
+                }}></Button>
+
+            </SafeAreaView>
+        )
     }
 }
 

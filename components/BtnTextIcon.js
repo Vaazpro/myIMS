@@ -14,14 +14,12 @@ class BtnTextIcon extends Component {
     }
 
     /*
-
     props:
 
     onPressBtn
     name
     icon
     biblio
-
     */
 
     render() {

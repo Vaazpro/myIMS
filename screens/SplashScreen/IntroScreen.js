@@ -22,7 +22,7 @@ class IntroScreen extends React.Component {
         super(props)
         this.state = {
             loggedIn: false,
-            topMyIMS: '0%'
+            topMyIMS: '0%',
         }
 
         this.animatedValue = new Animated.Value(0)
@@ -42,6 +42,7 @@ class IntroScreen extends React.Component {
     componentDidMount(){
         this.animate()
     }
+
     logIn = () =>{
         var _securityService = new SecurityService();
         _securityService.login()
@@ -162,9 +163,6 @@ class IntroScreen extends React.Component {
                 "isLocalAccount" : true
             } */
         
-       
-
-        console.log(this.state.dadada)
         const posX = this.animatedValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0%', '30%']
@@ -225,40 +223,36 @@ class IntroScreen extends React.Component {
             outputRange: [15, 40]
         })
 
-        if(this.state.loggedIn){
-            return this.props.navigation.navigate('profile')
-        }else{
-            return (
-                <KeyboardAvoidingView style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}} behavior="padding" enabled>
-                    <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
-                        <Animated.View style={{opacity: opacityLogo}}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, marginBottom: posX, marginTop: this.state.topMyIMS}}>my</Animated.Text>
-                                <Animated.Text style={{color: 'white', fontSize: textSizeValue, fontWeight: 'bold', marginBottom: posX, marginTop: this.state.topMyIMS}}>IMS</Animated.Text>
-                            </View>
-                        </Animated.View>
-                    </View>
-                    <View style={{flex:1, marginBottom: 40, backgroundColor: 'rgb(73, 144, 226)', justifyContent: 'flex-start', alignItems:'center'}}>
-                        
-                        <Animated.View style={{ borderRadius: 3, width:scaleValueXuser ,height: scaleValueYuser, opacity: opacityValueUser, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                        <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder='username' placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
-                        </Animated.View>
+        
+        return (
+            <KeyboardAvoidingView style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}} behavior="padding" enabled>
+                <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
+                    <Animated.View style={{opacity: opacityLogo}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Animated.Text style={{color: 'white', fontSize: textSizeValue, marginBottom: posX, marginTop: this.state.topMyIMS}}>my</Animated.Text>
+                            <Animated.Text style={{color: 'white', fontSize: textSizeValue, fontWeight: 'bold', marginBottom: posX, marginTop: this.state.topMyIMS}}>IMS</Animated.Text>
+                        </View>
+                    </Animated.View>
+                </View>
+                <View style={{flex:1, marginBottom: 40, backgroundColor: 'rgb(73, 144, 226)', justifyContent: 'flex-start', alignItems:'center'}}>
+                    
+                    <Animated.View style={{ borderRadius: 3, width:scaleValueXuser ,height: scaleValueYuser, opacity: opacityValueUser, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
+                    <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder='username' placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    </Animated.View>
 
-                        <Animated.View style={{ borderRadius: 3, width:scaleValueXpass, height: scaleValueYpass, opacity: opacityValuePass, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                        <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder='password' secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
-                        </Animated.View>
+                    <Animated.View style={{ borderRadius: 3, width:scaleValueXpass, height: scaleValueYpass, opacity: opacityValuePass, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
+                    <TextInput onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder='password' secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    </Animated.View>
 
-                        <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
-                        <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {/* this.logIn() */this.setState({loggedIn:true})}}>
-                            <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
-                        </TouchableOpacity>
-                        </Animated.View>
-                        
-                    </View>
-                </KeyboardAvoidingView>
-            )
-        }
-            
+                    <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
+                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {/* this.logIn() */this.props.navigation.navigate('profile')}}>
+                        <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
+                    </TouchableOpacity>
+                    </Animated.View>
+                    
+                </View>
+            </KeyboardAvoidingView>
+        )               
     }
 }
 export default IntroScreen

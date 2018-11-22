@@ -13,6 +13,7 @@ import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
 import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
 import IntroScreen from '../screens/SplashScreen/IntroScreen';
+import Temp from '../screens/SplashScreen/Temp';
 
 const ProfileStack = createStackNavigator({
   intro: IntroScreen,
@@ -26,13 +27,13 @@ const ProfileStack = createStackNavigator({
 
 
 ProfileStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = false
-  if(navigation.state.index > 0){
-    tabBarVisible = true
+  let tabBarVisible = true
+  if(navigation.state.index == 0){
+    tabBarVisible = false
   }
   return {
-    swipeEnabled:false,
-    animationEnabled:false,
+    /* swipeEnabled:false,
+    animationEnabled:false, */
     tabBarVisible,
     tabBarLabel: 'PERFIL',
     tabBarIcon: ({ focused }) => (
