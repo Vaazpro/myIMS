@@ -44,8 +44,14 @@ class IntroScreen extends React.Component {
     }
 
     logIn = () =>{
-        var _securityService = new SecurityService();
-        _securityService.login()
+        var self = this;
+        new SecurityService().login("Administrator", "Adm!123", function(response){
+            //log in com sucesso
+            self.props.navigation.navigate('profile')
+        }, function(error){
+            //erro ao fazer login
+            console.log(error)
+        })
     }
 
     animate = () => {
@@ -245,7 +251,7 @@ class IntroScreen extends React.Component {
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
-                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => {/* this.logIn() */this.props.navigation.navigate('profile')}}>
+                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => { this.logIn()}}>
                         <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
                     </TouchableOpacity>
                     </Animated.View>

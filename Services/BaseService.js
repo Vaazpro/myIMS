@@ -3,88 +3,102 @@ import {SecureStore} from 'expo';
 
 class BaseService {
 
-    apiURL = 'http://ims-demoipvc.sparkleit.pt/api/v1/'
-    tokenKey = 'access_token'
+    constructor() {
+        var _apiURL = 'http://ims-demoipvc.sparkleit.pt/api/v1/';
+        var _tokenKey = 'access_token'
+        var _profileKey = 'profile_key'
+        var _acceptHeader = "application/json"
+        var _contentTypeHeader = "application/json"
 
-    constructor(){
-        this.state = {
-            obj: {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                  }
-            }
-        }
-    }
+        //these functions are public but the variables are not
+        this.getApiUrl = function() { return _apiURL; }
+        this.getTokenKey = function() { return _tokenKey; }
+        this.getProfileKey = function() { return _profileKey; }
+        this.getAcceptHeader = function() { return _acceptHeader; }
+        this.getContentTypeHeader = function() { return _contentTypeHeader; }
+    } 
 
-    postAPI = (url, body, callback) =>{
-        this.state.obj.method = "POST"
-        this.state.obj.body = JSON.stringify(body)
 
-        this.retrieveToken().then((token) => {
+    postAPI = (url, body, callback, callbackError) =>{
+        var _headers = {"Accept":this.getAcceptHeader(), "Content-Type":this.getContentTypeHeader()}
+        var _obj = { headers:_headers, body:JSON.stringify(body), method: "POST" }
+        var _apiUrl = this.getApiUrl()
+
+        this.retrieveItem(this.getTokenKey()).then((token) => {
             if(token !== null){
-                this.state.obj.headers.Authorization = token.token_Type + " " + token.access_token
+                _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-
-            fetch(this.apiURL+url, this.state.obj)
-                .then(function(response){
-                    return response.json()
+            fetch(_apiUrl+url, _obj)
+                .then(function(response){ 
+                    if(response.ok) 
+                        return response.json()
+                    throw response
                 })
                 .then(function(json){
-                    callback({success:true, data:json})
+                    callback(json)
                 })
                 .catch(function(error) {
-                    console.log('There has been a problem with your fetch operation: ' + error.message)
-                    throw error
+                    callbackError(error)
                 });
         }).catch((error) => {
-            callback({success:false, data:error})
+            callbackError(error)
         }); 
     }
-    getAPI = (url, callback) =>{
+    getAPI = (url, callback, callbackError) =>{
+        var _headers = {"Accept":this.getAcceptHeader()}
+        var _obj = { headers:_headers, method: "GET" }
+        var _apiUrl = this.getApiUrl()
 
-        this.state.obj.method = "GET"
-        this.state.obj.body = undefined
-
-        this.retrieveToken().then((token) => {
+        this.retrieveItem(this.getTokenKey()).then((token) => {
             if(token !== null){
-                this.state.obj.headers.Authorization = token.token_Type + " " + token.access_token
+                _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-
-            fetch(this.apiURL+url, this.state.obj)
+            
+            fetch(_apiUrl+url, _obj)
                 .then(function(response){
-                    return response.json()
+                    if(response.ok) 
+                        return response.json()
+                    throw response
                 })
                 .then(function(json){
-                    callback({success:true, data:json})
+                    callback(json)
                 })
                 .catch(function(error) {
-                    console.log('There has been a problem with your fetch operation: ' + error.message)
-                    throw error
+                    callbackError(error)
                 });
         }).catch((error) => {
-            callback({success:false, data:error})
+            callbackError(error)
         }); 
     }
 
 
-    storeToken = async (token) => {
+    storeItem = async (key, token) => {
         try {
             //we want to wait for the Promise returned by AsyncStorage.setItem()
             //to be resolved to the actual value before returning the value
             //var jsonOfItem = await AsyncStorage.setItem(this.tokenKey, JSON.stringify(token));
-            await SecureStore.setItemAsync(this.tokenKey, JSON.stringify(token));
+            await SecureStore.setItemAsync(key, JSON.stringify(token));
         } catch (error) {
           console.log(error.message);
         }
       }
 
-      async retrieveToken() {
+    retrieveItem = async (key) => {
         try {
           //const retrievedItem = await AsyncStorage.getItem(this.tokenKey);
-          const retrievedItem = await SecureStore.getItemAsync(this.tokenKey);
+          const retrievedItem = await SecureStore.getItemAsync(key);
           const item = JSON.parse(retrievedItem);
           return item;
+        } catch (error) {
+          console.log(error.message);
+        }
+        return
+      }
+
+      deleteItem = async (key) => {
+        try {
+          //const retrievedItem = await AsyncStorage.getItem(this.tokenKey);
+          await SecureStore.deleteItemAsync(key);
         } catch (error) {
           console.log(error.message);
         }

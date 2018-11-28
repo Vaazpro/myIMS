@@ -1,27 +1,27 @@
 import BaseService from '../../Services/BaseService'
 
-class SecurityService extends BaseService{
+class SecurityService extends BaseService {
 
         constructor(){
             super();
         }
-
-        login = () =>{
-            //this.obj.body = body
-        let self = this
-        this.postAPI("Account/token", {"email" : "Administrator", "password" : "Adm!123", "isLocalAccount" : true}, function(response){
-            if(response.success)
-            {
-                self.storeToken(response.data)
+        
+        login = (email, password, callback, callbackError) =>{
+            let self = this
+            this.postAPI("Account/token", {"email" : email, "password" : password, "isLocalAccount" : true}, function(response){
+                //store token in localstorage
+                self.storeItem(self.getTokenKey(), response)
                 self.getAPI("account/profile", function(profile){
-                    console.log(profile)
-                })
-            }
-            else
-            {
-                throw response.data
-            }
-        }) 
+                    //store profile in localstorage
+                    self.storeItem(self.getProfileKey(), profile)
+                    callback(profile)
+                }, callbackError)
+            }, callbackError)
+        }
+
+        logout = (key) => {
+            this.deleteItem(this.getTokenKey())
+            this.deleteItem(this.getProfileKey())
         }
     }
 export default SecurityService
