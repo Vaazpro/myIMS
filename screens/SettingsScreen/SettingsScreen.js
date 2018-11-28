@@ -61,10 +61,6 @@ class SettingsScreen extends Component {
                     }}/>
                 </View>
 
-                <Button title="LOGOUT" onPress={()=>{
-                    this.props.navigation.navigate('intro')
-                }}></Button>
-
             </SafeAreaView>
         )
     }

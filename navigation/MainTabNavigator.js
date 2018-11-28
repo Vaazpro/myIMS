@@ -13,7 +13,6 @@ import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
 import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
 import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
 import IntroScreen from '../screens/SplashScreen/IntroScreen';
-import Temp from '../screens/SplashScreen/Temp';
 
 const ProfileStack = createStackNavigator({
   intro: IntroScreen,

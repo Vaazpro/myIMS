@@ -8,22 +8,20 @@ class SecurityService extends BaseService{
 
         login = () =>{
             //this.obj.body = body
-           this.postAPI("Account/token", {"email" : "Administrator", "password" : "Adm!123", "isLocalAccount" : true}) 
-           .then((data) => {
-                /* console.log(data)
-                console.warn(data) */
-                this.storeToken(data);
-                this.getAPI("Account/profile")
-                .then(function(profile){
+        let self = this
+        this.postAPI("Account/token", {"email" : "Administrator", "password" : "Adm!123", "isLocalAccount" : true}, function(response){
+            if(response.success)
+            {
+                self.storeToken(response.data)
+                self.getAPI("account/profile", function(profile){
                     console.log(profile)
                 })
-                .catch(function(error){
-
-                })
-            }).catch((error)=>{
-                console.log("Api call error");
-                alert(error.message);
-            })
+            }
+            else
+            {
+                throw response.data
+            }
+        }) 
         }
     }
 export default SecurityService

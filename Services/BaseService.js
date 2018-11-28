@@ -1,10 +1,11 @@
-import { AsyncStorage } from "react-native"
+//import { AsyncStorage } from "react-native"
+import {SecureStore} from 'expo';
 
 class BaseService {
 
     apiURL = 'http://ims-demoipvc.sparkleit.pt/api/v1/'
     tokenKey = 'access_token'
-    
+
     constructor(){
         this.state = {
             obj: {
@@ -12,73 +13,82 @@ class BaseService {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                   }
-            }  
+            }
         }
     }
 
-    postAPI = async (url, body) =>{
+    postAPI = (url, body, callback) =>{
+        this.state.obj.method = "POST"
         this.state.obj.body = JSON.stringify(body)
-        this.state.obj.method = 'POST'
-        
-        return await this.retrieveToken().then(function(token){
+
+        this.retrieveToken().then((token) => {
             if(token !== null){
                 this.state.obj.headers.Authorization = token.token_Type + " " + token.access_token
             }
-           return fetch(this.apiURL+url, this.state.obj)
-           .then(function(response){
-                return response.json()
-            })
-            .then(function(json){
-                return json
-            })
-            .catch(function(error) {
-                console.log('There has been a problem with your fetch operation: ' + error.message)
-                // ADD THIS THROW error
+
+            fetch(this.apiURL+url, this.state.obj)
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(json){
+                    callback({success:true, data:json})
+                })
+                .catch(function(error) {
+                    console.log('There has been a problem with your fetch operation: ' + error.message)
                     throw error
                 });
-        })
+        }).catch((error) => {
+            callback({success:false, data:error})
+        }); 
+    }
+    getAPI = (url, callback) =>{
 
+        this.state.obj.method = "GET"
+        this.state.obj.body = undefined
+
+        this.retrieveToken().then((token) => {
+            if(token !== null){
+                this.state.obj.headers.Authorization = token.token_Type + " " + token.access_token
+            }
+
+            fetch(this.apiURL+url, this.state.obj)
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(json){
+                    callback({success:true, data:json})
+                })
+                .catch(function(error) {
+                    console.log('There has been a problem with your fetch operation: ' + error.message)
+                    throw error
+                });
+        }).catch((error) => {
+            callback({success:false, data:error})
+        }); 
     }
 
-    getAPI = (url, body) =>{
-        this.state.obj.body = JSON.stringify(body)
-        this.state.obj.method = 'GET'
-        var token = this.retrieveToken()
-
-        if(token !== null){
-            this.obj.headers.Authorization = token.token_Type + " " + token.access_token
-        }
-        console.log(this.state.obj)
-       return (fetch(this.apiURL+url, this.state.obj))
-        .then(function(response){
-            console.log(response)
-            return response.json()
-        })
-        .then(function(json){
-            return json
-        })
-        .catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message)
-            // ADD THIS THROW error
-                throw error
-        });
-    }
 
     storeToken = async (token) => {
         try {
-            await AsyncStorage.setItem(this.tokenKey, token);
+            //we want to wait for the Promise returned by AsyncStorage.setItem()
+            //to be resolved to the actual value before returning the value
+            //var jsonOfItem = await AsyncStorage.setItem(this.tokenKey, JSON.stringify(token));
+            await SecureStore.setItemAsync(this.tokenKey, JSON.stringify(token));
         } catch (error) {
-            console.log(error.message)
-          // Error saving data
+          console.log(error.message);
         }
       }
 
-    retrieveToken = async () => {
+      async retrieveToken() {
         try {
-            return await AsyncStorage.getItem(this.tokenKey);
+          //const retrievedItem = await AsyncStorage.getItem(this.tokenKey);
+          const retrievedItem = await SecureStore.getItemAsync(this.tokenKey);
+          const item = JSON.parse(retrievedItem);
+          return item;
         } catch (error) {
-           return null
+          console.log(error.message);
         }
+        return
       }
 
 }
