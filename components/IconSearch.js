@@ -34,7 +34,6 @@ const Tag = (props) => {
         if(key == props.biblio){
             found = true
             keyFound = key
-            console.log(keyFound)
             return
         }
     })

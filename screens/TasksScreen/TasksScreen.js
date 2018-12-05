@@ -28,7 +28,7 @@ class TasksScreen extends Component {
         new TaskService().getMyTasks(function(response){
             //log in com sucesso
             //self.props.navigation.navigate('profile')
-            console.log(response)
+            //console.log(response)
         }, function(error){
             //erro ao fazer login
             console.log(error)

@@ -13,6 +13,9 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
 import CircularPhoto from '../../components/CircularPhoto';
+import ProfileService from './ProfileService'
+import SecurityService from '../SplashScreen/SecurityService';
+
 
 class SlideScreen extends Component {
     static navigationOptions = {
@@ -27,13 +30,26 @@ class SlideScreen extends Component {
             h: h1,
             displaystatus: 'none',
             expanded: 'none'
+            
         }
+        let self = this
         this.rotation = new Animated.Value(0)
+        new ProfileService().getProfile(function(data){
+           self.setState({
+               profile: data
+           }) 
+        })   
     }
 
+    
 
     render() {
-
+        
+        //console.log(this.state.profile)
+        setTimeout(() => {
+            console.log(this.state.profile);
+          }, 5000);
+        //setTimeout(() => {console.log("ryegfrt")}, 5000)
          /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
          h1 = (Dimensions.get('window').height / 4) 
          h2 = (Dimensions.get('window').height / 1.7)
@@ -65,7 +81,7 @@ class SlideScreen extends Component {
                             </View>                            
                             <View style={{flex: 2,flexDirection: 'row'}}>
                                 <View style={{flex: 8,justifyContent: 'center'}}>
-                                    <Text style={{fontSize: 24}}>Ana Rita Viana</Text>
+                                    <Text style={{fontSize: 24}}>{this.state.profile.name}</Text>
                                     <Text style={{fontSize: 18}}>SparkleIT</Text>
                                     <Text style={{fontSize: 14}}>25 anos</Text>
                                 </View>    
@@ -144,6 +160,8 @@ class SlideScreen extends Component {
                 </View>
             </View>
         )
+        
+        
     }
 }
 
