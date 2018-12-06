@@ -21,7 +21,8 @@ class UnlockScreen extends Component {
     constructor(props) {
         super(props)
         this.state={
-            icon: 'lock'
+            icon: 'lock',
+            clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
         }
     }
    
@@ -36,7 +37,18 @@ class UnlockScreen extends Component {
         }
     }
 
+    
+
     render() {
+        setTimeout(() => {
+            this.setState({
+                clock: (new Date().getHours()<10?'0'+new Date().getHours():new Date().getHours()) + ":" + (new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes()) + ":" + (new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds())
+            })
+        }, 500);
+        const {navigation} = this.props
+        const profile = navigation.getParam('profile')
+        const account = navigation.getParam('account')
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ profile.attachmentId +".png?format=png&width=100%"
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
                 <SafeAreaView style={styles.container}>
@@ -55,17 +67,17 @@ class UnlockScreen extends Component {
                         <HeaderView txtTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
                     </View>
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
-                        <Image source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/01/2_img.png%27%7D%7D'}} 
+                        <Image source={{uri : logoImg}} 
                                                         style={{ width: 50,
                                                                 height: 50, 
                                                                 borderRadius: 50/2}} />
-                        <Text style={{fontSize: 24}}>Ana Rita Viana</Text>
-                        <Text style={{fontSize: 18}}>SparkleIT</Text>
-                        <Text style={{fontSize: 14}}>25 anos</Text>                                        
+                        <Text style={{fontSize: 24}}>{profile.name}</Text>
+                        <Text style={{fontSize: 18}}>Developer</Text>
+                        <Text style={{fontSize: 14}}>{account.companies[0].name}</Text>                                        
                     </View>
                     <View style={{flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                        <Text style={{fontSize: 24}}>17:52</Text>
-                        <Text style={{fontSize: 18}}>24/10/18</Text>                                                
+                        <Text style={{fontSize: 24}}>{this.state.clock}</Text>
+                        <Text style={{fontSize: 18}}>{new Date().toLocaleDateString()}</Text>                                                
                     </View>
                     <View style={{flex: 5,justifyContent: 'center', alignItems:'center'}}>
                     <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {this.setState({icon: 'unlock-alt'}); this.playMusic() }}>

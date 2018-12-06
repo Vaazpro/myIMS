@@ -8,6 +8,7 @@ import {
 import InitialOptions from './InitialOptions'
 import SlideScreen from './SlideScreen'
 import styles from '../../constants/Styles'
+import ProfileService from './ProfileService'
 
 const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -21,13 +22,26 @@ class ProfileScreen extends Component{
     constructor(props) {
         super(props)
         
-        this.state={}
-        
-        
+        this.state={
+            profile:{},
+            account: {companies:[{name:''}]}
+        }
+
+        let self = this
+        new ProfileService().getProfile(function(profile){
+            self.setState({
+                profile: profile
+            }) 
+         })
+         new ProfileService().getAccount(function(account){
+             self.setState({
+                 account: account
+             })
+         })   
     }
 
     unlockPressedHandler = () => {
-        this.props.navigation.navigate('unlock');
+        this.props.navigation.navigate('unlock', {profile: this.state.profile, account: this.state.account });
       };
     TeamsPressedHandler = () => {
         this.props.navigation.navigate('teams');
@@ -42,8 +56,6 @@ class ProfileScreen extends Component{
     
 
     render() {
-       
-        
         
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -62,7 +74,7 @@ class ProfileScreen extends Component{
                     <View style={{flex: 1}}>
                     
                     </View>
-                    <SlideScreen onP={this.unlockPressedHandler}/>
+                    <SlideScreen onP={this.unlockPressedHandler} acc={this.state.account} prof={this.state.profile}/>
                     
                 </SafeAreaView>
         )

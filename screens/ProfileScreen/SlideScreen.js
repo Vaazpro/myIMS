@@ -13,7 +13,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
 import CircularPhoto from '../../components/CircularPhoto';
-import ProfileService from './ProfileService'
+/* import ProfileService from './ProfileService' */
 
 
 class SlideScreen extends Component {
@@ -29,12 +29,12 @@ class SlideScreen extends Component {
             h: h1,
             displaystatus: 'none',
             expanded: 'none',
-            profile: {},
-            account: {companies: [{name: ''}]}
-            
+            profile:{},
+            account: {companies:[{name:''}]}
         }
-        let self = this
         this.rotation = new Animated.Value(0)
+
+        /* let self = this
         new ProfileService().getProfile(function(profile){
            self.setState({
                profile: profile
@@ -44,14 +44,13 @@ class SlideScreen extends Component {
             self.setState({
                 account: account
             })
-        })   
+        })    */
     }
 
-    
-
     render() {
-        
-        console.log(this.state.profile)
+        const profile = this.props.prof;
+        const account = this.props.acc;
+        console.log(profile)
         /* setTimeout(() => {
             console.log(this.state.account);
           }, 5000);
@@ -72,18 +71,18 @@ class SlideScreen extends Component {
         //Calcular o número de dias desde a sua admissão
 
         var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-        var initialDate = new Date(this.state.profile.admissionDate);
+        var initialDate = new Date(profile.admissionDate);
         var endDate = new Date();
 
         var diffDays = Math.round(Math.abs((endDate.getTime() - initialDate.getTime())/(oneDay)));
 
         const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
-        const birthDate = new Date(this.state.profile.birthDate)
+        const birthDate = new Date(profile.birthDate)
 
         const birthDay = birthDate.getDay() + " de " + months[birthDate.getMonth()]
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
-        const company = this.state.account.companies[0].name
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ profile.attachmentId +".png?format=png&width=100%"
+        const company = account.companies[0].name
         
         return (
             <View style={{ flex: 1, position: 'absolute'}}>
@@ -105,8 +104,8 @@ class SlideScreen extends Component {
                             </View>                            
                             <View style={{flex: 2,flexDirection: 'row'}}>
                                 <View style={{flex: 8,justifyContent: 'center'}}>
-                                    <Text style={{fontSize: 24}}>{this.state.profile.name}</Text>
-                                    <Text style={{fontSize: 18}}>SparkleIT</Text>
+                                    <Text style={{fontSize: 24}}>{profile.name}</Text>
+                                    <Text style={{fontSize: 18}}>Developer</Text>
                                     <Text style={{fontSize: 14}}>{diffDays}º dia na {company}</Text>
                                 </View>    
                                 <TouchableOpacity style={{flex: 1}} onPress={this.props.onP}>
@@ -119,10 +118,10 @@ class SlideScreen extends Component {
                     </View>
                     <View style={{paddingHorizontal:20 ,flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
                         <View style={{height: 10, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}></View>
-                        <TextIcon name={this.state.profile.email} icon='mail' biblio='Entypo'></TextIcon>
-                        <TextIcon name={this.state.profile.email} icon='skype' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name={this.state.profile.phone} icon='phone' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name={(this.state.profile.sosContact ? this.state.profile.sosContact : this.state.profile.phone)} icon='medical-bag' biblio=''></TextIcon>
+                        <TextIcon name={profile.email} icon='mail' biblio='Entypo'></TextIcon>
+                        <TextIcon name={profile.email} icon='skype' biblio='FontAwesome'></TextIcon>
+                        <TextIcon name={profile.phone} icon='phone' biblio='FontAwesome'></TextIcon>
+                        <TextIcon name={(profile.sosContact ? profile.sosContact : profile.phone)} icon='medical-bag' biblio=''></TextIcon>
                         <TextIcon name={birthDay} icon='birthday-cake' biblio='FontAwesome'></TextIcon>
                         <View style={{flex: 1}}></View>
                     </View>
