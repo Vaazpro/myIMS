@@ -20,8 +20,14 @@ class ProfileService extends BaseService {
                     console.log(error)
                 })
             })
+        }
+
+        getAccount = (callback) => {
             
-             
+            this.retrieveItem(this.getProfileKey())
+            .then(function(account){
+                callback(account)
+            })
         }
 
     }

@@ -14,7 +14,6 @@ import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
 import CircularPhoto from '../../components/CircularPhoto';
 import ProfileService from './ProfileService'
-import SecurityService from '../SplashScreen/SecurityService';
 
 
 class SlideScreen extends Component {
@@ -29,15 +28,22 @@ class SlideScreen extends Component {
             clicked: false,
             h: h1,
             displaystatus: 'none',
-            expanded: 'none'
+            expanded: 'none',
+            profile: {},
+            account: {companies: [{name: ''}]}
             
         }
         let self = this
         this.rotation = new Animated.Value(0)
-        new ProfileService().getProfile(function(data){
+        new ProfileService().getProfile(function(profile){
            self.setState({
-               profile: data
+               profile: profile
            }) 
+        })
+        new ProfileService().getAccount(function(account){
+            self.setState({
+                account: account
+            })
         })   
     }
 
@@ -45,10 +51,11 @@ class SlideScreen extends Component {
 
     render() {
         
-        //console.log(this.state.profile)
-        setTimeout(() => {
-            console.log(this.state.profile);
+        console.log(this.state.profile)
+        /* setTimeout(() => {
+            console.log(this.state.account);
           }, 5000);
+         */
         //setTimeout(() => {console.log("ryegfrt")}, 5000)
          /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
          h1 = (Dimensions.get('window').height / 4) 
@@ -61,6 +68,23 @@ class SlideScreen extends Component {
              inputRange: [0, 1],
              outputRange: ['0deg','180deg'],
            })
+
+        //Calcular o número de dias desde a sua admissão
+
+        var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+        var initialDate = new Date(this.state.profile.admissionDate);
+        var endDate = new Date();
+
+        var diffDays = Math.round(Math.abs((endDate.getTime() - initialDate.getTime())/(oneDay)));
+
+        const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+        const birthDate = new Date(this.state.profile.birthDate)
+
+        const birthDay = birthDate.getDay() + " de " + months[birthDate.getMonth()]
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        const company = this.state.account.companies[0].name
+        
         return (
             <View style={{ flex: 1, position: 'absolute'}}>
                 <View style={{justifyContent:'center',
@@ -75,7 +99,7 @@ class SlideScreen extends Component {
                         <View style={{flex: 1, margin: 20, flexDirection: 'row'}}>
                             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
                                 <View style={{height: 104, width: 104, borderRadius: 52, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
-                                <CircularPhoto image='https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fpeopledotcom.files.wordpress.com%2F2016%2F09%2Fhonest-beuaty_jessica-alba_headshot.jpg%3Fw%3D2000&w=700&c=sc&poi=face&q=85' size={100}/>
+                                <CircularPhoto image={logoImg} size={100}/>
                                 </View>
                                 
                             </View>                            
@@ -83,7 +107,7 @@ class SlideScreen extends Component {
                                 <View style={{flex: 8,justifyContent: 'center'}}>
                                     <Text style={{fontSize: 24}}>{this.state.profile.name}</Text>
                                     <Text style={{fontSize: 18}}>SparkleIT</Text>
-                                    <Text style={{fontSize: 14}}>25 anos</Text>
+                                    <Text style={{fontSize: 14}}>{diffDays}º dia na {company}</Text>
                                 </View>    
                                 <TouchableOpacity style={{flex: 1}} onPress={this.props.onP}>
                                     <View style={{flex: 1}}>
@@ -95,11 +119,11 @@ class SlideScreen extends Component {
                     </View>
                     <View style={{paddingHorizontal:20 ,flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
                         <View style={{height: 10, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}></View>
-                        <TextIcon name='rafamorais@gmail.com' icon='mail' biblio='Entypo'></TextIcon>
-                        <TextIcon name='rafamorais@gmail.com' icon='skype' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name='999 999 999' icon='phone' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name='432 432 423' icon='phone' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name='7 de Dezembro' icon='birthday-cake' biblio='FontAwesome'></TextIcon>
+                        <TextIcon name={this.state.profile.email} icon='mail' biblio='Entypo'></TextIcon>
+                        <TextIcon name={this.state.profile.email} icon='skype' biblio='FontAwesome'></TextIcon>
+                        <TextIcon name={this.state.profile.phone} icon='phone' biblio='FontAwesome'></TextIcon>
+                        <TextIcon name={(this.state.profile.sosContact ? this.state.profile.sosContact : this.state.profile.phone)} icon='medical-bag' biblio=''></TextIcon>
+                        <TextIcon name={birthDay} icon='birthday-cake' biblio='FontAwesome'></TextIcon>
                         <View style={{flex: 1}}></View>
                     </View>
                 </View>
@@ -160,8 +184,6 @@ class SlideScreen extends Component {
                 </View>
             </View>
         )
-        
-        
     }
 }
 
