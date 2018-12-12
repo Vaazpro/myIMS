@@ -50,7 +50,7 @@ class SlideScreen extends Component {
     render() {
         const profile = this.props.prof;
         const account = this.props.acc;
-        console.log(profile)
+        //console.log(profile)
         /* setTimeout(() => {
             console.log(this.state.account);
           }, 5000);

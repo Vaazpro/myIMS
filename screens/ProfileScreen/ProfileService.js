@@ -1,5 +1,6 @@
 import BaseService from '../../Services/BaseService'
 
+
 class ProfileService extends BaseService {
 
         constructor(){
@@ -28,6 +29,18 @@ class ProfileService extends BaseService {
             .then(function(account){
                 callback(account)
             })
+        }
+
+        getTeamsByEmployeeId = (profileId,callback) => {
+            //console.log(profileId)
+            this.getAPI("Team/getteamsbyotheremployeeid/" + profileId,
+            function(data){
+                callback(data)
+            },
+            function(error){
+                console.log(error)
+            });
+
         }
 
     }

@@ -44,7 +44,7 @@ class ProfileScreen extends Component{
         this.props.navigation.navigate('unlock', {profile: this.state.profile, account: this.state.account });
       };
     TeamsPressedHandler = () => {
-        this.props.navigation.navigate('teams');
+        this.props.navigation.navigate('teams', {profile: this.state.profile, account: this.state.account });
     };
     VacationsPressedHandler = () => {
         this.props.navigation.navigate('vacations');
