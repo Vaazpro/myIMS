@@ -5,7 +5,7 @@ import {
 import styles from '../../constants/Styles'
 import ButtonInitialOptions from './ButtonInitialOptions'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-
+import ProfileService from './ProfileService'
 
 
 class InitialOptions extends Component {
@@ -14,17 +14,30 @@ class InitialOptions extends Component {
     };
 
 
-    constructor(props) {
+    constructor (props){
         super(props)
-        this.state={}
-
+        this.state={
+            teams : [],
+            gotInfo : false
+        }
         
     }
 
+        
+
+
     render() {
-
-        //const Card = Platform.OS === 'ios' ? CardIOS : CardAndroid
-
+        
+        if(!this.state.gotInfo){
+            let self = this
+            new ProfileService().getTeamsByEmployeeId(this.props.prof.id, function(teams){
+                self.setState({
+                    teams: teams,
+                    gotInfo : true
+                }) 
+            })
+        }
+        
         return (
             <View style={{flex:1, alignItems:'center', marginTop: getStatusBarHeight()}}>
                 <View style={ styles.row }>
@@ -34,7 +47,7 @@ class InitialOptions extends Component {
                     <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card> */}
                 </View>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions nextPage={this.props.teamsP} name='Equipas' name2={this.props.teamsNum +' Equipas'} biblio='MaterialIcons' icon='people'/>
+                    <ButtonInitialOptions nextPage={this.props.teamsP} name='Equipas' name2={this.state.teams.length + ' Equipas'} biblio='MaterialIcons' icon='people'/>
                     <ButtonInitialOptions name='Recibos' name2='29-10-2018' biblio='' icon='euro-symbol'/>
                     {/* <Card name='Reuniões' name2='Sem Reuniões' link={require('../../assets/images/business.png')}></Card> */}
                     {/* <Card name='Recibos' name2='29-10-2018' link={require('../../assets/images/recibos.jpg')}></Card> */}
