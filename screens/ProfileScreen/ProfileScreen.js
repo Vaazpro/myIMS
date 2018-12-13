@@ -49,11 +49,11 @@ class ProfileScreen extends Component{
         this.props.navigation.navigate('teams', {profile: this.state.profile, account: this.state.account });
     };
     VacationsPressedHandler = () => {
-        this.props.navigation.navigate('vacations');
+        this.props.navigation.navigate('vacations', {profile: this.state.profile, account: this.state.account });
     }
 
     AttendancesPressedHandler = () => {
-        this.props.navigation.navigate('attendances');
+        this.props.navigation.navigate('attendances', {profile: this.state.profile, account: this.state.account });
     }
 
     render() {

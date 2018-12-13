@@ -16,6 +16,7 @@ import IconSearch from '../../components/IconSearch'
 import { Calendar } from 'react-native-calendars'
 import Styles from '../../constants/Styles'
 import AttendanceView from '../../components/AttendanceView'
+import ProfileService from './ProfileService'
 
 
 class AttendanceScreen extends Component {
@@ -31,10 +32,26 @@ class AttendanceScreen extends Component {
             disp: 'none',
             selectedStartDate: null,
             selectedEndDate: null,
-            clicked: false
+            clicked: false,
+            profile: this.props.navigation.getParam('profile'),
+            attendance: [],
+            absence: []
         }
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
+        
+        let self = this
+        /* new ProfileService().getAttendanceByEmployeeId(this.state.profile.id, function(attendance){
+            self.setState({
+                attendance: attendance
+            })
+        }) */
+
+        new ProfileService().getAbsenceByEmployeeId(this.state.profile.id, function(absence){
+            self.setState({
+                absence: absence
+            })
+        })
     }
 
     colapse = () => {
@@ -80,6 +97,12 @@ class AttendanceScreen extends Component {
             inputRange: [0, 1],
             outputRange: ['0deg','180deg'],
         });
+
+        console.log("==============================")
+        console.log(this.state.profile)
+        console.log("==============================")
+        console.log(this.state.absence)
+
 
         const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
 

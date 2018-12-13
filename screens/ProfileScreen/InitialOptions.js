@@ -27,7 +27,7 @@ class InitialOptions extends Component {
 
 
     render() {
-        
+        console.log(this.props.prof)
         if(!this.state.gotInfo){
             let self = this
             new ProfileService().getTeamsByEmployeeId(this.props.prof.id, function(teams){

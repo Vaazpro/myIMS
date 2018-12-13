@@ -11,12 +11,13 @@ import {
     LayoutAnimation
 } from 'react-native'
 import { Dimensions } from 'react-native'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import CircularPhoto from '../../components/CircularPhoto';
-import IconSearch from '../../components/IconSearch';
-import { Calendar} from 'react-native-calendars';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import CircularPhoto from '../../components/CircularPhoto'
+import IconSearch from '../../components/IconSearch'
+import { Calendar} from 'react-native-calendars'
 import Styles from '../../constants/Styles'
-import VacationsView from '../../components/VacationsView';
+import VacationsView from '../../components/VacationsView'
+import ProfileService from './ProfileService'
 
 
 
@@ -28,15 +29,32 @@ class VacationScreen extends Component {
 
     constructor(props) {
         super(props)
+
         this.state={
             hg: 0,
             disp: 'none',
             selectedStartDate: null,
             selectedEndDate: null,
-            clicked: false
+            clicked: false,
+            teams:[] ,
+            profile: this.props.navigation.getParam('profile'),
+            vacations: {}
         }
         this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
+
+        let self = this;
+        /* new ProfileService().getVacationsPlanByEmployeeId(this.state.profile.id, function(vacations){
+            self.setState({
+                vacations: vacations
+            })
+        }) */
+
+        new ProfileService().getVacations(function(vacations){
+            self.setState({
+                vacations: vacations
+            })
+        })
     }
 
     onDateChange(date, type) {
@@ -71,7 +89,7 @@ class VacationScreen extends Component {
             if(Dimensions.get('window').height > 700){ //Rafa
                 this.setState({
                     clicked: true,
-                    hg: hp('50%'),
+                    hg: hp('51%'),
                     disp: 'flex'
                 })
             }else{
@@ -97,6 +115,9 @@ class VacationScreen extends Component {
             inputRange: [0, 1],
             outputRange: ['0deg','180deg'],
         });
+
+        console.log("==============================")
+        console.log(this.state.vacations)
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */

@@ -7,7 +7,7 @@ class TaskService extends BaseService {
         }
         
         getMyTasks = (callback, callbackError) =>{
-            this.getAPI("mytask/find", function(tasks){
+            this.getAPI('MyTask/find', function(tasks){
                 callback(tasks)
             }, callbackError)
         }

@@ -7,10 +7,12 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native'
-import IconSearch from '../../components/IconSearch';
-import HeaderView from '../../components/HeaderView';
-import TaskView from '../../components/TaskView';
+import IconSearch from '../../components/IconSearch'
+import HeaderView from '../../components/HeaderView'
+import TaskView from '../../components/TaskView'
 import TaskService from './TaskService'
+import ProfileService from '../ProfileScreen/ProfileService'
+
 
 class TasksScreen extends Component {
 
@@ -20,17 +22,40 @@ class TasksScreen extends Component {
 
     constructor(props) {
         super(props)
-        this.state={}
+        this.state={
+            profile:{},
+            account: {
+                companies:[
+                    {
+                        name:''
+                    }
+                ]
+            }
+        }
         this.getMyTasks()
+
+        let self = this
+        new ProfileService().getProfile(function(profile){
+            self.setState({
+                profile: profile
+            })
+         })
+         new ProfileService().getAccount(function(account){
+             self.setState({
+                 account: account
+             })
+         })
     }
 
     getMyTasks = () => {
         new TaskService().getMyTasks(function(response){
             //log in com sucesso
             //self.props.navigation.navigate('profile')
-            //console.log(response)
+            console.log("=======SUCCESS========")
+            console.log(response)
         }, function(error){
             //erro ao fazer login
+            console.log("=======ERROR========")
             console.log(error)
         })
     }

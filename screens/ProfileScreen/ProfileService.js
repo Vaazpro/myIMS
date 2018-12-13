@@ -34,14 +34,58 @@ class ProfileService extends BaseService {
         getTeamsByEmployeeId = (profileId,callback) => {
             //console.log(profileId)
             this.getAPI("Team/getteamsbyotheremployeeid/" + profileId,
-            function(data){
-                callback(data)
-            },
-            function(error){
-                console.log(error)
-            });
-
+                function(data){
+                    callback(data)
+                },
+                function(error){
+                    console.log(error)
+                }
+            )
         }
 
+        //Caso precisemos de saber o Plano de férias
+       /*  getVacationsPlanByEmployeeId = (profileId, callback) => {
+            this.getAPI("VacationsPlan/byemployee/" + profileId,
+                function(data){
+                    callback(data)
+                },
+                function(error){
+                    console.log(error)
+                }
+            )
+        }
+ */
+        getVacations = (callback) => {
+            this.getAPI("Vacation/findbycriteria?EmployeeId=f9ec4139-89c7-4656-afcc-c0fcabf90cb9",
+                function(data){
+                    callback(data)
+                },
+                function(error){
+                    console.log(error)
+                }
+            )
+        }
+
+        getAttendanceByEmployeeId = (employeeId, callback) => {
+            this.getAPI("Attendance/findbycriteria?EmployeeId=" + employeeId,
+                function(data){
+                    callback(data)
+                },
+                function(error){
+                    console.log(error)
+                }
+            )
+        }
+
+        getAbsenceByEmployeeId = (employeeId, callback) => {
+            this.getAPI("Absence/findbycriteria?EmployeeId=" + employeeId,
+                function(data){
+                    callback(data)
+                },
+                function(error){
+                    console.log(error)
+                }
+            )
+        }
     }
 export default ProfileService
