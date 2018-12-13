@@ -24,7 +24,8 @@ class ProfileScreen extends Component{
         
         this.state={
             profile:{},
-            account: {companies:[{name:''}]}
+            account: {companies:[{name:''}]},
+            teams: []
         }
 
         let self = this
@@ -38,6 +39,10 @@ class ProfileScreen extends Component{
                  account: account
              })
          })   
+         
+         
+        
+
     }
 
     unlockPressedHandler = () => {
@@ -56,7 +61,14 @@ class ProfileScreen extends Component{
     
 
     render() {
-        
+        this.self = this
+        new ProfileService().getTeamsByEmployeeId(this.state.profile.id,function(teams){
+            ola.setState({
+                teams: teams
+            }) 
+         })
+         console.log("==========================")
+         console.log(this.state.teams)
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
                 <SafeAreaView style={styles.container}>
@@ -68,7 +80,7 @@ class ProfileScreen extends Component{
                     </View>
 
                     <View style={{flex: 2, elevation:0}}>
-                        <InitialOptions teamsP= {this.TeamsPressedHandler} vacationsP={this.VacationsPressedHandler} attendancesP={this.AttendancesPressedHandler}/>
+                        <InitialOptions teamsNum={this.state.teams.length} teamsP= {this.TeamsPressedHandler} vacationsP={this.VacationsPressedHandler} attendancesP={this.AttendancesPressedHandler}/>
                     </View>
 
                     <View style={{flex: 1}}>

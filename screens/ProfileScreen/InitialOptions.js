@@ -17,6 +17,8 @@ class InitialOptions extends Component {
     constructor(props) {
         super(props)
         this.state={}
+
+        
     }
 
     render() {
@@ -32,7 +34,7 @@ class InitialOptions extends Component {
                     <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card> */}
                 </View>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions nextPage={this.props.teamsP} name='Equipas' name2='Sem Equipas' biblio='MaterialIcons' icon='people'/>
+                    <ButtonInitialOptions nextPage={this.props.teamsP} name='Equipas' name2={this.props.teamsNum +' Equipas'} biblio='MaterialIcons' icon='people'/>
                     <ButtonInitialOptions name='Recibos' name2='29-10-2018' biblio='' icon='euro-symbol'/>
                     {/* <Card name='Reuniões' name2='Sem Reuniões' link={require('../../assets/images/business.png')}></Card> */}
                     {/* <Card name='Recibos' name2='29-10-2018' link={require('../../assets/images/recibos.jpg')}></Card> */}

@@ -23,7 +23,6 @@ TeamView extends Component {
     
 
     render() {
-        console.log(this.state.employees)
         var employeesList = []
         if(this.state.employees.length<=6){
             this.state.employees.forEach(employee => {

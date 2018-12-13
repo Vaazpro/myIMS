@@ -39,7 +39,7 @@ class Teams extends Component {
 
     render() {
         const gap = Platform.OS === 'ios' ? 20 : 0;
-       console.log(this.state.teams)
+       
         var teamsList = []
         this.state.teams.forEach(team => {
             teamsList.push(
