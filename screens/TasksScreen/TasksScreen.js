@@ -30,7 +30,8 @@ class TasksScreen extends Component {
                         name:''
                     }
                 ]
-            }
+            },
+            tasks: []
         }
         this.getMyTasks()
 
@@ -48,11 +49,15 @@ class TasksScreen extends Component {
     }
 
     getMyTasks = () => {
+        let self = this
         new TaskService().getMyTasks(function(response){
             //log in com sucesso
             //self.props.navigation.navigate('profile')
             console.log("=======SUCCESS========")
             console.log(response)
+            self.setState({
+                tasks: response
+            })
         }, function(error){
             //erro ao fazer login
             console.log("=======ERROR========")
@@ -61,6 +66,7 @@ class TasksScreen extends Component {
     }
 
     render() {
+        console.log(this.state.tasks);
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 

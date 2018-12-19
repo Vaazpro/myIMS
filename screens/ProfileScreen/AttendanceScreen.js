@@ -35,23 +35,30 @@ class AttendanceScreen extends Component {
             clicked: false,
             profile: this.props.navigation.getParam('profile'),
             attendance: [],
-            absence: []
+            absence: [],
+            month: '',
+            year: '',
+            markedDates: {}
         }
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
         
         let self = this
-        /* new ProfileService().getAttendanceByEmployeeId(this.state.profile.id, function(attendance){
+        new ProfileService().getAttendanceByEmployeeId(this.state.profile.id, this.state.profile.admissionDate, function(attendance){
             self.setState({
                 attendance: attendance
             })
-        }) */
 
-        new ProfileService().getAbsenceByEmployeeId(this.state.profile.id, function(absence){
+            self.onMarkedDatesUpdate()
+        })
+
+
+
+        /* new ProfileService().getAbsenceByEmployeeId(this.state.profile.id, function(absence){
             self.setState({
                 absence: absence
             })
-        })
+        }) */
     }
 
     colapse = () => {
@@ -89,6 +96,57 @@ class AttendanceScreen extends Component {
         console.log("WxH: " + Dimensions.get('window').width + "x" + Dimensions.get('window').height)
     }
 
+    onMonthUpdate = (month) => {
+        /* this.setState({
+            month: month.month,
+            year: month.year
+        })
+
+        (this.state.attendance).forEach(attendance => {
+            let date = new Date(attendance.date)
+            let tempAttendances = []
+            if((date.getMonth() == this.state.month) && (date.getFullYear() == this.state.year)){
+                tempAttendances.push(attendance)
+            }
+        });     */  
+        /* let date = new Date(this.state.attendance[0].attendance.date).toLocaleString("en-US")
+        console.log(date) */
+    }
+
+    onMarkedDatesUpdate = () => {
+        let days = {}
+        this.state.attendance.forEach(attendance => {
+
+            let date = new Date(attendance.date).toISOString("en-US").slice(0,10)
+            switch(attendance.state){
+                case 'UNJUSTIFIED': days[date] = {selected: true, selectedColor: '#E91B37'}
+                break;
+
+                case 'JUSTIFIED': days[date] = {marked: true, dotColor: '#96C269'}
+                break;
+
+                case 'PENDING': days[date] = {marked: true, dotColor: '#96C269'}
+                break;
+
+                case 'ATTENDANCE': days[date] = {marked: true, dotColor: '#4A90E2'}
+                break;
+
+                case 'VACATION': days[date] = {marked: true, dotColor: '#96C269'}
+                break;
+
+                case 'HOLIDAY': days[date] = {marked: true, dotColor: '#008040'}
+                break;
+            }
+            
+        })
+
+        this.setState({
+            markedDates: days
+        })
+    }
+
+    
+
     render() {
         const iconsize = 32;
         const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
@@ -98,13 +156,46 @@ class AttendanceScreen extends Component {
             outputRange: ['0deg','180deg'],
         });
 
-        console.log("==============================")
+        /* console.log("==============================")
         console.log(this.state.profile)
-        console.log("==============================")
-        console.log(this.state.absence)
+        console.log("==============================") */
+        
 
 
         const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
+
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+
+        var attendanceList = []
+        this.state.attendance.forEach((attendance, index) => {
+            let day = (attendance.date).slice(8,10)
+            let month = (attendance.date).slice(5,7)
+            let year = (attendance.date).slice(2,4)
+
+            console.log(day + "/" + month + "/" + year) 
+            console.log(attendance)
+
+            switch(attendance.state){
+                case 'UNJUSTIFIED': attendanceList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+
+                case 'JUSTIFIED': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+
+                case 'PENDING': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+
+                case 'ATTENDANCE': attendanceList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+
+                case 'VACATION': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+
+                case 'HOLIDAY': attendanceList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                break;
+            }
+            
+        })
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -135,9 +226,10 @@ class AttendanceScreen extends Component {
 
                 <ScrollView style={{flex: 1, backgroundColor: 'white', paddingLeft: 10, paddingRight: 10}}>
                     <View style={{height: this.state.hg + 25}}></View>
-                    <AttendanceView borderColor='red'></AttendanceView>
+                    {/* <AttendanceView borderColor='red'></AttendanceView>
                     <AttendanceView borderColor='green'></AttendanceView>
-                    <AttendanceView borderColor='orange'></AttendanceView>
+                    <AttendanceView borderColor='orange'></AttendanceView> */}
+                    {attendanceList}
                 </ScrollView>
                     
                 <View style={{
@@ -154,7 +246,7 @@ class AttendanceScreen extends Component {
                                 // Collection of dates that have to be colored in a special way. Default = {}
                                 style={{position:'relative'}}
                                 markedDates={
-                                    {   
+                                    /*{   
                                         '2018-11-11': {marked: true, dotColor: 'rgb(245, 166, 35)'},
                                         '2018-11-12': {marked: true, dotColor: 'rgb(245, 166, 35)'},
                                         '2018-11-20': {selected: true, selectedColor: 'red'},
@@ -166,7 +258,10 @@ class AttendanceScreen extends Component {
                                         '2018-11-17': {marked: true, dotColor: 'rgb(1, 231, 13)'},
                                         '2018-11-18': {marked: true, dotColor: 'rgb(1, 231, 13)'},
                                         '2018-11-19': {marked: true, dotColor: 'rgb(1, 231, 13)'},
-                                    }}
+                                    }*/
+                                    this.state.markedDates
+                                    
+                                    }
                                 // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
                                 //markingType={'multi-dot'}
                                 
@@ -183,7 +278,7 @@ class AttendanceScreen extends Component {
                                 // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                                 //monthFormat={'yyyy MM'}
                                 // Handler which gets executed when visible month changes in calendar. Default = undefined
-                                onMonthChange={(month) => {console.log('month changed', month)}}
+                                onMonthChange={(month) => {/*this.onMonthUpdate(month)*/}}
                                 // Hide month navigation arrows. Default = false
                                 hideArrows={false}
                                 // Replace default arrows with custom ones (direction can be 'left' or 'right')

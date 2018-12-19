@@ -66,8 +66,9 @@ class ProfileService extends BaseService {
             )
         }
 
-        getAttendanceByEmployeeId = (employeeId, callback) => {
-            this.getAPI("Attendance/findbycriteria?EmployeeId=" + employeeId,
+        getAttendanceByEmployeeId = (employeeId, admissionDate, callback) => {
+            console.log("DATE: " + new Date().toISOString())
+            this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ new Date().toISOString() +"&employeeId=" + employeeId,
                 function(data){
                     callback(data)
                 },
