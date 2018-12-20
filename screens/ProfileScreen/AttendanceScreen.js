@@ -38,23 +38,27 @@ class AttendanceScreen extends Component {
             absence: [],
             month: '',
             year: '',
-            markedDates: {}
+            markedDates: {},
+            currentList: []
         }
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
         
+        console.log(this.state.profile)
+        
         let self = this
-        new ProfileService().getAttendanceByEmployeeId(this.state.profile.id, this.state.profile.admissionDate, function(attendance){
+        new ProfileService().getAttendanceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(attendance){
             self.setState({
                 attendance: attendance
             })
-
+            
             self.onMarkedDatesUpdate()
+            self.showUnjustifiedList()
         })
 
 
 
-        /* new ProfileService().getAbsenceByEmployeeId(this.state.profile.id, function(absence){
+        /* new ProfileService().getAbsenceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(absence){
             self.setState({
                 absence: absence
             })
@@ -145,28 +149,10 @@ class AttendanceScreen extends Component {
         })
     }
 
-    
-
-    render() {
-        const iconsize = 32;
-        const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
-        /* Realizar a Animação da arrow */
-        const rotate = this.rotation.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg','180deg'],
-        });
-
-        /* console.log("==============================")
-        console.log(this.state.profile)
-        console.log("==============================") */
-        
-
-
-        const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
-
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
-
+    showFullAttendanceList = () => {
         var attendanceList = []
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        
         this.state.attendance.forEach((attendance, index) => {
             let day = (attendance.date).slice(8,10)
             let month = (attendance.date).slice(5,7)
@@ -193,9 +179,55 @@ class AttendanceScreen extends Component {
 
                 case 'HOLIDAY': attendanceList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
                 break;
-            }
-            
+            } 
         })
+
+        this.setState({
+            currentList: attendanceList
+        })
+    }
+
+    showUnjustifiedList = () => {
+        var unjustifiedList = []
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        this.state.attendance.forEach((attendance, index) => {
+            let day = (attendance.date).slice(8,10)
+            let month = (attendance.date).slice(5,7)
+            let year = (attendance.date).slice(2,4)
+
+            /* console.log(day + "/" + month + "/" + year) 
+            console.log(attendance) */
+
+            if(attendance.state == 'UNJUSTIFIED'){
+                unjustifiedList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+            }
+        })
+
+            this.setState({
+                currentList: unjustifiedList
+            })
+    }
+
+    
+
+    render() {
+        const iconsize = 32;
+        const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
+        /* Realizar a Animação da arrow */
+        const rotate = this.rotation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg','180deg'],
+        });
+
+        /* console.log("==============================")
+        console.log(this.state.profile)
+        console.log("==============================") */
+        
+
+
+        const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
+
+        console.log(this.state.attendance[0])
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -214,10 +246,10 @@ class AttendanceScreen extends Component {
                             <Text style={{fontSize:20}}>Presenças</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end', flexDirection: "row"}}>
-                            <TouchableOpacity onPress={this.onPressBtn} style={{display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={this.showFullAttendanceList} style={{display: this.props.displayBtn}}>
                                 <Text>Tudo</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={this.onPressBtn} style={{marginLeft: 10, display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={this.showUnjustifiedList} style={{marginLeft: 10, display: this.props.displayBtn}}>
                                 <Text>Faltas</Text>
                             </TouchableOpacity>
                         </View>
@@ -229,7 +261,7 @@ class AttendanceScreen extends Component {
                     {/* <AttendanceView borderColor='red'></AttendanceView>
                     <AttendanceView borderColor='green'></AttendanceView>
                     <AttendanceView borderColor='orange'></AttendanceView> */}
-                    {attendanceList}
+                    {this.state.currentList}
                 </ScrollView>
                     
                 <View style={{

@@ -28,7 +28,7 @@ class BaseService {
             if(token !== null){
                 _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-            fetch(_apiUrl+url, _obj)
+            fetch(_apiUrl + url, _obj)
                 .then(function(response){ 
                     if(response.ok) 
                         return response.json()
@@ -44,6 +44,33 @@ class BaseService {
             callbackError(error)
         }); 
     }
+
+    putAPI = (url, body, callback, callbackError) =>{
+        var _headers = {"Accept":this.getAcceptHeader(), "Content-Type":this.getContentTypeHeader()}
+        var _obj = { headers:_headers, body:JSON.stringify(body), method: "PUT" }
+        var _apiUrl = this.getApiUrl()
+
+        this.retrieveItem(this.getTokenKey()).then((token) => {
+            if(token !== null){
+                _obj.headers.Authorization = token.token_type + " " + token.access_token
+            }
+            fetch(_apiUrl + url, _obj)
+                .then(function(response){ 
+                    if(response.ok) 
+                        return response.json()
+                    throw response
+                })
+                .then(function(json){
+                    callback(json)
+                })
+                .catch(function(error) {
+                    callbackError(error)
+                });
+        }).catch((error) => {
+            callbackError(error)
+        }); 
+    }
+
     getAPI = (url, callback, callbackError) =>{
         var _headers = {"Accept":this.getAcceptHeader()}
         var _obj = { headers:_headers, method: "GET" }
@@ -54,7 +81,7 @@ class BaseService {
                 _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
             
-            fetch(_apiUrl+url, _obj)
+            fetch(_apiUrl + url, _obj)
                 .then(function(response){
                     if(response.ok) 
                         return response.json()

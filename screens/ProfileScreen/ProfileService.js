@@ -66,9 +66,11 @@ class ProfileService extends BaseService {
             )
         }
 
-        getAttendanceByEmployeeId = (employeeId, admissionDate, callback) => {
+        getAttendanceByEmployeeId = (employee, admissionDate, callback) => {
             console.log("DATE: " + new Date().toISOString())
-            this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ new Date().toISOString() +"&employeeId=" + employeeId,
+            let date = new Date()
+            date.setHours(23,59,59,999)
+            this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ date.toISOString() +"&employeeId=" + employee.id + "&userId=" + employee.userID,
                 function(data){
                     callback(data)
                 },
@@ -78,8 +80,30 @@ class ProfileService extends BaseService {
             )
         }
 
-        getAbsenceByEmployeeId = (employeeId, callback) => {
-            this.getAPI("Absence/findbycriteria?EmployeeId=" + employeeId,
+        updateAttendanceByProfileId = (profileId, callback) => {
+            let date = new Date().toISOString()
+            let body = {
+                "presences": [
+                    {
+                    "hour": date,
+                    }
+                ],
+                "absences": [],
+                "date": date,
+                "employeeId": profileId
+            };
+
+            this.postAPI("absence/add", body, 
+            function(data){
+                callback(data)
+            },
+            function(error){
+                alert(error)
+            })
+        }
+
+        getAbsenceByEmployeeId = (employeeId, admissionDate, callback) => {
+            this.getAPI("absence/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ new Date().toISOString() + "&employeeId=" + employeeId,
                 function(data){
                     callback(data)
                 },

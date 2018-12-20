@@ -11,6 +11,8 @@ import styles from '../../constants/Styles'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
 import IconSearch from '../../components/IconSearch'
+import ProfileService from './ProfileService'
+
 
 class UnlockScreen extends Component {
 
@@ -22,11 +24,20 @@ class UnlockScreen extends Component {
         super(props)
         this.state={
             icon: 'lock',
-            clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
+            clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
+            profile: this.props.navigation.getParam('profile')
         }
+
+        let self = this
+        let day = new Date();
+        day.setHours(0,0,0,0);
+        /* day = day.toISOString(); */
+        console.log("======= DATE =======")
+        console.log(day.toISOString())
+        
     }
    
-    playMusic = async () => {
+    playMusicAndUpdateAttendance = async () => {
         const soundObject = new Expo.Audio.Sound();
         try {
           await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
@@ -35,6 +46,10 @@ class UnlockScreen extends Component {
         } catch (error) {
           // An error occurred!
         }
+
+        new ProfileService().updateAttendanceByProfileId(this.state.profile.id, function(data){
+            console.log(data)
+        })
     }
 
     
@@ -46,9 +61,9 @@ class UnlockScreen extends Component {
             })
         }, 500);
         const {navigation} = this.props
-        const profile = navigation.getParam('profile')
         const account = navigation.getParam('account')
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ profile.attachmentId +".png?format=png&width=100%"
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
                 <SafeAreaView style={styles.container}>
@@ -71,7 +86,7 @@ class UnlockScreen extends Component {
                                                         style={{ width: 50,
                                                                 height: 50, 
                                                                 borderRadius: 50/2}} />
-                        <Text style={{fontSize: 24}}>{profile.name}</Text>
+                        <Text style={{fontSize: 24}}>{this.state.profile.name}</Text>
                         <Text style={{fontSize: 18}}>Developer</Text>
                         <Text style={{fontSize: 14}}>{account.companies[0].name}</Text>                                        
                     </View>
@@ -80,7 +95,7 @@ class UnlockScreen extends Component {
                         <Text style={{fontSize: 18}}>{new Date().toLocaleDateString()}</Text>                                                
                     </View>
                     <View style={{flex: 5,justifyContent: 'center', alignItems:'center'}}>
-                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {this.setState({icon: 'unlock-alt'}); this.playMusic() }}>
+                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {this.setState({icon: 'unlock-alt'}); this.playMusicAndUpdateAttendance() }}>
                         <ElevatedView elevation={5} 
                             style={{
                                 width: 150,
