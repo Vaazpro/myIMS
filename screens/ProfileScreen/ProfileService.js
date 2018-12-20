@@ -67,10 +67,13 @@ class ProfileService extends BaseService {
         }
 
         getAttendanceByEmployeeId = (employee, admissionDate, callback) => {
-            console.log("DATE: " + new Date().toISOString())
+            console.log(admissionDate)
+            console.log(new Date().toISOString())
+            console.log(employee.id)
+            console.log(employee.userId)
             let date = new Date()
             date.setHours(23,59,59,999)
-            this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ date.toISOString() +"&employeeId=" + employee.id + "&userId=" + employee.userID,
+            this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ date.toISOString() +"&employeeId=" + employee.id + "&userId=" + employee.userId,
                 function(data){
                     callback(data)
                 },

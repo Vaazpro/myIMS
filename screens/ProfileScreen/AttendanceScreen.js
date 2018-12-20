@@ -129,7 +129,7 @@ class AttendanceScreen extends Component {
                 case 'JUSTIFIED': days[date] = {marked: true, dotColor: '#96C269'}
                 break;
 
-                case 'PENDING': days[date] = {marked: true, dotColor: '#96C269'}
+                case 'PENDING': days[date] = {marked: true, dotColor: '#F5A623'}
                 break;
 
                 case 'ATTENDANCE': days[date] = {marked: true, dotColor: '#4A90E2'}
@@ -168,7 +168,7 @@ class AttendanceScreen extends Component {
                 case 'JUSTIFIED': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
                 break;
 
-                case 'PENDING': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                case 'PENDING': attendanceList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
                 break;
 
                 case 'ATTENDANCE': attendanceList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)

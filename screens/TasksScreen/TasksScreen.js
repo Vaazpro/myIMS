@@ -67,6 +67,8 @@ class TasksScreen extends Component {
 
     render() {
         console.log(this.state.tasks);
+        console.log(this.state.account);
+        console.log(this.state.profile);
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 
