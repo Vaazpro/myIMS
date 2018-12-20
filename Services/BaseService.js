@@ -28,18 +28,32 @@ class BaseService {
             if(token !== null){
                 _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-            fetch(_apiUrl + url, _obj)
-                .then(function(response){ 
-                    if(response.ok) 
-                        return response.json()
-                    throw response
-                })
-                .then(function(json){
-                    callback(json)
-                })
-                .catch(function(error) {
-                    callbackError(error)
-                });
+
+            this.retrieveItem(this.getProfileKey()).then((_profile)=>{
+                if(_profile && _profile.companies && _profile.companies.length>0)
+                {
+                    _obj.headers["X-Company"] = _profile.companies[0].id;
+                }
+
+                fetch(_apiUrl + url, _obj)
+                    .then(function(response){ 
+                        if(response.ok) 
+                        {
+                            if(response.headers.map["content-type"] != "text/plain")
+                                return response.json()
+                            return {};
+                        }                       
+                        throw response
+                    })
+                    .then(function(json){
+                        callback(json)
+                    })
+                    .catch(function(error) {                    
+                        callbackError(error)
+                    });
+            });
+
+            
         }).catch((error) => {
             callbackError(error)
         }); 
@@ -54,18 +68,31 @@ class BaseService {
             if(token !== null){
                 _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-            fetch(_apiUrl + url, _obj)
-                .then(function(response){ 
-                    if(response.ok) 
-                        return response.json()
-                    throw response
-                })
-                .then(function(json){
-                    callback(json)
-                })
-                .catch(function(error) {
-                    callbackError(error)
-                });
+
+            this.retrieveItem(this.getProfileKey()).then((_profile)=>{
+                if(_profile && _profile.companies && _profile.companies.length>0)
+                {
+                    _obj.headers["X-Company"] = _profile.companies[0].id;
+                }
+
+                fetch(_apiUrl + url, _obj)
+                    .then(function(response){ 
+                        if(response.ok) 
+                        {
+                            if(response.headers.map["content-type"] != "text/plain")
+                                return response.json()
+                            return {};
+                        } 
+                        throw response
+                    })
+                    .then(function(json){
+                        callback(json)
+                    })
+                    .catch(function(error) {
+                        callbackError(error)
+                    });
+            });
+            
         }).catch((error) => {
             callbackError(error)
         }); 
@@ -80,22 +107,33 @@ class BaseService {
             if(token !== null){
                 _obj.headers.Authorization = token.token_type + " " + token.access_token
             }
-            
-            fetch(_apiUrl + url, _obj)
-                .then(function(response){
-                    if(response.ok) 
-                        return response.json()
-                    throw response
-                })
-                .then(function(json){
-                    callback(json)
-                })
-                .catch(function(error) {
-                    callbackError(error)
-                });
-        }).catch((error) => {
-            callbackError(error)
-        }); 
+
+            this.retrieveItem(this.getProfileKey()).then((_profile)=>{
+                if(_profile && _profile.companies && _profile.companies.length>0)
+                {
+                    _obj.headers["X-Company"] = _profile.companies[0].id;
+                }
+
+                fetch(_apiUrl + url, _obj)
+                    .then(function(response){
+                        if(response.ok) 
+                        {
+                            if(response.headers.map["content-type"] != "text/plain")
+                                return response.json()
+                            return {};
+                        } 
+                        throw response
+                    })
+                    .then(function(json){
+                        callback(json)
+                    })
+                    .catch(function(error) {
+                        callbackError(error)
+                    });
+            }).catch((error) => {
+                callbackError(error)
+            }); 
+            });
     }
 
 
