@@ -31,7 +31,13 @@ class TasksScreen extends Component {
                     }
                 ]
             },
-            tasks: []
+            tasks: [],
+            //arrays dos estados das tarefas
+            open: [],
+            planned: [],
+            in_progress: [],
+            in_testing: [],
+            done: []
         }
         this.getMyTasks()
 
@@ -58,6 +64,7 @@ class TasksScreen extends Component {
             self.setState({
                 tasks: response
             })
+            self.fillAllTasksStates()
         }, function(error){
             //erro ao fazer login
             console.log("=======ERROR========")
@@ -65,10 +72,63 @@ class TasksScreen extends Component {
         })
     }
 
+    fillAllTasksStates = () => {
+        let open = []
+        let planned= []
+        let in_progress= []
+        let in_testing= []
+        let done= [] 
+
+        console.log("==============================")
+            console.log(this.state.tasks
+                
+                
+                )
+            console.log("///////////////////////////////")
+
+        this.state.tasks.forEach(state => {
+            
+            if(state.tasks.length > 0){
+                switch(state.id){
+                    case 'OPEN': state.tasks.forEach(task => {
+                        open.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                    })
+                    break;
+                    case 'PLANNED': state.tasks.forEach(task => {
+                        planned.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                    })
+                    break;
+                    case 'IN_PROGRESS': state.tasks.forEach(task => {
+                        in_progress.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                    })
+                    break;
+                    case 'IN_TESTING': state.tasks.forEach(task => {
+                        in_testing.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                    })
+                    break;
+                    case 'DONE': 
+                    state.tasks.forEach(task => {
+                        done.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                    })
+                    break;
+                }
+            }
+            
+        })
+
+        this.setState({
+            open: open,
+            planned: planned,
+            in_progress: in_progress,
+            in_testing: in_testing,
+            done: done
+        })
+    }
+
     render() {
-        console.log(this.state.tasks);
-        console.log(this.state.account);
-        console.log(this.state.profile);
+        //console.log(this.state.tasks);
+        /* console.log(this.state.account);
+        console.log(this.state.profile); */
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
            <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e6e6" }}> 
@@ -92,22 +152,26 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                         <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                            {/* <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                        </ScrollView>
+                         */}
+                         {this.state.open}
+                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>PLANEADO</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                        */} 
+                        {this.state.planned}
                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
@@ -115,7 +179,8 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
+                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView> */}
+                        {this.state.in_progress}
                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
@@ -123,19 +188,24 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                        </ScrollView>
+                         */}
+                         {this.state.in_testing}
+                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
                         <Text>FEITO</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
+                    
+                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
                             <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                        </ScrollView>
+                         */}
+                         {this.state.done}
+                         </ScrollView>
                     </View>
                 </View>
             </SafeAreaView>

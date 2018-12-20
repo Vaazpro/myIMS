@@ -36,11 +36,12 @@ class BaseService {
                 }
 
                 fetch(_apiUrl + url, _obj)
-                    .then(function(response){ 
+                    .then(function(response){
                         if(response.ok) 
                         {
-                            if(response.headers.map["content-type"] != "text/plain")
+                            if(response.headers.map["content-type"] !== "text/plain" && response.headers.map["content-type"] != undefined){
                                 return response.json()
+                            }
                             return {};
                         }                       
                         throw response

@@ -41,9 +41,9 @@ class Teams extends Component {
         const gap = Platform.OS === 'ios' ? 20 : 0;
        
         var teamsList = []
-        this.state.teams.forEach(team => {
+        this.state.teams.forEach((team, index) => {
             teamsList.push(
-                <TeamView iconName= 'train' iconBiblio='MaterialIcons' iconSize={20} iconColor='black' txt= {team.name} employees={team.employees} icon={team.icon}>
+                <TeamView key={index} iconName= 'train' iconBiblio='MaterialIcons' iconSize={20} iconColor='black' txt= {team.name} employees={team.employees} icon={team.icon}>
                 </TeamView>
             )
         })

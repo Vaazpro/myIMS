@@ -101,7 +101,7 @@ class ProfileService extends BaseService {
                 callback(data)
             },
             function(error){
-                alert(error)
+                callback(error)
             })
         }
 

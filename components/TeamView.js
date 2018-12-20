@@ -25,9 +25,9 @@ TeamView extends Component {
     render() {
         var employeesList = []
         if(this.state.employees.length<=6){
-            this.state.employees.forEach(employee => {
+            this.state.employees.forEach((employee, index) => {
                 employeesList.push(
-                    <View style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
+                    <View key={index} style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
                         <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ employee.attachmentId+'.png?format=png&width=100%'} size={25}/>
                     </View>
                 )
