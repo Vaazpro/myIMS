@@ -5,7 +5,10 @@ import {
     StatusBar,
     SafeAreaView, 
     TouchableOpacity,
-    ScrollView
+    TouchableHighlight,
+    ScrollView,
+    Modal,
+    Picker
 } from 'react-native'
 import IconSearch from '../../components/IconSearch'
 import HeaderView from '../../components/HeaderView'
@@ -31,7 +34,10 @@ class TasksScreen extends Component {
                     }
                 ]
             },
+            modalVisible: false,
             tasks: [],
+            selectedTask: {},
+            selectedState: '',
             //arrays dos estados das tarefas
             open: [],
             planned: [],
@@ -91,24 +97,24 @@ class TasksScreen extends Component {
             if(state.tasks.length > 0){
                 switch(state.id){
                     case 'OPEN': state.tasks.forEach(task => {
-                        open.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        open.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
                     })
                     break;
                     case 'PLANNED': state.tasks.forEach(task => {
-                        planned.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        planned.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
                     })
                     break;
                     case 'IN_PROGRESS': state.tasks.forEach(task => {
-                        in_progress.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        in_progress.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
                     })
                     break;
                     case 'IN_TESTING': state.tasks.forEach(task => {
-                        in_testing.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        in_testing.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
                     })
                     break;
                     case 'DONE': 
                     state.tasks.forEach(task => {
-                        done.push(<TaskView key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        done.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
                     })
                     break;
                 }
@@ -122,6 +128,32 @@ class TasksScreen extends Component {
             in_progress: in_progress,
             in_testing: in_testing,
             done: done
+        })
+    }
+
+    /* método que vai estar incluido em cada tarefa */
+    /* No clique de uma tarefa, o modal fica visivel, guardamos a tarefa selecionada numa variavel de state e guardamos o "estado da tarefa" anterior numa variavel state */
+
+    showModalStateTasks = (task, state) => {
+        this.setState({
+            modalVisible:true,
+            selectedTask: task,
+            selectedState: state
+        })
+    }
+
+    /* Metodo que atualiza o estado da tarefa, quando se clica em confirmar a alteraçáo do estado no Modal */
+    /* Quando a alteraçao ocorre, chama-se a função getMyTasks para atualizar as listas que imprimem para o ecrã */
+
+    updateTaskState = (task, state) =>{
+        var newState = state;
+        //console.log(task)
+        let self = this
+        new TaskService().updateTask(task, newState, function(data){
+            console.log(data)
+            self.getMyTasks()
+        }, function(error){
+            console.log(error)
         })
     }
 
@@ -208,6 +240,33 @@ class TasksScreen extends Component {
                          </ScrollView>
                     </View>
                 </View>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                    }}>
+                    <View style={{position:'absolute', marginLeft:'10%', marginRight:'10%', marginTop:'40%', width:'80%', height:'40%', justifyContent:'center', alignItems:'center', backgroundColor:'red'}}>
+                        <View>
+                        <Picker
+                            selectedValue={this.state.language}
+                            style={{ height: 50, width: 100 }}
+                            onValueChange={(itemValue, itemIndex) => this.setState({selectedState: itemValue})}>
+                            <Picker.Item label="Java" value="java" />
+                            <Picker.Item label="JavaScript" value="js" />
+                        </Picker>
+
+                        <TouchableHighlight
+                            onPress={() => {
+                            this.setState({modalVisible: false})
+                            }}>
+                            <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         )
     }

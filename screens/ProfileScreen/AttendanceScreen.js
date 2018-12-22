@@ -36,15 +36,17 @@ class AttendanceScreen extends Component {
             profile: this.props.navigation.getParam('profile'),
             attendance: [],
             absence: [],
-            month: '',
-            year: '',
+            selectedMonth: {
+                "month": new Date().getMonth() + 1,
+                "year": new Date().getFullYear()
+            },
             markedDates: {},
             currentList: []
         }
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
         
-        console.log(this.state.profile)
+        //console.log(this.state.profile)
         
         let self = this
         new ProfileService().getAttendanceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(attendance){
@@ -100,21 +102,46 @@ class AttendanceScreen extends Component {
         console.log("WxH: " + Dimensions.get('window').width + "x" + Dimensions.get('window').height)
     }
 
-    onMonthUpdate = (month) => {
-        /* this.setState({
-            month: month.month,
-            year: month.year
-        })
-
-        (this.state.attendance).forEach(attendance => {
+    onMonthUpdate = (monthYear) => {
+        var monthList = [];
+        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%";
+        (this.state.attendance).forEach((attendance, index) => {
             let date = new Date(attendance.date)
-            let tempAttendances = []
-            if((date.getMonth() == this.state.month) && (date.getFullYear() == this.state.year)){
-                tempAttendances.push(attendance)
+            if((date.getMonth()+1)==monthYear.month && date.getFullYear()==monthYear.year){
+                let day = (attendance.date).slice(8,10)
+                let month = (attendance.date).slice(5,7)
+                let year = (attendance.date).slice(2,4)
+
+                //console.log(day + "/" + month + "/" + year) 
+                //console.log(attendance)
+
+                switch(attendance.state){
+                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+
+                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+
+                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+
+                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+
+                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+
+                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    break;
+                }
             }
-        });     */  
-        /* let date = new Date(this.state.attendance[0].attendance.date).toLocaleString("en-US")
-        console.log(date) */
+        });
+
+        this.setState({
+            currentList: monthList,
+            selectedMonth: monthYear
+        })
+        
     }
 
     onMarkedDatesUpdate = () => {
@@ -149,8 +176,8 @@ class AttendanceScreen extends Component {
         })
     }
 
-    showFullAttendanceList = () => {
-        var attendanceList = []
+    /* showFullAttendanceList = () => {
+        var attendanceList = [];
         const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
         
         this.state.attendance.forEach((attendance, index) => {
@@ -185,7 +212,7 @@ class AttendanceScreen extends Component {
         this.setState({
             currentList: attendanceList
         })
-    }
+    } */
 
     showUnjustifiedList = () => {
         var unjustifiedList = []
@@ -227,7 +254,7 @@ class AttendanceScreen extends Component {
 
         const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
 
-        console.log(this.state.attendance[0])
+        //console.log(this.state.attendance[0])
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -236,7 +263,7 @@ class AttendanceScreen extends Component {
                 <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
+                            /*console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)*/
                             this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
                         </TouchableOpacity>
@@ -246,7 +273,7 @@ class AttendanceScreen extends Component {
                             <Text style={{fontSize:20}}>Presenças</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end', flexDirection: "row"}}>
-                            <TouchableOpacity onPress={this.showFullAttendanceList} style={{display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={() => {this.onMonthUpdate(this.state.selectedMonth)}} style={{display: this.props.displayBtn}}>
                                 <Text>Tudo</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this.showUnjustifiedList} style={{marginLeft: 10, display: this.props.displayBtn}}>
@@ -310,7 +337,7 @@ class AttendanceScreen extends Component {
                                 // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                                 //monthFormat={'yyyy MM'}
                                 // Handler which gets executed when visible month changes in calendar. Default = undefined
-                                onMonthChange={(month) => {/*this.onMonthUpdate(month)*/}}
+                                onMonthChange={(monthYear) => {this.onMonthUpdate(monthYear)}}
                                 // Hide month navigation arrows. Default = false
                                 hideArrows={false}
                                 // Replace default arrows with custom ones (direction can be 'left' or 'right')

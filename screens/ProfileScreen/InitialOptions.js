@@ -17,10 +17,26 @@ class InitialOptions extends Component {
     constructor (props){
         super(props)
         this.state={
+            attendance: [],
+            unjustifiedAttendances: 0,
             teams : [],
             gotInfo : false
         }
         
+    }
+
+    unjustifiedAttendances(attendances){
+        var count=0;
+
+        attendances.forEach(attendance => {
+            if(attendance.state == "UNJUSTIFIED"){
+                count++;
+            }
+        });
+
+        this.setState({
+            unjustifiedAttendances: count
+        })
     }
 
     render() {
@@ -33,12 +49,18 @@ class InitialOptions extends Component {
                     gotInfo : true
                 }) 
             })
+            new ProfileService().getAttendanceByEmployeeId(this.props.prof, this.props.prof.admissionDate, function(attendance){
+                self.setState({
+                    attendance: attendance
+                })
+                self.unjustifiedAttendances(attendance)
+            })
         }
         
         return (
             <View style={{flex:1, alignItems:'center', marginTop: getStatusBarHeight()}}>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions nextPage={this.props.attendancesP} name='Presenças' name2='0 faltas' biblio=''  icon='beach-access'/>
+                    <ButtonInitialOptions nextPage={this.props.attendancesP} name='Presenças' name2={this.state.unjustifiedAttendances + ' faltas'} biblio=''  icon='beach-access'/>
                     <ButtonInitialOptions nextPage={this.props.vacationsP} name='Férias' name2='Aprovado' biblio='MaterialIcons' icon='flag'/>
                     {/* <Card nextPage={this.props.teamsP} name='Presenças' name2='0 Faltas' link={require('../../assets/images/presencas.jpg') }></Card>
                     <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card> */}
