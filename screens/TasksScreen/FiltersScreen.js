@@ -19,6 +19,8 @@ class FiltersScreen extends Component {
         super(props)
         this.state={
 
+            profile: this.props.navigation.getParam('profile'),
+
             array: [
                 {id: 0, display: 'none', colapsed: true},
                 {id: 1, display: 'none', colapsed: true},

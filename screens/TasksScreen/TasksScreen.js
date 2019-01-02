@@ -5,7 +5,7 @@ import {
     StatusBar,
     SafeAreaView, 
     TouchableOpacity,
-    TouchableHighlight,
+    Button,
     ScrollView,
     Modal,
     Picker
@@ -172,7 +172,7 @@ class TasksScreen extends Component {
                     <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
-                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters')}} style={{justifyContent:'center'}}>
+                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters', {profile: this.state.profile})}} style={{justifyContent:'center'}}>
                                 <IconSearch name="sliders" biblio='' size={22} color="black"/>
                             </TouchableOpacity>    
                         </View>
@@ -248,23 +248,33 @@ class TasksScreen extends Component {
                     onRequestClose={() => {
                         Alert.alert('Modal has been closed.');
                     }}>
-                    <View style={{position:'absolute', marginLeft:'10%', marginRight:'10%', marginTop:'40%', width:'80%', height:'40%', justifyContent:'center', alignItems:'center', backgroundColor:'red'}}>
-                        <View>
-                        <Picker
-                            selectedValue={this.state.language}
-                            style={{ height: 50, width: 100 }}
-                            onValueChange={(itemValue, itemIndex) => this.setState({selectedState: itemValue})}>
-                            <Picker.Item label="Java" value="java" />
-                            <Picker.Item label="JavaScript" value="js" />
-                        </Picker>
-
-                        <TouchableHighlight
-                            onPress={() => {
-                            this.setState({modalVisible: false})
-                            }}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
+                    <View style={{position:'absolute', marginLeft:'10%', marginRight:'10%', marginTop:'40%', width:'80%', height:'40%', backgroundColor:'#F2F2F2', borderWidth:2, borderColor:"#007FB7", borderRadius: 10, elevation: 10}}>
+                        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                            <Text style={{color:"#007FB7", fontSize:20}}>Selecione o novo estado</Text>
                         </View>
+                        <View style={{ flex:3, justifyContent:'center', alignItems:'center'}}>
+                            <Picker
+                                selectedValue={this.state.selectedState}
+                                style={{ height: 50, width: 200 }}
+                                onValueChange={(itemValue, itemIndex) => this.setState({selectedState: itemValue})} mode="dropdown">
+                                <Picker.Item label="ABERTO" value="OPEN" />
+                                <Picker.Item label="PLANEADO" value="PLANNED" />
+                                <Picker.Item label="PROGRESSO" value="IN_PROGRESS" />
+                                <Picker.Item label="TESTE" value="IN_TESTING" />
+                                <Picker.Item label="FEITO" value="DONE" />
+                            </Picker>
+                        </View>
+                            <View style={{flex:1, flexDirection:"row", justifyContent:'center'}}>
+                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-start', marginLeft: '10%'}}>
+                                    <Button title="Cancelar" onPress={() => {this.setState({modalVisible: false})}} color="#007FB7"></Button>
+                                </View>
+                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-end', marginRight: '10%'}}>
+                                    <Button title="Alterar" onPress={() => {
+                                        this.setState({modalVisible: false})
+                                        this.updateTaskState(this.state.selectedTask, this.state.selectedState)
+                                    }} color="#007FB7"></Button>
+                                </View>
+                            </View>
                     </View>
                 </Modal>
             </SafeAreaView>
