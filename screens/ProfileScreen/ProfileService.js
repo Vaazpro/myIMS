@@ -18,7 +18,7 @@ class ProfileService extends BaseService {
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 })
             })
         }
@@ -38,39 +38,36 @@ class ProfileService extends BaseService {
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 }
             )
         }
 
-        //Caso precisemos de saber o Plano de férias
-       /*  getVacationsPlanByEmployeeId = (profileId, callback) => {
+        //Para buscar as datas do Plano de férias
+       getVacationsPlan = (profileId, callback) => {
             this.getAPI("VacationsPlan/byemployee/" + profileId,
                 function(data){
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 }
             )
         }
- */
-        getVacations = (callback) => {
-            this.getAPI("Vacation/findbycriteria?EmployeeId=f9ec4139-89c7-4656-afcc-c0fcabf90cb9",
+
+        getVacations = (employeeID, startDate, endDate, planID, callback) => {
+            this.getAPI('Vacation/findbycriteria?state=STATE&dateFrom=' + startDate + '&dateTo=' + endDate + '&employeeId=' +
+                employeeID + '&vacationsPlanId=' + planID,
                 function(data){
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 }
             )
         }
 
         getAttendanceByEmployeeId = (employee, admissionDate, callback) => {
-            console.log(admissionDate)
-            console.log(new Date().toISOString())
-            console.log(employee.id)
-            console.log(employee.userId)
             let date = new Date()
             date.setHours(23,59,59,999)
             this.getAPI("attendance/findbycriteria?dateFrom="+ admissionDate +"&dateTo="+ date.toISOString() +"&employeeId=" + employee.id + "&userId=" + employee.userId,
@@ -78,9 +75,31 @@ class ProfileService extends BaseService {
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 }
             )
+        }
+
+        postVacationRequest = (plan, dateFrom, dateTo, employeeID, callback) => {
+            let body = {
+                allDay: true,
+                dateFrom: dateFrom,
+                dateTo: dateTo,
+                employeeId: employeeID,
+                max: plan[0].dateEnd,
+                min: plan[0].dateStart,
+                notes: "-",
+                vacationsPlanId: plan[0].id
+            }
+            console.log("BODY")
+            console.log(body)
+            this.postAPI("vacation", body,
+            function(data){
+                callback(data)
+            },
+            function(error){
+                console.log(error)
+            })
         }
 
         updateAttendanceByProfileId = (profileId, callback) => {
@@ -111,7 +130,7 @@ class ProfileService extends BaseService {
                     callback(data)
                 },
                 function(error){
-                    console.log(error)
+                    //console.log(error)
                 }
             )
         }

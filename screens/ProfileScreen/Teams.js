@@ -32,7 +32,7 @@ class Teams extends Component {
         new ProfileService().getTeamsByEmployeeId(this.state.profile.id,function(teams){
             self.setState({
                 teams: teams
-            }) 
+            })
          })
         
     }

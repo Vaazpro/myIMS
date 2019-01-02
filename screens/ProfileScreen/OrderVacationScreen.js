@@ -11,32 +11,29 @@ import {
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import CalendarPicker from 'react-native-calendar-picker'
 import { Hoshi } from 'react-native-textinput-effects'
+import ProfileService from './ProfileService';
 
 
 
 class OrderVacationScreen extends Component {
 
-    static navigationOptions = {
-        title: 'Novo Pedido',
-        headerTitleStyle: {
-            width: 200
-        },
-        headerRight: (
-            <View style={{width: 120,paddingRight: 10}}>
-                <Button 
-                    onPress={() => Alert.alert('Atenção', 'Deseja confirmar o seu pedido de férias?',
-                    [
-                        {text: 'Cancelar', onPress: () => {console.log("Cancelar")}},
-                        {text: 'OK', onPress: () => {console.log("OK")}}
-                    ],
-                    {cancelable: false}
-                    )}
-                    title="Guardar "
-                    color="#007FB7"
-                />
-            </View>
-            
-          ),
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Novo Pedido',
+            headerTitleStyle: {
+                width: 200
+            },
+            headerRight: (
+                <View style={{width: 120,paddingRight: 10}}>
+                    <Button 
+                        onPress={navigation.getParam('saveHandler')}
+                        title="Guardar "
+                        color="#007FB7"
+                    />
+                </View>
+                
+            )
+        }
     };
 
     constructor(props) {
@@ -44,9 +41,13 @@ class OrderVacationScreen extends Component {
         this.state={
             disp: 'none',
             selectedStartDate: null,
+            selectedStartDateFormated: null,
             selectedEndDate: null,
+            selectedEndDateFormated: null,
             modalVisible: false,
-            modalBackground: 'none'
+            modalBackground: 'none',
+            plan: this.props.navigation.getParam('plan'),
+            profile: this.props.navigation.getParam('profile')
         }
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -63,17 +64,47 @@ class OrderVacationScreen extends Component {
         } 
     }
 
+    componentDidMount(){
+        this.props.navigation.setParams({saveHandler: this.saveButtonHandler})
+    }
+
+    saveButtonHandler = () => {
+
+        if(this.state.selectedEndDate == null){
+            Alert.alert('Atenção', 'Selecione uma data de Início e uma data de Fim',
+            [
+                {text: 'OK', onPress: () => {}}
+            ],
+            {cancelable: false}
+            )
+        }else{
+            Alert.alert('Atenção', 'Deseja confirmar o seu pedido de férias?',
+            [
+                {text: 'Cancelar', onPress: () => {console.log("Cancelar")}},
+                {text: 'OK', onPress: () => {new ProfileService().postVacationRequest(this.state.plan, this.state.selectedStartDateFormated, this.state.selectedEndDateFormated, this.state.profile.id, function(data){
+                    console.log(data)
+                })}}
+            ],
+            {cancelable: false}
+            )
+        }
+        
+    }
+
     onDateChange(date, type) {
         const formatedDate = new Date(date);
 
         if (type === 'END_DATE') {
           this.setState({
             selectedEndDate: formatedDate.toLocaleDateString(),
+            selectedEndDateFormated: formatedDate
           });
         } else {
           this.setState({
             selectedStartDate: formatedDate.toLocaleDateString(),
+            selectedStartDateFormated: formatedDate,
             selectedEndDate: null,
+            selectedEndDateFormated: null
           });
         }
       }

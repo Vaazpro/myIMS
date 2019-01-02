@@ -46,8 +46,6 @@ class AttendanceScreen extends Component {
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
         
-        //console.log(this.state.profile)
-        
         let self = this
         new ProfileService().getAttendanceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(attendance){
             self.setState({
@@ -57,14 +55,6 @@ class AttendanceScreen extends Component {
             self.onMarkedDatesUpdate()
             self.showUnjustifiedList()
         })
-
-
-
-        /* new ProfileService().getAbsenceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(absence){
-            self.setState({
-                absence: absence
-            })
-        }) */
     }
 
     colapse = () => {
@@ -111,9 +101,6 @@ class AttendanceScreen extends Component {
                 let day = (attendance.date).slice(8,10)
                 let month = (attendance.date).slice(5,7)
                 let year = (attendance.date).slice(2,4)
-
-                //console.log(day + "/" + month + "/" + year) 
-                //console.log(attendance)
 
                 switch(attendance.state){
                     case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
@@ -331,9 +318,9 @@ class AttendanceScreen extends Component {
                                 // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
                                 //maxDate={'2012-05-30'}
                                 // Handler which gets executed on day press. Default = undefined
-                                onDayPress={(day) => {console.log('selected day', day)}}
+                                //onDayPress={(day) => {}}
                                 // Handler which gets executed on day long press. Default = undefined
-                                onDayLongPress={(day) => {console.log('selected day', day)}}
+                                //onDayLongPress={(day) => {}}
                                 // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                                 //monthFormat={'yyyy MM'}
                                 // Handler which gets executed when visible month changes in calendar. Default = undefined

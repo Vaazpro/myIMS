@@ -252,7 +252,7 @@ class TasksScreen extends Component {
                         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
                             <Text style={{color:"#007FB7", fontSize:20}}>Selecione o novo estado</Text>
                         </View>
-                        <View style={{ flex:3, justifyContent:'center', alignItems:'center'}}>
+                        <View style={{ flex:5, justifyContent: Platform.OS === 'ios' ? 'flex-start' : 'center', alignItems:'center'}}>
                             <Picker
                                 selectedValue={this.state.selectedState}
                                 style={{ height: 50, width: 200 }}
@@ -264,17 +264,18 @@ class TasksScreen extends Component {
                                 <Picker.Item label="FEITO" value="DONE" />
                             </Picker>
                         </View>
-                            <View style={{flex:1, flexDirection:"row", justifyContent:'center'}}>
-                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-start', marginLeft: '10%'}}>
-                                    <Button title="Cancelar" onPress={() => {this.setState({modalVisible: false})}} color="#007FB7"></Button>
-                                </View>
-                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-end', marginRight: '10%'}}>
-                                    <Button title="Alterar" onPress={() => {
-                                        this.setState({modalVisible: false})
-                                        this.updateTaskState(this.state.selectedTask, this.state.selectedState)
-                                    }} color="#007FB7"></Button>
-                                </View>
+                        <View style={{flex:1, flexDirection:"row", position: 'absolute', bottom: 10, borderBottomLeftRadius: 10, borderBottomRightRadius:10}}>
+                            <View style={{flex:1, justifyContent:'center', alignItems:'flex-start', marginLeft: '10%'}}>
+                                <Button title="Cancelar" onPress={() => {this.setState({modalVisible: false})}} color="#007FB7"></Button>
                             </View>
+                            <View style={{flex:1, justifyContent:'center', alignItems:'flex-end', marginRight: '10%'}}>
+                                <Button title="  Alterar  " onPress={() => {
+                                    this.setState({modalVisible: false})
+                                    this.updateTaskState(this.state.selectedTask, this.state.selectedState)
+                                }} color="#007FB7"></Button>
+                            </View>
+
+                        </View>
                     </View>
                 </Modal>
             </SafeAreaView>
