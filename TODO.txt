@@ -1,11 +1,12 @@
 [   ] Fazer os filtros no my tasks
-[   ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
 [   ] Adaptar design para iphone 6
 [   ] Tentar regitar presença por localizaçao
 [   ] Fazer a build e colocar nas stores
 [   ] Refresh Páginas
 [   ] Retirar os dados estáticos de login
 [   ] Styles no ficheiro de styles
+
+[   ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
 
 
 

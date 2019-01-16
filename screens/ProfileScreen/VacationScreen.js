@@ -168,7 +168,16 @@ class VacationScreen extends Component {
 
         while(indexDate.getTime() < dateTo.getTime()){
             if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
-                count ++
+                /* if(this.state.plan.holidays != undefined){
+                    (this.state.plan.holidays).forEach(element => {
+                        if(element.getTime() != indexDate.getTime()){
+                            count ++
+                        }
+                    });
+                }else{
+                    count -1
+                } */
+                count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
             }
             indexDate.setDate(indexDate.getDate() + 1)
         }
