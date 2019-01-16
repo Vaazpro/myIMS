@@ -11,7 +11,7 @@ import styles from '../../constants/Styles'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
 import IconSearch from '../../components/IconSearch'
-import ProfileService from './ProfileService'
+import * as PT from "../../constants/labels/pt_labels"
 
 
 class UnlockScreen extends Component {
@@ -36,6 +36,8 @@ class UnlockScreen extends Component {
         console.log(day.toISOString())
         
     }
+
+    
    
     playMusicAndUpdateAttendance = async () => {
         const soundObject = new Expo.Audio.Sound();
@@ -46,15 +48,23 @@ class UnlockScreen extends Component {
         } catch (error) {
           // An error occurred!
         }
-
-        new ProfileService().updateAttendanceByProfileId(this.state.profile.id, function(data){
+        //SERVIÇO PARA MARCAR PRESENÇA
+       /*  new ProfileService().updateAttendanceByProfileId(this.state.profile.id, function(data){
             console.log(data)
+        }) */
+
+        navigator.geolocation.getCurrentPosition(function(pos){
+            console.log(pos);
         })
+        
     }
 
     
 
     render() {
+
+        
+
         setTimeout(() => {
             this.setState({
                 clock: (new Date().getHours()<10?'0'+new Date().getHours():new Date().getHours()) + ":" + (new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes()) + ":" + (new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds())
@@ -79,7 +89,7 @@ class UnlockScreen extends Component {
                         </View>
                     </View> */}
                     <View style={{flex:2}}>
-                        <HeaderView txtTitle="Abrir" textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
                     </View>
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
                         <Image source={{uri : logoImg}} 
@@ -107,8 +117,6 @@ class UnlockScreen extends Component {
                                 borderWidth:2, 
                                 borderColor: '#007FB7'
                                 }}> 
-
-                            
                                 <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
                                     <IconSearch name={this.state.icon} biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
                                 </View>

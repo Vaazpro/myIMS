@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as PT from "../../constants/labels/pt_labels"
 import {
     Text,
     View,
@@ -8,9 +9,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView 
 } from 'react-native'
-import AppNavigator from '../../navigation/AppNavigator';
 import SecurityService from './SecurityService'
-import ProfileScreen from '../ProfileScreen/ProfileScreen';
 
 class IntroScreen extends React.Component {
 
@@ -172,12 +171,15 @@ class IntroScreen extends React.Component {
       ]).start()
     }
 
+    
+
     render() {
         /* var obj = {  
-                "email" : "Administrator",
-                "password" : "Adm!123",
-                "isLocalAccount" : true
-            } */
+            "email" : "Administrator",
+            "password" : "Adm!123",
+            "isLocalAccount" : true
+        } */
+
         
         const posX = this.animatedValue.interpolate({
             inputRange: [0, 1],
@@ -238,7 +240,6 @@ class IntroScreen extends React.Component {
             inputRange: [0, 1],
             outputRange: [15, 40]
         })
-
         
         return (
             <KeyboardAvoidingView style={{flex:1, backgroundColor: 'rgb(73, 144, 226)', justifyContent:'center', alignItems:'center'}} behavior="padding" enabled>
@@ -253,16 +254,16 @@ class IntroScreen extends React.Component {
                 <View style={{flex:1, marginBottom: 40, backgroundColor: 'rgb(73, 144, 226)', justifyContent: 'flex-start', alignItems:'center'}}>
                     
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXuser ,height: scaleValueYuser, opacity: opacityValueUser, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                    <TextInput onChangeText={(username) => this.setState({username: username})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder='username' placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    <TextInput onChangeText={(username) => this.setState({username: username})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder={PT.LABEL_PLACEHOLDER_USERNAME} placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXpass, height: scaleValueYpass, opacity: opacityValuePass, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                    <TextInput onChangeText={(password) => this.setState({password: password})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder='password' secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    <TextInput onChangeText={(password) => this.setState({password: password})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder={PT.LABEL_PLACEHOLDER_PASSWORD} secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
                     <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => { this.logIn()}}>
-                        <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>LOGIN</Text>
+                        <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>{PT.LABEL_LOGIN}</Text>
                     </TouchableOpacity>
                     </Animated.View>
                     

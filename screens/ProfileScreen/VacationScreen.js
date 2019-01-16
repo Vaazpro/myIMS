@@ -18,6 +18,8 @@ import { Calendar} from 'react-native-calendars'
 import Styles from '../../constants/Styles'
 import VacationsView from '../../components/VacationsView'
 import ProfileService from './ProfileService'
+import * as PT from "../../constants/labels/pt_labels"
+import {LocaleConfig} from 'react-native-calendars';
 
 
 
@@ -151,8 +153,6 @@ class VacationScreen extends Component {
                     }
 
                 }
-            }else{
-                console.log("adaeeas")
             }
         })
         this.setState({
@@ -190,14 +190,14 @@ class VacationScreen extends Component {
                 let startingMonth = (vacation.dateFrom).slice(5,7)
                 let endingDay = (vacation.dateTo).slice(8,10)
                 let endingMonth = (vacation.dateTo).slice(5,7)
-                let months=['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+                let months= PT.MONTHS
                 let dayText = startingDay + ' - ' + endingDay
                 let monthText = months[startingMonth - 1]
                 
                 if(numberOfDays == 1){
-                    durationText = numberOfDays + ' dia (' + numberOfDays * 8 + 'h)'
+                    durationText = numberOfDays + PT.ORDER_VACATIONS_DAY_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
                 }else{
-                    durationText = numberOfDays + ' dias (' + numberOfDays * 8 + 'h)'
+                    durationText = numberOfDays + PT.ORDER_VACATIONS_DAYS_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
                 }
                 
                 if(startingMonth !== endingMonth){
@@ -210,13 +210,13 @@ class VacationScreen extends Component {
 
 
                 switch(vacation.state){
-                    case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={vacation.state}></VacationsView>)
+                    case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
                     break;
 
-                    case 'TAKEN': monthList.push(<VacationsView key={index} borderColor='#628DC0' monthText={monthText} startEndDays={dayText} durationText={durationText} state={vacation.state}></VacationsView>)
+                    case 'TAKEN': monthList.push(<VacationsView key={index} borderColor='#628DC0' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_TAKEN}></VacationsView>)
                     break;
 
-                    case 'PENDING': monthList.push(<VacationsView key={index} borderColor='rgb(245, 166, 35)' monthText={monthText} startEndDays={dayText} durationText={durationText} state={vacation.state}></VacationsView>)
+                    case 'PENDING': monthList.push(<VacationsView key={index} borderColor='rgb(245, 166, 35)' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_PENDING}></VacationsView>)
                     break;
                 }
             }
@@ -242,6 +242,12 @@ class VacationScreen extends Component {
             outputRange: ['0deg','180deg'],
         });
 
+        LocaleConfig.locales['PT'] = {
+            monthNames: PT.MONTHS,
+            dayNamesShort: PT.WEEKDAYS
+          };
+          
+        LocaleConfig.defaultLocale = 'PT';
 
         return (
 
@@ -258,7 +264,7 @@ class VacationScreen extends Component {
                     </View>
                     <View style={{flex:1, flexDirection: "row"}}>
                         <View style={{flex:1, justifyContent: 'center', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>Férias</Text>
+                            <Text style={{fontSize:20}}>{PT.VACATIONS_HEADER_TITLE}</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'flex-end', justifyContent: 'center'}}>
                             <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
@@ -275,7 +281,6 @@ class VacationScreen extends Component {
                         markedDates={this.state.markedDates}
                         // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
                         markingType={'period'}
-                        
                         // Initially visible month. Default = Date()
                         //current={'2012-03-01'}
                         // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -310,6 +315,7 @@ class VacationScreen extends Component {
                         // Handler which gets executed when press arrow icon left. It receive a callback can go next month
                         onPressArrowRight={addMonth => addMonth()}
                         theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
+                        
                         />
                     </View>
                 </Animated.View>

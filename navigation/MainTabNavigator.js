@@ -1,18 +1,19 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import TabBarIcon from '../components/TabBarIcon';
-import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import TaskScreen from '../screens/TasksScreen/TasksScreen';
-import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
-import UnlockScreen from '../screens/ProfileScreen/UnlockScreen';
-import NotificationsScreen from '../screens/SettingsScreen/NotificationScreen';
-import Teams from '../screens/ProfileScreen/Teams';
-import VacationScreen from '../screens/ProfileScreen/VacationScreen';
-import FiltersScreen from '../screens/TasksScreen/FiltersScreen';
-import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen';
-import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen';
-import IntroScreen from '../screens/SplashScreen/IntroScreen';
+import React from 'react'
+import { Platform } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import TabBarIcon from '../components/TabBarIcon'
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen'
+import TaskScreen from '../screens/TasksScreen/TasksScreen'
+import SettingsScreen from '../screens/SettingsScreen/SettingsScreen'
+import UnlockScreen from '../screens/ProfileScreen/UnlockScreen'
+import NotificationsScreen from '../screens/SettingsScreen/NotificationScreen'
+import Teams from '../screens/ProfileScreen/Teams'
+import VacationScreen from '../screens/ProfileScreen/VacationScreen'
+import FiltersScreen from '../screens/TasksScreen/FiltersScreen'
+import OrderVacationScreen from '../screens/ProfileScreen/OrderVacationScreen'
+import AttendanceScreen from '../screens/ProfileScreen/AttendanceScreen'
+import IntroScreen from '../screens/SplashScreen/IntroScreen'
+import * as PT from "../constants/labels/pt_labels"
 
 const ProfileStack = createStackNavigator({
   intro: IntroScreen,
@@ -32,7 +33,7 @@ ProfileStack.navigationOptions = ({ navigation }) => {
   }
   return {
     tabBarVisible,
-    tabBarLabel: 'PERFIL',
+    tabBarLabel: PT.PROFILE_BUTTON,
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
         focused={focused}
@@ -56,7 +57,7 @@ const TasksStack = createStackNavigator({
 });
 
 TasksStack.navigationOptions = {
-  tabBarLabel: 'TAREFAS',
+  tabBarLabel: PT.TASKS_BUTTON,
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -72,7 +73,7 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
   
-  tabBarLabel: 'CONFIGURAÇÕES',
+  tabBarLabel: PT.SETTINGS_BUTTON,
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

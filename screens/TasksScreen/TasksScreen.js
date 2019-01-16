@@ -15,6 +15,7 @@ import HeaderView from '../../components/HeaderView'
 import TaskView from '../../components/TaskView'
 import TaskService from './TaskService'
 import ProfileService from '../ProfileScreen/ProfileService'
+import * as PT from "../../constants/labels/pt_labels"
 
 
 class TasksScreen extends Component {
@@ -167,7 +168,7 @@ class TasksScreen extends Component {
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{flex:2, flexDirection: 'row'}}>
                     <View style={{flex:9, justifyContent:'center'}}>
-                        <HeaderView txtTitle="Tarefas" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={() =>{}} onPressBtn={() =>{}} />
+                        <HeaderView txtTitle={PT.TASKS_HEADER_TITLE} txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={() =>{}} onPressBtn={() =>{}} />
                     </View>
                     <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
@@ -180,7 +181,7 @@ class TasksScreen extends Component {
                 </View>
                 <View style={{flex:10}}>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
-                        <Text>ABERTO</Text>
+                        <Text>{PT.TASKS_STATE_OPEN}</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                         <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
@@ -194,7 +195,7 @@ class TasksScreen extends Component {
                          </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
-                        <Text>PLANEADO</Text>
+                        <Text>{PT.TASKS_STATE_PLANNED}</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
@@ -207,7 +208,7 @@ class TasksScreen extends Component {
                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
-                        <Text>PROGRESSO</Text>
+                        <Text>{PT.TASKS_STATE_IN_PROGRESS}</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
@@ -216,7 +217,7 @@ class TasksScreen extends Component {
                         </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
-                        <Text>TESTE</Text>
+                        <Text>{PT.TASKS_STATE_IN_TESTING}</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
@@ -227,7 +228,7 @@ class TasksScreen extends Component {
                          </ScrollView>
                     </View>
                     <View style={{flex:1, backgroundColor: '#F2F2F2', paddingLeft: 10, paddingBottom: 4, paddingTop: 4}}>
-                        <Text>FEITO</Text>
+                        <Text>{PT.TASKS_STATE_DONE}</Text>
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>

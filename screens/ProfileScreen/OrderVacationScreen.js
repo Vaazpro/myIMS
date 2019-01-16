@@ -11,7 +11,8 @@ import {
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import CalendarPicker from 'react-native-calendar-picker'
 import { Hoshi } from 'react-native-textinput-effects'
-import ProfileService from './ProfileService';
+import ProfileService from './ProfileService'
+import * as PT from "../../constants/labels/pt_labels"
 
 
 
@@ -19,7 +20,7 @@ class OrderVacationScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Novo Pedido',
+            title: PT.ORDER_VACATIONS_HEADER_TITLE,
             headerTitleStyle: {
                 width: 200
             },
@@ -27,7 +28,7 @@ class OrderVacationScreen extends Component {
                 <View style={{width: 120,paddingRight: 10}}>
                     <Button 
                         onPress={navigation.getParam('saveHandler')}
-                        title="Guardar "
+                        title = {PT.ORDER_VACATIONS_BUTTON_SAVE}
                         color="#007FB7"
                     />
                 </View>
@@ -71,19 +72,29 @@ class OrderVacationScreen extends Component {
     saveButtonHandler = () => {
 
         if(this.state.selectedEndDate == null){
-            Alert.alert('Atenção', 'Selecione uma data de Início e uma data de Fim',
+            Alert.alert(PT.ORDER_VACATIONS_ALERT_ERROR_TITLE, PT.ORDER_VACATIONS_ALERT_ERROR_MESSAGE,
             [
                 {text: 'OK', onPress: () => {}}
             ],
             {cancelable: false}
             )
         }else{
-            Alert.alert('Atenção', 'Deseja confirmar o seu pedido de férias?',
+            Alert.alert(PT.ORDER_VACATIONS_ALERT_CONFIRMATION_TITLE, PT.ORDER_VACATIONS_ALERT_CONFIRMATION_MESSAGE,
             [
-                {text: 'Cancelar', onPress: () => {console.log("Cancelar")}},
-                {text: 'OK', onPress: () => {new ProfileService().postVacationRequest(this.state.plan, this.state.selectedStartDateFormated, this.state.selectedEndDateFormated, this.state.profile.id, function(data){
-                    console.log(data)
-                })}}
+                {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {console.log("Cancelar")}},
+                {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_YES, onPress: () => {
+                    new ProfileService().postVacationRequest(
+                        this.state.plan, 
+                        this.state.selectedStartDateFormated,
+                        this.state.selectedEndDateFormated, 
+                        this.state.profile.id,
+                        function(data){
+                            console.log(data)
+                        }
+                    )
+                    this.props.navigation.navigate("vacations")
+                    }
+                }
             ],
             {cancelable: false}
             )
@@ -129,8 +140,8 @@ class OrderVacationScreen extends Component {
                 
                 <View style={{width: '100%', height: this.getHeight(), backgroundColor:'#e6e6e6', paddingTop: 10}}>
                     <CalendarPicker
-                        weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
-                        months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']}
+                        weekdays={ PT.WEEKDAYS }
+                        months={ PT.MONTHS }
                         previousTitle="   <   "
                         nextTitle=    "   >   "
                         startFromMonday={false}
@@ -148,8 +159,8 @@ class OrderVacationScreen extends Component {
                     <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
                         <View style={{height: 10, backgroundColor: 'white'}}></View>
                         <View style={{ backgroundColor: 'white'}}>
-                            <Hoshi editable={false} label={'Data de Inicio'} value={startDate} borderColor={'rgb(123, 173, 232)'}/>
-                            <Hoshi editable={false} label={'Data de Fim'} value={endDate} borderColor={'rgb(123, 173, 232)'}/>      
+                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_BEGGINING_DATE_PLACEHOLDER} value={startDate} borderColor={'rgb(123, 173, 232)'}/>
+                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_ENDING_DATE_PLACEHOLDER} value={endDate} borderColor={'rgb(123, 173, 232)'}/>      
                         </View>
                     </ScrollView>
                 </View>

@@ -1,0 +1,21 @@
+[   ] Fazer os filtros no my tasks
+[   ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
+[   ] Adaptar design para iphone 6
+[   ] Tentar regitar presença por localizaçao
+[   ] Fazer a build e colocar nas stores
+[   ] Refresh Páginas
+[   ] Retirar os dados estáticos de login
+[   ] Styles no ficheiro de styles
+
+
+
+[ x ] Remover password nas configurações
+[ x ] Estado das presenças e ferias para PT          
+[ x ] Faltas em bold
+[ x ] Ao marcar ferias, redirecionar para pag. Anterior
+[ x ] Comentar notificações
+[ x ] Alterar subtitulo nos recibos para: Sem recibos
+[ x ] Colocar disabled os recibos
+[ x ] Comentar presenças no unlock
+[ x ] Ficheiro de constantes
+[ x ] Na pag.inicial, como subtititulo das Férias, colocar numero de dias de ferias aprovados

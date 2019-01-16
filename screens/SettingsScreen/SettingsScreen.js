@@ -8,7 +8,7 @@ import {
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
 import IntroScreen from '../SplashScreen/IntroScreen'
-import { NavigationActions, StackActions } from 'react-navigation';
+import * as PT from "../../constants/labels/pt_labels"
 
 
 
@@ -50,13 +50,13 @@ class SettingsScreen extends Component {
             <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{flex:2}}>
-                    <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
+                    <HeaderView txtTitle={PT.SETTINGS_HEADER_TITLE} txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
                 </View>
                 <View style={{flex:10, margin: 10}}>
-                    <BtnTextIcon name='Notificações' icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
-                    <BtnTextIcon name='E-mail' icon='envelope' biblio='' />
-                    <BtnTextIcon name='Password' icon='key' biblio='' />
-                    <BtnTextIcon name='Terminar sessão' icon='sign-out' biblio='' onPressBtn={()=>{
+                     {/* <BtnTextIcon name={PT.SETTINGS_OPTIONS_NOTIFICATIONS} icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
+                    <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_EMAIL} icon='envelope' biblio='' />
+                    <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_PASSWORD} icon='key' biblio='' /> */}
+                    <BtnTextIcon name={PT.SETTINGS_OPTIONS_LOGOUT} icon='sign-out' biblio='' onPressBtn={()=>{
                         this.props.navigation.navigate('intro')
                     }}/>
                 </View>

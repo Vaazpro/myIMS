@@ -17,6 +17,8 @@ import { Calendar } from 'react-native-calendars'
 import Styles from '../../constants/Styles'
 import AttendanceView from '../../components/AttendanceView'
 import ProfileService from './ProfileService'
+import * as PT from "../../constants/labels/pt_labels"
+import {LocaleConfig} from 'react-native-calendars'
 
 
 class AttendanceScreen extends Component {
@@ -41,7 +43,9 @@ class AttendanceScreen extends Component {
                 "year": new Date().getFullYear()
             },
             markedDates: {},
-            currentList: []
+            currentList: [],
+            tudo: "normal",
+            faltas: "bold"
         }
         //this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
@@ -103,22 +107,22 @@ class AttendanceScreen extends Component {
                 let year = (attendance.date).slice(2,4)
 
                 switch(attendance.state){
-                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_JUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_PENDING}></AttendanceView>)
                     break;
 
-                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
                     break;
 
-                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_VACATION}></AttendanceView>)
                     break;
 
-                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_HOLYDAY}></AttendanceView>)
                     break;
                 }
             }
@@ -213,7 +217,7 @@ class AttendanceScreen extends Component {
             console.log(attendance) */
 
             if(attendance.state == 'UNJUSTIFIED'){
-                unjustifiedList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
+                unjustifiedList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
             }
         })
 
@@ -233,13 +237,14 @@ class AttendanceScreen extends Component {
             outputRange: ['0deg','180deg'],
         });
 
-        /* console.log("==============================")
-        console.log(this.state.profile)
-        console.log("==============================") */
-        
-
-
         const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
+
+        LocaleConfig.locales['PT'] = {
+            monthNames: PT.MONTHS,
+            dayNamesShort: PT.WEEKDAYS
+          };
+          
+        LocaleConfig.defaultLocale = 'PT';
 
         //console.log(this.state.attendance[0])
 
@@ -257,14 +262,14 @@ class AttendanceScreen extends Component {
                     </View>
                     <View style={{flex:1, flexDirection: "row"}}>
                         <View style={{flex:1, justifyContent: 'center', alignItems:'flex-start', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>Presenças</Text>
+                            <Text style={{fontSize:20}}>{PT.ATTENDANCE_HEADER_TITLE}</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end', flexDirection: "row"}}>
-                            <TouchableOpacity onPress={() => {this.onMonthUpdate(this.state.selectedMonth)}} style={{display: this.props.displayBtn}}>
-                                <Text>Tudo</Text>
+                            <TouchableOpacity onPress={() => {this.onMonthUpdate(this.state.selectedMonth); this.setState({tudo: "bold", faltas: "normal"})}} style={{display: this.props.displayBtn}}>
+                                <Text style={{fontWeight: this.state.tudo}}>{PT.ATTENDANCE_HEADER_BUTTON_ALL}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={this.showUnjustifiedList} style={{marginLeft: 10, display: this.props.displayBtn}}>
-                                <Text>Faltas</Text>
+                            <TouchableOpacity onPress={() => {this.showUnjustifiedList(); this.setState({tudo: "normal", faltas: "bold"})}} style={{marginLeft: 10, display: this.props.displayBtn}}>
+                                <Text style={{fontWeight: this.state.faltas}}>{PT.ATTENDANCE_HEADER_BUTTON_ABSENCES}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
