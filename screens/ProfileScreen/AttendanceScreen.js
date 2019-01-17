@@ -71,11 +71,19 @@ class AttendanceScreen extends Component {
 
     expand = () => {
         if(Platform.OS === 'ios'){ //André
-            this.setState({
-                clicked: true,
-                hg: hp('43%'),
-                disp: 'flex'
-            })
+            if(Dimensions.get('window').height > 700){ //André
+                this.setState({
+                    clicked: true,
+                    hg: hp('43%'),
+                    disp: 'flex'
+                })
+            }else{
+                this.setState({ // Iphone 6
+                    clicked: true,
+                    hg: hp('53%'),
+                    disp: 'flex'
+                })
+            }
         }else{
             if(Dimensions.get('window').height > 700){ //Rafa
                 this.setState({
@@ -230,7 +238,17 @@ class AttendanceScreen extends Component {
 
     render() {
         const iconsize = 32;
-        const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
+        //const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
+        var gap = 0
+         if(Platform.OS === 'ios'){
+             if(Dimensions.get('window').height > 700){
+                 gap = icon(iconsize/1.3)
+             }else{
+                 gap = 12 // Iphone 6
+             }
+         }else{
+            gap = 6
+         }
         /* Realizar a Animação da arrow */
         const rotate = this.rotation.interpolate({
             inputRange: [0, 1],
@@ -247,6 +265,18 @@ class AttendanceScreen extends Component {
         LocaleConfig.defaultLocale = 'PT';
 
         //console.log(this.state.attendance[0])
+
+        var top = 0;
+
+        if(Platform.OS === 'ios'){
+            if(Dimensions.get('window').height > 700){
+                top = Dimensions.get('window').height*0.20
+            }else{
+                top = Dimensions.get('window').height*0.18
+            }
+        }else{
+            top = Dimensions.get('window').height*0.18
+        }
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -284,7 +314,8 @@ class AttendanceScreen extends Component {
                 </ScrollView>
                     
                 <View style={{
-                    top: Platform.OS === 'ios' ? Dimensions.get('window').height*0.20 : Dimensions.get('window').height*0.18,
+                    //top: Platform.OS === 'ios' ? Dimensions.get('window').height*0.20 : Dimensions.get('window').height*0.18,
+                    top: top,
                     flex:1,
                     display: this.state.disp, 
                     backgroundColor:'#e6e6e6',

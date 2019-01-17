@@ -60,7 +60,17 @@ class SlideScreen extends Component {
          h1 = (Dimensions.get('window').height / 4) 
          h2 = (Dimensions.get('window').height / 1.7)
          iconsize = 32
-         const gap = Platform.OS === 'ios' ? (iconsize) : 10
+         var gap = 0
+         if(Platform.OS === 'ios'){
+             if(Dimensions.get('window').height > 700){
+                 gap = iconsize
+             }else{
+                 gap = 10 // Iphone 6
+             }
+         }else{
+            gap = 10
+         }
+         //const gap = Platform.OS === 'ios' ? (iconsize) : 10
          /* Realizar a Animação da arrow */
          const { style, rotation } = this.props
          const rotate = this.rotation.interpolate({

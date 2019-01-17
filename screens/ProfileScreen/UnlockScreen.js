@@ -10,7 +10,7 @@ import {
 import styles from '../../constants/Styles'
 import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
-import IconSearch from '../../components/IconSearch'
+import Search from '../../components/IconSearch'
 import * as PT from "../../constants/labels/pt_labels"
 
 
@@ -23,7 +23,7 @@ class UnlockScreen extends Component {
     constructor(props) {
         super(props)
         this.state={
-            icon: 'lock',
+            icon : 'lock',
             clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
             profile: this.props.navigation.getParam('profile')
         }
@@ -36,6 +36,16 @@ class UnlockScreen extends Component {
         console.log(day.toISOString())
         
     }
+
+    coordsDistance = (lat1, lon1, lat2, lon2) => {
+        var p = 0.017453292519943295;    // Math.PI / 180
+        var c = Math.cos;
+        var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+                c(lat1 * p) * c(lat2 * p) * 
+                (1 - c((lon2 - lon1) * p))/2;
+      
+        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+      }
 
     
    
@@ -54,7 +64,23 @@ class UnlockScreen extends Component {
         }) */
 
         navigator.geolocation.getCurrentPosition(function(pos){
-            console.log(pos);
+            console.log("=========")
+            console.log(pos.coords.latitude)
+            console.log(pos.coords.longitude)
+            
+            //console.log(coordsDistance(pos.coords.latitude, pos.coords.longitude, 41.69422, -8.84872))
+            if(PT.COMPANY_COORDS_LAT - 0.0003 < pos.coords.latitude && pos.coords.latitude < PT.COMPANY_COORDS_LAT + 0.0003){
+                if(pos.coords.longitude > PT.COMPANY_COORDS_LNG - 0.0001 && pos.coords.longitude  < PT.COMPANY_COORDS_LNG + 0.0001){
+                    alert("CHECKED")
+                    console.log("CHECKED")
+                }else{
+                    alert("FAILED LONG")
+                    console.log("FAILED LONG")
+                }
+            }else{
+                alert("FAILED LAT")
+                console.log("FAILED LAT")
+            }
         })
         
     }
@@ -89,7 +115,7 @@ class UnlockScreen extends Component {
                         </View>
                     </View> */}
                     <View style={{flex:2}}>
-                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" displayIcon="flex" displayBtn="none" nameIcon="cross" biblioIcon="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" display="flex" displayBtn="none" name="cross" biblio="" onPress={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
                     </View>
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
                         <Image source={{uri : logoImg}} 
@@ -118,7 +144,7 @@ class UnlockScreen extends Component {
                                 borderColor: '#007FB7'
                                 }}> 
                                 <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
-                                    <IconSearch name={this.state.icon} biblio='FontAwesome' size={100} color="#007FB7"></IconSearch>
+                                    <Search name={this.state.icon} biblio='FontAwesome' size={100} color="#007FB7"></Search>
                                 </View>
                             </ElevatedView>
                     </TouchableOpacity>

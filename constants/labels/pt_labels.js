@@ -86,3 +86,8 @@ export const ATTENDANCE_STATE_HOLYDAY = "FERIADO"
 //CALENDAR INFORMATION
 export const WEEKDAYS=['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 export const MONTHS=['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+
+//COMPANY COORDS
+
+export const COMPANY_COORDS_LAT = 41.6946647
+export const COMPANY_COORDS_LNG = -8.8470285

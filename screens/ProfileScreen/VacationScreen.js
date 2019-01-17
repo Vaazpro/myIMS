@@ -95,12 +95,20 @@ class VacationScreen extends Component {
     }
 
     expand = () => {
-        if(Platform.OS === 'ios'){ //André
-            this.setState({
-                clicked: true,
-                hg: hp('45%'),
-                disp: 'flex'
-            })
+        if(Platform.OS === 'ios'){ 
+            if(Dimensions.get('window').height > 700){ //André
+                this.setState({
+                    clicked: true,
+                    hg: hp('45%'),
+                    disp: 'flex'
+                })
+            }else{
+                this.setState({ // Iphone 6
+                    clicked: true,
+                    hg: hp('54%'),
+                    disp: 'flex'
+                })
+            }
         }else{
             if(Dimensions.get('window').height > 700){ //Rafa
                 this.setState({
@@ -250,7 +258,17 @@ class VacationScreen extends Component {
         /* console.log(this.state.vacations) */
         const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
         const iconsize = 32;
-        const gap = Platform.OS === 'ios' ? (iconsize) : 10;
+        //const gap = Platform.OS === 'ios' ? (iconsize) : 10;
+        var gap = 0
+         if(Platform.OS === 'ios'){
+             if(Dimensions.get('window').height > 700){
+                 gap = iconsize
+             }else{
+                 gap = 10 // Iphone 6
+             }
+         }else{
+            gap = 10
+         }
         /* Realizar a Animação da arrow */
         const rotate = this.rotation.interpolate({
             inputRange: [0, 1],
@@ -272,7 +290,7 @@ class VacationScreen extends Component {
                 <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            //console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
+                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
                             this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
                         </TouchableOpacity>
