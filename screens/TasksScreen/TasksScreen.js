@@ -8,7 +8,8 @@ import {
     Button,
     ScrollView,
     Modal,
-    Picker
+    Picker,
+    Platform
 } from 'react-native'
 import IconSearch from '../../components/IconSearch'
 import HeaderView from '../../components/HeaderView'
