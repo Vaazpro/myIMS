@@ -64,22 +64,27 @@ class InitialOptions extends Component {
         var indexDate = dateFrom
         var count = 0
 
-        while(indexDate.getTime() < dateTo.getTime()){
+        while(indexDate.getTime() <= dateTo.getTime()){
             if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
-                /* if(this.state.plan.holidays != undefined){
-                    (this.state.plan.holidays).forEach(element => {
-                        if(element.getTime() != indexDate.getTime()){
-                            count ++
+                if(this.state.vacations.holidays != undefined){
+                    var exists = false;
+                    (this.state.vacations.holidays).forEach(element => {
+                        var holiday = new Date(element)
+                        if(holiday.toDateString() == indexDate.toDateString()){
+                            exists = true
                         }
                     });
+                    if(!exists){
+                        count ++
+                    }
                 }else{
-                    count -1
-                } */
-                count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
+                    count ++
+                }
+                //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
             }
             indexDate.setDate(indexDate.getDate() + 1)
         }
-        return (count + 1)
+        return (count)
     }
 
     render() {

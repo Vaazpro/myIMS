@@ -166,22 +166,27 @@ class VacationScreen extends Component {
         var indexDate = dateFrom
         var count = 0
 
-        while(indexDate.getTime() < dateTo.getTime()){
+        while(indexDate.getTime() <= dateTo.getTime()){
             if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
-                /* if(this.state.plan.holidays != undefined){
-                    (this.state.plan.holidays).forEach(element => {
-                        if(element.getTime() != indexDate.getTime()){
-                            count ++
+                if(this.state.vacations.holidays != undefined){
+                    var exists = false;
+                    (this.state.vacations.holidays).forEach(element => {
+                        var holiday = new Date(element)
+                        if(holiday.toDateString() == indexDate.toDateString()){
+                            exists = true
                         }
                     });
+                    if(!exists){
+                        count ++
+                    }
                 }else{
-                    count -1
-                } */
-                count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
+                    count ++
+                }
+                //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
             }
             indexDate.setDate(indexDate.getDate() + 1)
         }
-        return (count + 1)
+        return (count)
     }
 
 
@@ -242,6 +247,7 @@ class VacationScreen extends Component {
 
 
     render() {
+        /* console.log(this.state.vacations) */
         const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
         const iconsize = 32;
         const gap = Platform.OS === 'ios' ? (iconsize) : 10;
@@ -266,7 +272,7 @@ class VacationScreen extends Component {
                 <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
+                            //console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
                             this.props.navigation.goBack()}}>
                             <IconSearch name='cross' biblio='' color='black' size={25} />
                         </TouchableOpacity>
