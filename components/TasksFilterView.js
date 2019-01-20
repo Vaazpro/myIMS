@@ -54,22 +54,16 @@ TaksFilterView extends Component {
         /* , borderWidth: 2, borderColor: !this.state.clicked ? 'black': 'red' */
 
         return (
-            <View>
-
-                <View style={{zIndex:22,borderRadius: 10, width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-50, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white'}}>
+            <View style={{width: 150, height: 100, backgroundColor: "transparent", marginEnd: 2, marginStart: 2, padding: 5, position:"relative"}}>
+                <View style={[this.state.clicked ? Styles.shadow : "", {flex: 1, width: "100%", borderRadius: 5, elevation: this.state.clicked ? 5 : 0}]}>
+                    <TouchableOpacity style={{flex:1, width: "100%", backgroundColor: "#F2F2F2", borderWidth:1, borderColor: "lightgray", borderRadius: 5, alignItems: "center", justifyContent: "center", padding: 10}} onPress={()=>{this.setState({clicked: !this.state.clicked})}}>
+                        <Text style={{fontSize: Platform.OS === 'ios' ? 16 : 18, textAlign: "center"}}>{this.props.txt}</Text>  
+                    </TouchableOpacity>
+                </View>
+                <View style={{elevation: 10, position:"absolute", width:20, height: 20, backgroundColor: "#007FB7", right: 0, top: 0, borderRadius: 10, opacity: this.state.clicked ? 1 : 0, justifyContent: 'center', alignItems:'center', borderWidth:1, borderColor:'white'}}>
                     <IconSearch name="check" biblio="Feather" color="white" size={17}></IconSearch>
-                </View>    
-                <TouchableOpacity style={{flex: 1,position: "absolute", zIndex: 1}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
-                
-                    <View style={[this.state.clicked ? Styles.shadow : '', {backgroundColor: '#F2F2F2', borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5,borderWidth: 1, borderColor: !this.state.clicked ? 'lightgray': '#F2F2F2',width: 140,height:80}]}>
-                        <View style= {{flex: 1, justifyContent: 'center', alignItems:'center'}}>
-                            <Text style={{fontSize:18}}>{this.props.txt}</Text>  
-                        </View>
-                    </View> 
-                </TouchableOpacity>
-            
+                </View>
             </View>
-            
         )
     }
 }
