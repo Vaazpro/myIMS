@@ -56,25 +56,19 @@ TaksFilterView extends Component {
         return (
             <View style={{width: 140,height:130 ,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5}}>
                 <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}> 
-                    <View style={{flex:3, justifyContent: 'center', alignItems: 'center'}}>
-                        <View style={[Styles.shadow, {width:104, height:104, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: 52, justifyContent:"center", alignItems: "center"}]}>
-                            <CircularPhoto image={'http://ims-demoipvc.sparkleit.pt/'+ this.props.id +'.png?format=png&width=100%'} size={100}/>
+                    <View style={{flex:3, justifyContent: 'center', alignItems: 'center', position: "relative"}}>
+                        <View style={[Styles.shadow, {width:94, height:94, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: 47, justifyContent:"center", alignItems: "center", elevation: 5}]}>
+                            <CircularPhoto image={'http://ims-demoipvc.sparkleit.pt/'+ this.props.id +'.png?format=png&width=100%'} size={94}/>
                         </View>
-                    </View>  
+                    </View>
+                    <View style={{position:"absolute", width: 26, height: 26, alignItems: "center", justifyContent: "center", borderRadius: 13, backgroundColor: "#007FB7", top: "5%", right: "10%", elevation: 10, opacity: this.state.clicked ? 1 : 0}}>
+                        <IconSearch name="check" biblio="Feather" color="white" size={20}></IconSearch>
+                    </View>
                     <View style= {{flex: 1, justifyContent: 'flex-end', alignItems:'center'}}>
                         <Text style={{fontSize:14}}>{this.props.txt}</Text>  
                     </View>
-                {/* <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
-                     <View style={{flex:1, justifyContent: 'center'}}>
-                        <CircularPhoto image={this.props.users} size={20}/>
-                    </View> 
-                    {usersList}
-                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}> 
-                    </View>
-                </View> */}
                 </TouchableOpacity>
             </View>
-            
         )
     }
 }
