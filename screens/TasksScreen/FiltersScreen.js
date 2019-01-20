@@ -11,6 +11,7 @@ import BtnTextIcon from '../../components/BtnTextIcon'
 import TasksFilterView from '../../components/TasksFilterView'
 import ResourcesFilterView from '../../components/ResourcesFilterView'
 import * as PT from "../../constants/labels/pt_labels"
+import FilterService from "./FilterService"
 
 class FiltersScreen extends Component {
 
@@ -32,8 +33,81 @@ class FiltersScreen extends Component {
                 {id: 4, display: 'none', colapsed: true},
                 {id: 5, display: 'none', colapsed: true},
                 {id: 6, display: 'none', colapsed: true}
-            ]
+            ],
+
+            allProjects: [],
+            allReleases: [],
+            allTaskStates: [],
+            allEmployees: [],
+            allTeams: [],
+
+            //arrays dos elementos apresentados
+            allProjectsView: [],
+            allReleasesView: [],
+            allTaskStatesView: [],
+            allEmployeesView: [],
+            allTeamsView: [],
+
+            //arrays dos elementos selecionados
+            projectsSelected: [],
+            releasesSelected: [],
+            taskStatesSelected: [],
+            employeesSelected: [],
+            teamsSelected: [],
+
         }
+
+        let self = this
+
+        //get all projects
+        new FilterService().getAllProjects(function(projects){
+            self.setState({
+                allProjects: projects
+            })
+        })
+
+        //get all releases
+        new FilterService().getAllReleases(function(releases){
+            //console.log(releases)
+            self.setState({
+                allReleases: releases
+            })
+        })
+
+        //get all tasks states
+        new FilterService().getAllTaskStates(function(states){
+            self.setState({
+                allTaskStates: states
+            })
+        })
+
+        //get all employees
+        new FilterService().getAllEmployees(function(employees){
+            console.log(employees)
+            self.setState({
+                allEmployees: employees
+            })
+            self.showAllEmployes(employees)
+        })
+
+        //get all teams
+        new FilterService().getAllTeams(function(teams){
+            self.setState({
+                allTeams: teams
+            })
+        })
+
+    }
+
+    showAllEmployes = (employees) => {
+        let allEmployeesView = [];
+        employees.forEach((employee, ind) => {
+            allEmployeesView.push(<ResourcesFilterView id={employee.attachmentId} txt={employee.name} key={ind}> </ResourcesFilterView>)
+        })
+
+        this.setState({
+            allEmployeesView: allEmployeesView
+        })
     }
 
     optionsHandler(id){
@@ -119,11 +193,12 @@ class FiltersScreen extends Component {
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
-                            <ResourcesFilterView txt='Guilherme Fonseca'> </ResourcesFilterView>
+                            {/* <ResourcesFilterView txt='Guilherme Fonseca'> </ResourcesFilterView>
                             <ResourcesFilterView txt='Guilherme Fonseca'> </ResourcesFilterView>
                             <ResourcesFilterView txt='Emanuel Francisco Sá Fernandes'> </ResourcesFilterView>
                             <ResourcesFilterView txt='myText'> </ResourcesFilterView>
-                            <ResourcesFilterView txt='myText'> </ResourcesFilterView>
+                            <ResourcesFilterView txt='myText'> </ResourcesFilterView> */}
+                            {this.state.allEmployeesView}
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>

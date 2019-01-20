@@ -7,7 +7,6 @@ import {
 import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto';
 import IconSearch from './IconSearch';
-import ViewOverflow from 'react-native-view-overflow';
 
 class 
 TaksFilterView extends Component {
@@ -59,9 +58,8 @@ TaksFilterView extends Component {
                 <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}> 
                     <View style={{flex:3, justifyContent: 'center', alignItems: 'center'}}>
                         <View style={[Styles.shadow, {width:104, height:104, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: 52, justifyContent:"center", alignItems: "center"}]}>
-                            <CircularPhoto image={'https://cdn.images.express.co.uk/img/dynamic/galleries/x701/389530.jpg'} size={100}/>
+                            <CircularPhoto image={'http://ims-demoipvc.sparkleit.pt/'+ this.props.id +'.png?format=png&width=100%'} size={100}/>
                         </View>
-                        
                     </View>  
                     <View style= {{flex: 1, justifyContent: 'flex-end', alignItems:'center'}}>
                         <Text style={{fontSize:14}}>{this.props.txt}</Text>  
