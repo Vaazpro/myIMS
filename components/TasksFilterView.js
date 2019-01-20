@@ -57,8 +57,8 @@ TaksFilterView extends Component {
             <View style={[this.state.clicked ? Styles.shadow : '', {backgroundColor: '#F2F2F2',width: 140,height:80, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5,borderWidth: 1, borderColor: !this.state.clicked ? 'lightgray': '#F2F2F2'}]}>
                 <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
                 
-                    <View style={{borderRadius: '50%', width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-15, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white', display: this.state.clicked ? "flex" : "none"}}>
-                    <IconSearch name="check" biblio="Feather" color="white" size="17"></IconSearch>
+                    <View style={{borderRadius: 10, width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-15, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white', display: this.state.clicked ? "flex" : "none"}}>
+                    <IconSearch name="check" biblio="Feather" color="white" size={17}></IconSearch>
                 </View>
                 
                 
@@ -74,8 +74,7 @@ TaksFilterView extends Component {
                     </View>
                 </View> */}
                 </TouchableOpacity>
-            </View>
-            
+            </View> 
         )
     }
 }
