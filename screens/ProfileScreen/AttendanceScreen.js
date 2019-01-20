@@ -242,7 +242,7 @@ class AttendanceScreen extends Component {
         var gap = 0
          if(Platform.OS === 'ios'){
              if(Dimensions.get('window').height > 700){
-                 gap = icon(iconsize/1.3)
+                 gap = (iconsize/1.3)
              }else{
                  gap = 12 // Iphone 6
              }

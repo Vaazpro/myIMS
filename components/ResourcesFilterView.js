@@ -54,17 +54,17 @@ TaksFilterView extends Component {
         /* , borderWidth: 2, borderColor: !this.state.clicked ? 'black': 'red' */
 
         return (
-            <View style={[this.state.clicked ? Styles.shadow : '', {backgroundColor: '#F2F2F2',width: 140,height:80, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5,borderWidth: 1, borderColor: !this.state.clicked ? 'lightgray': '#F2F2F2'}]}>
-                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
-                
-                    <View style={{borderRadius: '50%', width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-15, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white', display: this.state.clicked ? "flex" : "none"}}>
-                    <IconSearch name="check" biblio="Feather" color="white" size="17"></IconSearch>
-                </View>
-                
-                
-                <View style= {{flex: 1, justifyContent: 'center', alignItems:'center'}}>
-                    <Text style={{fontSize:18}}>{this.props.txt}</Text>  
-                </View>
+            <View style={{width: 140,height:130 ,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5}}>
+                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}> 
+                    <View style={{flex:3, justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={[Styles.shadow, {width:104, height:104, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: '50%', justifyContent:"center", alignItems: "center"}]}>
+                            <CircularPhoto image={'https://cdn.images.express.co.uk/img/dynamic/galleries/x701/389530.jpg'} size={100}/>
+                        </View>
+                        
+                    </View>  
+                    <View style= {{flex: 1, justifyContent: 'flex-end', alignItems:'center'}}>
+                        <Text style={{fontSize:14}}>{this.props.txt}</Text>  
+                    </View>
                 {/* <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
                      <View style={{flex:1, justifyContent: 'center'}}>
                         <CircularPhoto image={this.props.users} size={20}/>
