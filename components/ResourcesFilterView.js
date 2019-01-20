@@ -7,6 +7,7 @@ import {
 import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto';
 import IconSearch from './IconSearch';
+import ViewOverflow from 'react-native-view-overflow';
 
 class 
 TaksFilterView extends Component {

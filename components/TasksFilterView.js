@@ -54,27 +54,22 @@ TaksFilterView extends Component {
         /* , borderWidth: 2, borderColor: !this.state.clicked ? 'black': 'red' */
 
         return (
-            <View style={[this.state.clicked ? Styles.shadow : '', {backgroundColor: '#F2F2F2',width: 140,height:80, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5,borderWidth: 1, borderColor: !this.state.clicked ? 'lightgray': '#F2F2F2'}]}>
-                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
-                
-                    <View style={{borderRadius: 10, width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-15, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white', display: this.state.clicked ? "flex" : "none"}}>
+            <View>
+
+                <View style={{zIndex:22,borderRadius: 10, width:20, height:20, position:"absolute", backgroundColor: '#007FB7', top:-10, right:-50, alignItems:"center", justifyContent: "center", borderWidth:1, borderColor:'white'}}>
                     <IconSearch name="check" biblio="Feather" color="white" size={17}></IconSearch>
-                </View>
+                </View>    
+                <TouchableOpacity style={{flex: 1,position: "absolute", zIndex: 1}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
                 
-                
-                <View style= {{flex: 1, justifyContent: 'center', alignItems:'center'}}>
-                    <Text style={{fontSize:18}}>{this.props.txt}</Text>  
-                </View>
-                {/* <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
-                     <View style={{flex:1, justifyContent: 'center'}}>
-                        <CircularPhoto image={this.props.users} size={20}/>
+                    <View style={[this.state.clicked ? Styles.shadow : '', {backgroundColor: '#F2F2F2', borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5,borderWidth: 1, borderColor: !this.state.clicked ? 'lightgray': '#F2F2F2',width: 140,height:80}]}>
+                        <View style= {{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+                            <Text style={{fontSize:18}}>{this.props.txt}</Text>  
+                        </View>
                     </View> 
-                    {usersList}
-                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}> 
-                    </View>
-                </View> */}
                 </TouchableOpacity>
-            </View> 
+            
+            </View>
+            
         )
     }
 }
