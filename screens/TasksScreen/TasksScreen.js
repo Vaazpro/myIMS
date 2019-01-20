@@ -87,12 +87,6 @@ class TasksScreen extends Component {
         let in_testing= []
         let done= [] 
 
-        console.log("==============================")
-            console.log(this.state.tasks
-                
-                
-                )
-            console.log("///////////////////////////////")
 
         this.state.tasks.forEach(state => {
             

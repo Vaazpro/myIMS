@@ -8,12 +8,12 @@ import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto';
 
 class 
-TaskView extends Component {
+TaksFilterView extends Component {
 
     constructor(props) {
         super(props)
         this.state={
-            users: this.props.users
+            clicked: false
         }
     }
 
@@ -21,18 +21,13 @@ TaskView extends Component {
         props:
 
         txt
-        time
-        color
-        photo2
 
     */
 
     
 
     render() {
-        console.log("ENTREI")
-        console.log(this.state.users)
-        var usersList = []
+       /*  var usersList = []
         if(this.state.users.length<=6){
             this.state.users.forEach((user, index) => {
                 usersList.push(
@@ -54,23 +49,22 @@ TaskView extends Component {
                 <Text> +{others} </Text>,
                 <IconSearch name='users' biblio='Feather' color='black' size={13} />
             );
-        }
+        } */
+
         return (
-            
-            <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>
-                <TouchableOpacity style={{flex: 1}} onPress={this.props.taskHandler}>
-                <View style= {{flex: 1, justifyContent: 'flex-end'}}>
-                    <Text style={{fontSize:15}}>{this.props.txt}</Text>  
+            <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 140,height:80, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderWidth: 2, borderColor: !this.state.clicked ? 'black': 'red'}]}>
+                <TouchableOpacity style={{flex: 1}} onPress={() => {this.setState({clicked: !this.state.clicked})}}>
+                <View style= {{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+                    <Text style={{fontSize:20}}>{this.props.txt}</Text>  
                 </View>
-                <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
-                    {/* <View style={{flex:1, justifyContent: 'center'}}>
+                {/* <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
+                     <View style={{flex:1, justifyContent: 'center'}}>
                         <CircularPhoto image={this.props.users} size={20}/>
-                    </View> */}
+                    </View> 
                     {usersList}
-                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}>
-                        <Text style={{fontSize:14, color: 'grey'}}>{this.props.time}</Text>  
+                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}> 
                     </View>
-                </View>
+                </View> */}
                 </TouchableOpacity>
             </View>
             
@@ -78,4 +72,4 @@ TaskView extends Component {
     }
 }
 
-export default TaskView
+export default TaksFilterView

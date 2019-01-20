@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
+import TasksFilterView from '../../components/TasksFilterView'
 import * as PT from "../../constants/labels/pt_labels"
 
 class FiltersScreen extends Component {
@@ -53,6 +54,10 @@ class FiltersScreen extends Component {
         this.setState({array});
     }
 
+    changeBorder(){
+        return {borderWidth:5,borderColor: 'red'}
+    }
+
     render() {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
@@ -64,9 +69,17 @@ class FiltersScreen extends Component {
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
                         <BtnTextIcon name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
-                        <View style={{height: 200, backgroundColor: 'yellow', display: this.state.array[0].display, justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>[THIS IS A VIEW]</Text>
-                        </View>
+                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, backgroundColor: 'yellow', display: this.state.array[0].display}}>
+                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
+                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            <View style={{width:10}}></View>
+
+
+                        </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
                         <View style={{height: 200, backgroundColor: 'lime', display: this.state.array[1].display, justifyContent: 'center', alignItems: 'center'}}>
