@@ -9,7 +9,7 @@ import CircularPhoto from './CircularPhoto';
 import IconSearch from './IconSearch';
 
 class 
-TaksFilterView extends Component {
+TaskFilterView extends Component {
 
     constructor(props) {
         super(props)
@@ -73,4 +73,4 @@ TaksFilterView extends Component {
     }
 }
 
-export default TaksFilterView
+export default TaskFilterView

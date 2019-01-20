@@ -64,6 +64,7 @@ class FiltersScreen extends Component {
             self.setState({
                 allProjects: projects
             })
+            self.showAllProjects(projects);
         })
 
         //get all releases
@@ -72,6 +73,8 @@ class FiltersScreen extends Component {
             self.setState({
                 allReleases: releases
             })
+
+            self.showAllReleases(releases)
         })
 
         //get all tasks states
@@ -79,11 +82,11 @@ class FiltersScreen extends Component {
             self.setState({
                 allTaskStates: states
             })
+            self.showAllTaskStates(states)
         })
 
         //get all employees
         new FilterService().getAllEmployees(function(employees){
-            console.log(employees)
             self.setState({
                 allEmployees: employees
             })
@@ -95,9 +98,12 @@ class FiltersScreen extends Component {
             self.setState({
                 allTeams: teams
             })
+            self.showAllTeams(teams)
         })
 
     }
+
+    //Inserir VIEWS
 
     showAllEmployes = (employees) => {
         let allEmployeesView = [];
@@ -107,6 +113,50 @@ class FiltersScreen extends Component {
 
         this.setState({
             allEmployeesView: allEmployeesView
+        })
+    }
+
+    showAllProjects = (projects) => {
+        let allProjectsView = [];
+        projects.forEach((project, ind) => {
+            allProjectsView.push(<TasksFilterView key={ind}  txt={project.name}> </TasksFilterView>)
+        })
+
+        this.setState({
+            allProjectsView: allProjectsView
+        })
+    }
+
+    showAllReleases = (releases) => {
+        let allReleasesView = []
+        releases.forEach((release, ind) => {
+            allReleasesView.push(<TasksFilterView key={ind}  txt={release.name}> </TasksFilterView>)
+        })
+
+        this.setState({
+            allReleasesView: allReleasesView
+        })
+    }
+    
+    showAllTaskStates = (taskStates) => {
+        let allTaskStatesView = []
+        taskStates.forEach((state, ind) => {
+            allTaskStatesView.push(<TasksFilterView key={ind}  txt={state.id}> </TasksFilterView>)
+        })
+
+        this.setState({
+            allTaskStatesView: allTaskStatesView
+        })
+    }
+
+    showAllTeams = (teams) => {
+        let allTeamsView = []
+        teams.forEach((team, ind) => {
+            allTeamsView.push(<TasksFilterView key={ind}  txt={team.name}> </TasksFilterView>)
+        })
+
+        this.setState({
+            allTeamsView: allTeamsView
         })
     }
 
@@ -145,12 +195,7 @@ class FiltersScreen extends Component {
                     <ScrollView>
                         <BtnTextIcon name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[0].display}}>
-                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            {this.state.allProjectsView}
                             <View style={{width:10}}></View>
 
 
@@ -158,64 +203,43 @@ class FiltersScreen extends Component {
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[1].display}}>
-                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
+                            {this.state.allReleasesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_DATE} />
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
-                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, backgroundColor: 'green', display: this.state.array[2].display}}>
-                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
+                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[2].display}}>
+                            <TasksFilterView txt='User Story'> </TasksFilterView>
+                            <TasksFilterView txt='Task'> </TasksFilterView>
+                            <TasksFilterView txt='Bug'> </TasksFilterView>
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
-                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, backgroundColor: 'green', display: this.state.array[3].display}}>
-                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
+                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[3].display}}>
+                            {this.state.allTaskStatesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
-                            {/* <ResourcesFilterView txt='Guilherme Fonseca'> </ResourcesFilterView>
-                            <ResourcesFilterView txt='Guilherme Fonseca'> </ResourcesFilterView>
-                            <ResourcesFilterView txt='Emanuel Francisco Sá Fernandes'> </ResourcesFilterView>
-                            <ResourcesFilterView txt='myText'> </ResourcesFilterView>
-                            <ResourcesFilterView txt='myText'> </ResourcesFilterView> */}
                             {this.state.allEmployeesView}
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
-                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, backgroundColor: 'green', display: this.state.array[5].display}}>
-                            <TasksFilterView  txt='Olá senhor joão Cortez tudo bem????????'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
-                            <TasksFilterView txt='myText'> </TasksFilterView>
+                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[5].display}}>
+                            <TasksFilterView txt='Development'> </TasksFilterView>
+                            <TasksFilterView txt='Tests'> </TasksFilterView>
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
                         <BtnTextIcon name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
-                        <View style={{height: 200, backgroundColor: 'lightblue', display: this.state.array[6].display, justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>[THIS IS A VIEW]</Text>
-                        </View>
+                        <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[6].display}}>
+                            {this.state.allTeamsView}
+                            <View style={{width:10}}></View>
+                        </ScrollView>
                     </ScrollView>
                 </View>
             </SafeAreaView>
