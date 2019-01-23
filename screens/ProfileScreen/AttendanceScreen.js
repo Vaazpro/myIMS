@@ -15,6 +15,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import IconSearch from '../../components/IconSearch'
 import { Calendar } from 'react-native-calendars'
 import Styles from '../../constants/Styles'
+import Colors from '../../constants/Colors'
 import AttendanceView from '../../components/AttendanceView'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
@@ -115,22 +116,22 @@ class AttendanceScreen extends Component {
                 let year = (attendance.date).slice(2,4)
 
                 switch(attendance.state){
-                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
+                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_UNJUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_JUSTIFIED}></AttendanceView>)
+                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_JUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_JUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_PENDING}></AttendanceView>)
+                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_PENDING} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_PENDING}></AttendanceView>)
                     break;
 
-                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
+                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_ATTENDANCE} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
                     break;
 
-                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_VACATION}></AttendanceView>)
+                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_VACATION} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_VACATION}></AttendanceView>)
                     break;
 
-                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_HOLYDAY}></AttendanceView>)
+                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_HOLIDAY} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_HOLYDAY}></AttendanceView>)
                     break;
                 }
             }
@@ -149,22 +150,22 @@ class AttendanceScreen extends Component {
 
             let date = new Date(attendance.date).toISOString("en-US").slice(0,10)
             switch(attendance.state){
-                case 'UNJUSTIFIED': days[date] = {selected: true, selectedColor: '#E91B37'}
+                case 'UNJUSTIFIED': days[date] = {selected: true, selectedColor: Colors.COLOR_UNJUSTIFIED}
                 break;
 
-                case 'JUSTIFIED': days[date] = {marked: true, dotColor: '#96C269'}
+                case 'JUSTIFIED': days[date] = {marked: true, dotColor: Colors.COLOR_JUSTIFIED}
                 break;
 
-                case 'PENDING': days[date] = {marked: true, dotColor: '#F5A623'}
+                case 'PENDING': days[date] = {marked: true, dotColor: Colors.COLOR_PENDING}
                 break;
 
-                case 'ATTENDANCE': days[date] = {marked: true, dotColor: '#4A90E2'}
+                case 'ATTENDANCE': days[date] = {marked: true, dotColor: Colors.COLOR_ATTENDANCE}
                 break;
 
-                case 'VACATION': days[date] = {marked: true, dotColor: '#96C269'}
+                case 'VACATION': days[date] = {marked: true, dotColor: Colors.COLOR_VACATION}
                 break;
 
-                case 'HOLIDAY': days[date] = {marked: true, dotColor: '#008040'}
+                case 'HOLIDAY': days[date] = {marked: true, dotColor: Colors.COLOR_HOLIDAY}
                 break;
             }
             
@@ -225,7 +226,7 @@ class AttendanceScreen extends Component {
             console.log(attendance) */
 
             if(attendance.state == 'UNJUSTIFIED'){
-                unjustifiedList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
+                unjustifiedList.push(<AttendanceView key={index} borderColor={Colors.COLOR_UNJUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
             }
         })
 

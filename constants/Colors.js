@@ -11,4 +11,12 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+
+  //COLORS ATTENDANCE
+  COLOR_JUSTIFIED: "#96C269",
+  COLOR_UNJUSTIFIED: "#E91B37",
+  COLOR_PENDING: "#96C269",
+  COLOR_ATTENDANCE: "#4A90E2",
+  COLOR_VACATION: "#96C269",
+  COLOR_HOLIDAY: "#008040"
 };
