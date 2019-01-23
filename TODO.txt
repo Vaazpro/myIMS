@@ -1,5 +1,8 @@
 [   ] Icon nas teams
 [  TD  ] Fazer os filtros no my tasks
+    - Fazer a Data
+    - Arrays de elementos selecionados
+    - Clique na cruz ou botao guardar para fazer pedido de tasks
 [ TD  ] Adaptar design para iphone 6
 [ TD  ] Tentar registar presença por localizaçao
 [   ] Fazer a build e colocar nas stores

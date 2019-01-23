@@ -24,7 +24,7 @@ class BtnTextIcon extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onPressBtn}>
+            <TouchableOpacity activeOpacity={this.props.activeOpacity} onPress={this.props.onPressBtn}>
                 <View style={{paddingBottom: 5, height: 50, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1, alignItems: 'flex-end', flexDirection: 'row'}}>
                     <View style={{flex: 9,alignItems: 'flex-start'}}>
                         <Text style={{color: '#9A999E'}}>{this.props.name}</Text>        

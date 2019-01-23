@@ -45,7 +45,7 @@ class TasksScreen extends Component {
             planned: [],
             in_progress: [],
             in_testing: [],
-            done: []
+            done: [],
         }
         this.getMyTasks()
 
@@ -168,7 +168,7 @@ class TasksScreen extends Component {
                     <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
-                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters', {profile: this.state.profile})}} style={{justifyContent:'center'}}>
+                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters')}} style={{justifyContent:'center'}}>
                                 <IconSearch name="sliders" biblio='' size={22} color="black"/>
                             </TouchableOpacity>    
                         </View>

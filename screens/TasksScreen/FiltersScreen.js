@@ -12,6 +12,7 @@ import TasksFilterView from '../../components/TasksFilterView'
 import ResourcesFilterView from '../../components/ResourcesFilterView'
 import * as PT from "../../constants/labels/pt_labels"
 import FilterService from "./FilterService"
+import DatePicker from 'react-native-datepicker'
 
 class FiltersScreen extends Component {
 
@@ -21,9 +22,12 @@ class FiltersScreen extends Component {
 
     constructor(props) {
         super(props)
+        var date = new Date().toJSON()
+        date = date.split("T")
+        date = date[0]
         this.state={
 
-            profile: this.props.navigation.getParam('profile'),
+            //profile: this.props.navigation.getParam('profile'),
 
             array: [
                 {id: 0, display: 'none', colapsed: true},
@@ -54,7 +58,8 @@ class FiltersScreen extends Component {
             taskStatesSelected: [],
             employeesSelected: [],
             teamsSelected: [],
-
+            dateStart: "",
+            dateEnd: ""
         }
 
         let self = this
@@ -193,7 +198,7 @@ class FiltersScreen extends Component {
                 </View>
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[0].display}}>
                             {this.state.allProjectsView}
                             <View style={{width:10}}></View>
@@ -201,15 +206,77 @@ class FiltersScreen extends Component {
 
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[1].display}}>
                             {this.state.allReleasesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_DATE} />
-                        
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
+                        <BtnTextIcon activeOpacity={1} name={PT.FILTER_OPTIONS_DATE} />
+                        <View style={{height:5}}></View>
+                        <View style={{height: 50, flexDirection: 'row'}}>
+                            <View style={{flex:1, alignItems:'flex-start'}}>
+                                <DatePicker
+                                    style={{width:'90%', height: 50}}
+                                    date={this.state.dateStart}
+                                    mode="date"
+                                    placeholder="select start date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2016-05-01"
+                                    maxDate="2025-06-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        marginLeft: 36,
+                                    },
+                                    btnTextConfirm: {
+                                        color: '#007FB7'
+                                    }
+                                    // ... You can check the source to find the other keys.
+                                    }}
+                                    onDateChange={(date) => {this.setState({dateStart: date})}}
+                                />
+                            </View>
+                            
+                            <View style={{flex:1, alignItems:'flex-end'}}>
+                                <DatePicker
+                                    style={{width:'90%', height: 50}}
+                                    date={this.state.dateEnd}
+                                    mode="date"
+                                    placeholder="select end date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2016-05-01"
+                                    maxDate="2025-06-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        marginLeft: 36,
+                                    },
+                                    btnTextConfirm: {
+                                        color: '#007FB7'
+                                    }
+                                    // ... You can check the source to find the other keys.
+                                    }}
+                                    onDateChange={(date) => {this.setState({dateEnd: date})}}
+                                />
+                            </View>
+                        </View>
+
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[2].display}}>
                             <TasksFilterView txt='User Story'> </TasksFilterView>
                             <TasksFilterView txt='Task'> </TasksFilterView>
@@ -217,25 +284,25 @@ class FiltersScreen extends Component {
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[3].display}}>
                             {this.state.allTaskStatesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
                             {this.state.allEmployeesView}
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[5].display}}>
                             <TasksFilterView txt='Development'> </TasksFilterView>
                             <TasksFilterView txt='Tests'> </TasksFilterView>
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
+                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[6].display}}>
                             {this.state.allTeamsView}
                             <View style={{width:10}}></View>
