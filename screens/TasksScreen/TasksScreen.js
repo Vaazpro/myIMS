@@ -46,8 +46,10 @@ class TasksScreen extends Component {
             in_progress: [],
             in_testing: [],
             done: [],
+            filters: undefined
         }
-        this.getMyTasks()
+
+        console.log(this.props.navigation.state)
 
         let self = this
         new ProfileService().getProfile(function(profile){
@@ -62,13 +64,27 @@ class TasksScreen extends Component {
          })
     }
 
-    getMyTasks = () => {
+    componentDidMount(){
+        this.showTasks(this.state.filters)
+    }
+
+    showTasks = (filters) => {
+        if(filters == undefined){
+            console.log("ENTREIIIIIIIIIIIIIII");
+            this.getAllMyTasks()
+        }else{
+            console.log("FILTRAGEM")
+        }
+    }
+    
+    //Função que vai buscar todas as tarefas existentes do Utilizador
+    getAllMyTasks = () => {
         let self = this
         new TaskService().getMyTasks(function(response){
             //log in com sucesso
             //self.props.navigation.navigate('profile')
             console.log("=======SUCCESS========")
-            console.log(response)
+            //console.log(response)
             self.setState({
                 tasks: response
             })
@@ -80,13 +96,34 @@ class TasksScreen extends Component {
         })
     }
 
+    //Função que vai buscar as tarefas filtradas do Utilizador
+    //STUB
+
+    /* getFilteredMyTasks = (filters) => {
+        let self = this
+        new TaskService().getMyFilteredTasks((filters),function(response){
+            //log in com sucesso
+            //self.props.navigation.navigate('profile')
+            console.log("=======SUCCESS========")
+            //console.log(response)
+            self.setState({
+                tasks: response
+            })
+            self.fillAllTasksStates()
+        }, function(error){
+            //erro ao fazer login
+            console.log("=======ERROR========")
+            console.log(error)
+        })
+    } */
+
+
     fillAllTasksStates = () => {
         let open = []
         let planned= []
         let in_progress= []
         let in_testing= []
         let done= [] 
-
 
         this.state.tasks.forEach(state => {
             
@@ -146,11 +183,21 @@ class TasksScreen extends Component {
         //console.log(task)
         let self = this
         new TaskService().updateTask(task, newState, function(data){
-            console.log(data)
+            //console.log(data)
             self.getMyTasks()
         }, function(error){
             console.log(error)
         })
+    }
+
+    handleRefPage = (filters) =>{
+        this.setState({
+            filters: filters
+        })
+
+        this.showTasks(this.state.filters)
+
+        console.log(filters)
     }
 
     render() {
@@ -168,7 +215,7 @@ class TasksScreen extends Component {
                     <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
-                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters')}} style={{justifyContent:'center'}}>
+                            <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters', {profile: this.state.profile, filters: this.state.filters, refPage: this.handleRefPage  })}} style={{justifyContent:'center'}}>
                                 <IconSearch name="sliders" biblio='' size={22} color="black"/>
                             </TouchableOpacity>    
                         </View>

@@ -14,7 +14,7 @@ TaskFilterView extends Component {
     constructor(props) {
         super(props)
         this.state={
-            clicked: false
+            clicked: this.props.clicked
         }
     }
 
@@ -55,7 +55,7 @@ TaskFilterView extends Component {
 
         return (
             <View style={{width: 140,height:130 ,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5}}>
-                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.setState({clicked: !this.state.clicked})}}> 
+                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.props.checkArray(); this.setState({clicked: !this.state.clicked})}}> 
                     <View style={{flex:3, justifyContent: 'center', alignItems: 'center', position: "relative"}}>
                         <View style={[Styles.shadow, {width:94, height:94, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: 47, justifyContent:"center", alignItems: "center", elevation: 5}]}>
                             <CircularPhoto image={'http://ims-demoipvc.sparkleit.pt/'+ this.props.id +'.png?format=png&width=100%'} size={94}/>

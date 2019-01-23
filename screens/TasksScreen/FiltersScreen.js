@@ -27,7 +27,7 @@ class FiltersScreen extends Component {
         date = date[0]
         this.state={
 
-            //profile: this.props.navigation.getParam('profile'),
+            profile: this.props.navigation.getParam('profile'),
 
             array: [
                 {id: 0, display: 'none', colapsed: true},
@@ -44,6 +44,8 @@ class FiltersScreen extends Component {
             allTaskStates: [],
             allEmployees: [],
             allTeams: [],
+            allTechTypes: ['MANAGER', 'TECHNICIAN', 'TESTER'],
+            allTypes: ['PROJECT', 'RELEASE', 'USERSTORIE', 'BUG', 'TASK'],
 
             //arrays dos elementos apresentados
             allProjectsView: [],
@@ -51,6 +53,8 @@ class FiltersScreen extends Component {
             allTaskStatesView: [],
             allEmployeesView: [],
             allTeamsView: [],
+            allTechTypesView: [],
+            allTypesView: [],
 
             //arrays dos elementos selecionados
             projectsSelected: [],
@@ -59,10 +63,15 @@ class FiltersScreen extends Component {
             employeesSelected: [],
             teamsSelected: [],
             dateStart: "",
-            dateEnd: ""
+            dateEnd: "",
+
+            //filters
+            filters: this.props.navigation.getParam('filters')
         }
 
         let self = this
+
+        console.log(this.state.filters)
 
         //get all projects
         new FilterService().getAllProjects(function(projects){
@@ -108,14 +117,76 @@ class FiltersScreen extends Component {
 
     }
 
+    componentWillMount(){
+        if(this.state.filters == undefined){
+            this.setState({
+                filters: {
+                     projetos: [],
+                     entregas: [],
+                     datas: [],
+                     tipos: [],
+                     estados: [],
+                     recursos: [],
+                     tectipos: [],
+                     equipas:[],
+                }
+            })
+        }
+    }
+
+    componentDidMount(){
+        
+        //Componentes que nao recorrem a serviços API, são estaticos
+        this.showAllTechTypes(this.state.allTechTypes)
+        this.showAllTypes(this.state.allTypes)
+        
+    }
+
+    arrayFunction = (id, array, key) => {
+        let filters = this.state.filters
+        if(array.includes(id)){
+            //pop ao project
+            array.forEach((element,index)=>{
+                if(element == id){
+                    array.pop(index)
+                }
+            })
+            filters[key] = array
+            //setState ao filters
+            this.setState({
+                filters: filters
+            })
+        }else{
+            //push
+            array.push(id)
+            //setState ao filters
+            filters[key] = array
+            //setState ao filters
+            this.setState({
+                filters: filters
+            })
+        }
+    }
+
     //Inserir VIEWS
 
     showAllEmployes = (employees) => {
         let allEmployeesView = [];
-        employees.forEach((employee, ind) => {
-            allEmployeesView.push(<ResourcesFilterView id={employee.attachmentId} txt={employee.name} key={ind}> </ResourcesFilterView>)
-        })
-
+        if(this.state.filters == undefined){
+            employees.forEach((employee, ind) => {
+                allEmployeesView.push(<ResourcesFilterView checkArray={()=>{this.arrayFunction(employee.id, recursos, "recursos")}} clicked={false} id={employee.attachmentId} txt={employee.name} key={ind}> </ResourcesFilterView>)
+            })
+        }else{
+            let recursos = this.state.filters.recursos
+            employees.forEach((employee, ind) => {
+                if(recursos.includes(employee.id)){
+                    allEmployeesView.push(<ResourcesFilterView checkArray={()=>{this.arrayFunction(employee.id, recursos, "recursos")}} clicked={true} id={employee.attachmentId} txt={employee.name} key={ind}> </ResourcesFilterView>)
+                }else{
+                    allEmployeesView.push(<ResourcesFilterView checkArray={()=>{this.arrayFunction(employee.id, recursos, "recursos")}} clicked={false} id={employee.attachmentId} txt={employee.name} key={ind}> </ResourcesFilterView>)
+                }
+            })
+        }
+        
         this.setState({
             allEmployeesView: allEmployeesView
         })
@@ -123,10 +194,21 @@ class FiltersScreen extends Component {
 
     showAllProjects = (projects) => {
         let allProjectsView = [];
-        projects.forEach((project, ind) => {
-            allProjectsView.push(<TasksFilterView key={ind}  txt={project.name}> </TasksFilterView>)
-        })
-
+        if(this.state.filters == undefined){
+            projects.forEach((project, ind) => {
+                allProjectsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(project.id, projetos, "projetos")}} clicked={false} key={ind}  txt={project.name}> </TasksFilterView>)
+            })
+        }else{
+            let projetos = this.state.filters.projetos
+            projects.forEach((project, ind) => {
+                if(projetos.includes(project.id)){
+                    allProjectsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(project.id, projetos, "projetos")}} clicked={true} key={ind}  txt={project.name}> </TasksFilterView>)
+                }else{
+                    allProjectsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(project.id, projetos, "projetos")}} clicked={false} key={ind}  txt={project.name}> </TasksFilterView>)
+                }
+            })
+        }
+        
         this.setState({
             allProjectsView: allProjectsView
         })
@@ -134,9 +216,20 @@ class FiltersScreen extends Component {
 
     showAllReleases = (releases) => {
         let allReleasesView = []
-        releases.forEach((release, ind) => {
-            allReleasesView.push(<TasksFilterView key={ind}  txt={release.name}> </TasksFilterView>)
-        })
+        if(this.state.filters == undefined){
+            releases.forEach((release, ind) => {
+                allReleasesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(release.id, entregas, "entregas")}} clicked={false} key={ind}  txt={release.name}> </TasksFilterView>)
+            })
+        }else{
+            let entregas = this.state.filters.entregas
+            releases.forEach((release, ind) => {
+                if(entregas.includes(release.id)){
+                    allReleasesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(release.id, entregas, "entregas")}} clicked={true} key={ind}  txt={release.name}> </TasksFilterView>)
+                }else{
+                    allReleasesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(release.id, entregas, "entregas")}} clicked={false} key={ind}  txt={release.name}> </TasksFilterView>)
+                }
+            })
+        }
 
         this.setState({
             allReleasesView: allReleasesView
@@ -145,10 +238,21 @@ class FiltersScreen extends Component {
     
     showAllTaskStates = (taskStates) => {
         let allTaskStatesView = []
-        taskStates.forEach((state, ind) => {
-            allTaskStatesView.push(<TasksFilterView key={ind}  txt={state.id}> </TasksFilterView>)
-        })
-
+        if(this.state.filters == undefined){
+            taskStates.forEach((state, ind) => {
+                allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={state.id}> </TasksFilterView>)
+            })
+        }else{
+            let estados = this.state.filters.estados
+            taskStates.forEach((state, ind) => {
+                if(estados.includes(state.id)){
+                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={true} key={ind}  txt={state.id}> </TasksFilterView>)
+                }else{
+                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={state.id}> </TasksFilterView>)
+                }
+            })
+        }
+        
         this.setState({
             allTaskStatesView: allTaskStatesView
         })
@@ -156,12 +260,65 @@ class FiltersScreen extends Component {
 
     showAllTeams = (teams) => {
         let allTeamsView = []
-        teams.forEach((team, ind) => {
-            allTeamsView.push(<TasksFilterView key={ind}  txt={team.name}> </TasksFilterView>)
-        })
+        if(this.state.filters == undefined){
+            teams.forEach((team, ind) => {
+                allTeamsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(team.id, equipas, "equipas")}} clicked={false} key={ind}  txt={team.name}> </TasksFilterView>)
+            })
+        }else{
+            let equipas = this.state.filters.equipas
+            teams.forEach((team, ind) => {
+                if(equipas.includes(team.id)){
+                    allTeamsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(team.id, equipas, "equipas")}} clicked={true} key={ind}  txt={team.name}> </TasksFilterView>)
+                }else{
+                    allTeamsView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(team.id, equipas, "equipas")}} clicked={false} key={ind}  txt={team.name}> </TasksFilterView>)
+                }
+            })
+        }
 
         this.setState({
             allTeamsView: allTeamsView
+        })
+    }
+
+    showAllTechTypes = (techTypes) => {
+        let allTechTypesView = []
+        if(this.state.filters == undefined){
+            techTypes.forEach((tech, ind)=>{
+                allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={tech}> </TasksFilterView>)
+            })
+        }else{
+            let tectipos = this.state.filters.tectipos
+            techTypes.forEach((tech, ind)=>{
+                if(tectipos.includes(tech)){
+                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={true} key={ind}  txt={tech}> </TasksFilterView>)
+                }else{
+                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={tech}> </TasksFilterView>)
+                }  
+            })
+        }
+        this.setState({
+            allTechTypesView: allTechTypesView
+        })
+    }
+
+    showAllTypes = (types) => {
+        let allTypesView = []
+        if(this.state.filters == undefined ){
+            types.forEach((type, ind) => {
+                allTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(type, tipos, "tipos")}} clicked={false} key={ind}  txt={type}> </TasksFilterView>)
+            })
+        }else{
+            let tipos = this.state.filters.tipos
+            types.forEach((type, ind) => {
+                if(tipos.includes(type)){
+                    allTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(type, tipos, "tipos")}} clicked={true} key={ind}  txt={type}> </TasksFilterView>)
+                }else{
+                    allTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(type, tipos, "tipos")}} clicked={false} key={ind}  txt={type}> </TasksFilterView>)
+                }
+            })
+        }
+        this.setState({
+            allTypesView: allTypesView
         })
     }
 
@@ -188,13 +345,21 @@ class FiltersScreen extends Component {
         return {borderWidth:5,borderColor: 'red'}
     }
 
+    refreshPage = (filters) => {
+        const { navigation } = this.props
+        //console.log(navigation.state)
+        navigation.state.params.refPage(filters)
+        navigation.goBack()
+    }
+
     render() {
+        
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{flex:2}}>
-                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() =>{this.props.navigation.goBack()}} onPressBtn={() =>{}} />
+                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{}} />
                 </View>
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
@@ -278,9 +443,7 @@ class FiltersScreen extends Component {
 
                         <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[2].display}}>
-                            <TasksFilterView txt='User Story'> </TasksFilterView>
-                            <TasksFilterView txt='Task'> </TasksFilterView>
-                            <TasksFilterView txt='Bug'> </TasksFilterView>
+                            {this.state.allTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
@@ -293,12 +456,12 @@ class FiltersScreen extends Component {
                         <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
                             {this.state.allEmployeesView}
+                            <View style={{width:10}}></View>
                         </ScrollView>
                         
                         <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[5].display}}>
-                            <TasksFilterView txt='Development'> </TasksFilterView>
-                            <TasksFilterView txt='Tests'> </TasksFilterView>
+                            {this.state.allTechTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         

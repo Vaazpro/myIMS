@@ -30,8 +30,8 @@ TaskView extends Component {
     
 
     render() {
-        console.log("ENTREI")
-        console.log(this.state.users)
+        //console.log("ENTREI")
+        //console.log(this.state.users)
         var usersList = []
         if(this.state.users.length<=6){
             this.state.users.forEach((user, index) => {

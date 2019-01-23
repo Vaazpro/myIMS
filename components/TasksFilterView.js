@@ -15,7 +15,7 @@ TaksFilterView extends Component {
     constructor(props) {
         super(props)
         this.state={
-            clicked: false
+            clicked: this.props.clicked
         }
     }
 
@@ -25,8 +25,6 @@ TaksFilterView extends Component {
         txt
 
     */
-
-    
 
     render() {
        /*  var usersList = []
@@ -57,7 +55,7 @@ TaksFilterView extends Component {
         return (
             <View style={{width: 150, height: 100, backgroundColor: "transparent", marginEnd: 2, marginStart: 2, padding: 5, position:"relative"}}>
                 <View style={[this.state.clicked ? Styles.shadow : "", {flex: 1, width: "100%", borderRadius: 5, elevation: this.state.clicked ? 5 : 0}]}>
-                    <TouchableOpacity activeOpacity={0.8} style={{flex:1, width: "100%", backgroundColor: "#F2F2F2", borderWidth:1, borderColor: "lightgray", borderRadius: 5, alignItems: "center", justifyContent: "center", padding: 10}} onPress={()=>{this.setState({clicked: !this.state.clicked})}}>
+                    <TouchableOpacity activeOpacity={0.8} style={{flex:1, width: "100%", backgroundColor: "#F2F2F2", borderWidth:1, borderColor: "lightgray", borderRadius: 5, alignItems: "center", justifyContent: "center", padding: 10}} onPress={()=>{this.props.checkArray(); this.setState({clicked: !this.state.clicked})}}>
                         <Text style={{fontSize: Platform.OS === 'ios' ? 16 : 18, textAlign: "center"}}>{this.props.txt}</Text>  
                     </TouchableOpacity>
                 </View>

@@ -22,3 +22,19 @@
 [ x ] Comentar presenças no unlock
 [ x ] Ficheiro de constantes
 [ x ] Na pag.inicial, como subtititulo das Férias, colocar numero de dias de ferias aprovados
+
+
+Filtros:
+
+Criar um state "filters" que va ser transportado entre o TaskScreen e FilterScreen
+O state é um objeto com atributos e os valores sao arrays que levam os filtros selecionados
+No lado do TaskScreen:
+    - Caso nao haja filtros levamos o state a null, no TaskScreen se estiver null chamamos a funçao de preencher todas as tarefas
+    - Caso contrário, vai ser invocado o método de arranjar as tarefas filtradas (nova API)
+------------------------------------------------------------------------------------------------------------------------------------
+Se no TaskScreen o objeto "filters" estiver preenchido, no clique do botao para FilterScreen temos enviar esse objeto
+No lado FilterScreen:
+    -E no FilterScreen ao ser preenchido temos de verificar o que está ou não previamente selecionado no "filters" para colocar os "vistos" nos elementos
+quando estamos a preencher os arrays.
+    -Para tal fazemos um prop nos TasksFilterView e ResourcesFilterView chamado de "clicked" que irá ser recebido na state "clicked"
+    -No botao "Limpar" limpamos o objeto "filters" e voltamos a invocar uma função que preenche todos arrays

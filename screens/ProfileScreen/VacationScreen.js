@@ -230,7 +230,6 @@ class VacationScreen extends Component {
                     dayText = startingDay
                 }
 
-
                 switch(vacation.state){
                     case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
                     break;
