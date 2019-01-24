@@ -71,6 +71,7 @@ class VacationScreen extends Component {
         this.setState({
             mounted: !this.state.mounted
         })
+        this.expand()
     }
 
     onDateChange(date, type) {
@@ -96,7 +97,7 @@ class VacationScreen extends Component {
 
     expand = () => {
         if(Platform.OS === 'ios'){ 
-            if(Dimensions.get('window').height > 700){ //André
+            if(Dimensions.get('window').height > 700){ //iPhone X
                 this.setState({
                     clicked: true,
                     hg: hp('45%'),
@@ -110,14 +111,14 @@ class VacationScreen extends Component {
                 })
             }
         }else{
-            if(Dimensions.get('window').height > 700){ //Rafa
+            if(Dimensions.get('window').height > 700){ // Higher than 700px of height
                 this.setState({
                     clicked: true,
                     hg: hp('51%'),
                     disp: 'flex'
                 })
             }else{
-                this.setState({ //João
+                this.setState({ // Lesses than 700px of height
                     clicked: true,
                     hg: hp('57%'),
                     disp: 'flex'

@@ -1,26 +1,26 @@
 [R]
-[  DOING  ] mudar a cor de filtros na pagina Tasks para azul quando houverem filtros
 [  DOING  ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
 
 [J]
-[ TESTING ] Logout -> chamar deleteItem()
+[ DOING ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
+
 
 [A]
-[   ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
 [   ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(0h)" 
 
 [TODO]
-[   ] Fazer a build e colocar nas stores
+
+[   ] Geolocation
+[   ] Login Bug
 [   ] Refresh Páginas
 [   ] Styles no ficheiro de styles
-[   ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
-[   ] Login Bug
-
-
+[   ] Fazer a build e colocar nas stores
 
 [ ============================================================================================================================================ ]
 
-
+[ x ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
+[ x ] mudar a cor de filtros na pagina Tasks para azul quando houverem filtros
+[ x ] Logout -> chamar deleteItem()
 [ x ] Retirar os dados estáticos de login
 [ x ] mudar icon size (para 20) e a view do TaskView
 [ x ] iPhone 6 - calendario de marcar ferias
