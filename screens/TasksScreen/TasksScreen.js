@@ -125,30 +125,30 @@ class TasksScreen extends Component {
         let in_progress= []
         let in_testing= []
         let done= [] 
-
+        console.log(this.state.tasks)
         this.state.tasks.forEach(state => {
             
             if(state.tasks.length > 0){
                 switch(state.id){
                     case 'OPEN': state.tasks.forEach(task => {
-                        open.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        open.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} task={task} color='blue'></TaskView>)
                     })
                     break;
                     case 'PLANNED': state.tasks.forEach(task => {
-                        planned.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        planned.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} task={task} color='blue'></TaskView>)
                     })
                     break;
                     case 'IN_PROGRESS': state.tasks.forEach(task => {
-                        in_progress.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        in_progress.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} task={task} color='blue'></TaskView>)
                     })
                     break;
                     case 'IN_TESTING': state.tasks.forEach(task => {
-                        in_testing.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        in_testing.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} task={task} color='blue'></TaskView>)
                     })
                     break;
                     case 'DONE': 
                     state.tasks.forEach(task => {
-                        done.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} users={task.users} color='blue'></TaskView>)
+                        done.push(<TaskView taskHandler={()=>{this.showModalStateTasks(task, state.id)}} key={task.id} txt={task.name} time={task.hours + 'h'} task={task} color='blue'></TaskView>)
                     })
                     break;
                 }
@@ -234,12 +234,6 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                         <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                            {/* <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                         */}
                          {this.state.open}
                          </ScrollView>
                     </View>
@@ -248,11 +242,6 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                        */} 
                         {this.state.planned}
                         </ScrollView>
                     </View>
@@ -261,7 +250,6 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView> */}
                         {this.state.in_progress}
                         </ScrollView>
                     </View>
@@ -270,9 +258,6 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                         */}
                          {this.state.in_testing}
                          </ScrollView>
                     </View>
@@ -281,11 +266,6 @@ class TasksScreen extends Component {
                     </View>
                     <View style={{flex:4, backgroundColor: 'white'}}>
                     <ScrollView horizontal={true} alwaysBounceHorizontal={true}>
-                    
-                           {/*  <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                            <TaskView  txt='Nome da tarefa' time='0.30h' color='blue' photo2='https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg'></TaskView>
-                         */}
                          {this.state.done}
                          </ScrollView>
                     </View>

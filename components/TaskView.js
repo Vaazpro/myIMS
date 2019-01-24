@@ -5,7 +5,8 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Styles from '../constants/Styles'
-import CircularPhoto from './CircularPhoto';
+import CircularPhoto from './CircularPhoto'
+import IconSearch from "./IconSearch"
 
 class 
 TaskView extends Component {
@@ -13,7 +14,8 @@ TaskView extends Component {
     constructor(props) {
         super(props)
         this.state={
-            users: this.props.users
+            task: this.props.task,
+            userList: []
         }
     }
 
@@ -27,34 +29,36 @@ TaskView extends Component {
 
     */
 
+    componentWillMount(){
+        //console.log(this.state.users)
+        var usersList = []
+
+        this.state.task.users.forEach((user, index) => {
+            usersList.push(
+                <View key={index} style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
+                    <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={20}/>
+                </View>
+            )
+        }) 
+        if(this.state.task.number > 2){
+            var others = this.state.task.number - 2
+            usersList.push(
+                <View style={{flexDirection: "row", marginTop: 6}}>
+                    <Text> +{others} </Text>
+                    <IconSearch name='users' biblio='Feather' color='black' size={13} />
+                </View>
+            );
+        }
+        console.log("XXXXXXXXXXXXXXXXXXXX")
+        this.setState({
+            userList: usersList
+        })
+        
+    }
     
 
     render() {
-        //console.log("ENTREI")
-        //console.log(this.state.users)
-        var usersList = []
-        if(this.state.users.length<=3){
-            this.state.users.forEach((user, index) => {
-                usersList.push(
-                    <View key={index} style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={20}/>
-                    </View>
-                )
-            }) 
-        }else{
-            for(var i=0; i<3;i++){
-                usersList.push(
-                    <View style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image = {'http://ims-demoipvc.sparkleit.pt/'+ this.state.users[i].attachmentId+'.png?format=png&width=100%'} size={20}/>
-                    </View>
-                )
-            }
-            var others = this.state.users.length -6
-            usersList.push(
-                <Text> +{others} </Text>,
-                <IconSearch name='users' biblio='Feather' color='black' size={13} />
-            );
-        }
+        console.log(this.state.userList)
         return (
             
             <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>
@@ -63,10 +67,7 @@ TaskView extends Component {
                     <Text style={{fontSize:15}}>{this.props.txt}</Text>  
                 </View>
                 <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
-                    {/* <View style={{flex:1, justifyContent: 'center'}}>
-                        <CircularPhoto image={this.props.users} size={20}/>
-                    </View> */}
-                    {usersList}
+                    {this.state.userList}
                     <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}>
                         <Text style={{fontSize:14, color: 'grey'}}>{this.props.time}</Text>  
                     </View>
