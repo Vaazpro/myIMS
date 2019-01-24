@@ -33,19 +33,19 @@ TaskView extends Component {
         //console.log("ENTREI")
         //console.log(this.state.users)
         var usersList = []
-        if(this.state.users.length<=6){
+        if(this.state.users.length<=3){
             this.state.users.forEach((user, index) => {
                 usersList.push(
-                    <View key={index} style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={25}/>
+                    <View key={index} style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
+                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={20}/>
                     </View>
                 )
             }) 
         }else{
-            for(var i=0; i<6;i++){
+            for(var i=0; i<3;i++){
                 usersList.push(
-                    <View style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ this.state.users[i].attachmentId+'.png?format=png&width=100%'} size={25}/>
+                    <View style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
+                        <CircularPhoto image = {'http://ims-demoipvc.sparkleit.pt/'+ this.state.users[i].attachmentId+'.png?format=png&width=100%'} size={20}/>
                     </View>
                 )
             }
