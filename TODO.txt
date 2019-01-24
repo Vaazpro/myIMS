@@ -1,20 +1,29 @@
+[R]
+[  DOING  ] mudar a cor de filtros na pagina Tasks para azul quando houverem filtros
+[  DOING  ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
+
+[J]
+[ TESTING ] Logout -> chamar deleteItem()
+
+[A]
+[   ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
+[   ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(0h)" 
+
+[TODO]
 [   ] Fazer a build e colocar nas stores
 [   ] Refresh Páginas
-[   ] Retirar os dados estáticos de login
 [   ] Styles no ficheiro de styles
-[   ] mudar a cor de filtros na pagina Tasks para asul quando houverem filtros
-[   ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
-[   ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(0h)" 
-[   ] mudar icon size (para 20) e a view do TaskView
-[   ] iPhone 6 - calendario de marcar ferias
 [   ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
-[   ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
 [   ] Login Bug
-[   ] Logout -> chamar deleteItem()
+
 
 
 [ ============================================================================================================================================ ]
 
+
+[ x ] Retirar os dados estáticos de login
+[ x ] mudar icon size (para 20) e a view do TaskView
+[ x ] iPhone 6 - calendario de marcar ferias
 [ x ] Icon nas teams
 [ x ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
 [ x ] Tentar registar presença por localizaçao
