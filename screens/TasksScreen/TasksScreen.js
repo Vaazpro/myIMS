@@ -178,14 +178,21 @@ class TasksScreen extends Component {
 
     /* Metodo que atualiza o estado da tarefa, quando se clica em confirmar a alteraçáo do estado no Modal */
     /* Quando a alteraçao ocorre, chama-se a função getMyTasks para atualizar as listas que imprimem para o ecrã */
+    ///??????
 
-    updateTaskState = (task, state) =>{
+    updateTaskState = (task, state, filterbool) =>{
         var newState = state;
         //console.log(task)
         let self = this
         new TaskService().updateTask(task, newState, function(data){
             //console.log(data)
-            self.getMyTasks()
+            if(!filterbool){
+                console.log("FALSE FILTERBOOL")
+                self.getAllMyTasks()
+            }else{
+                console.log("TRUE FILTERBOOL")
+                self.getFilteredMyTasks()
+            }
         }, function(error){
             console.log(error)
         })
@@ -314,7 +321,7 @@ class TasksScreen extends Component {
                             <View style={{flex:1, justifyContent:'center', alignItems:'flex-end', marginRight: '10%'}}>
                                 <Button title="  Alterar  " onPress={() => {
                                     this.setState({modalVisible: false})
-                                    this.updateTaskState(this.state.selectedTask, this.state.selectedState)
+                                    this.updateTaskState(this.state.selectedTask, this.state.selectedState, this.state.filters == undefined ? false: true)
                                 }} color="#007FB7"></Button>
                             </View>
 

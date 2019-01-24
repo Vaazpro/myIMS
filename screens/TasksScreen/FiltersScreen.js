@@ -145,6 +145,9 @@ class FiltersScreen extends Component {
 
     showAllDates = (dateStart, dateEnd) => {
 
+        console.log(dateStart)
+        console.log(dateEnd)
+
         let filters = this.state.filters
 
         filters.datas[0] = dateStart
@@ -453,7 +456,7 @@ class FiltersScreen extends Component {
                                     placeholder="select start date"
                                     format="YYYY-MM-DD"
                                     //minDate=""
-                                    maxDate={this.state.dateEnd}
+                                    maxDate= {this.state.dateEnd == "" ? undefined : this.state.dateEnd}
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     customStyles={{
@@ -485,7 +488,7 @@ class FiltersScreen extends Component {
                                     mode="date"
                                     placeholder="select end date"
                                     format="YYYY-MM-DD"
-                                    minDate={this.state.dateStart}
+                                    minDate={this.state.dateStart == "" ? undefined : this.state.dateStart}
                                     //maxDate="2025-06-01"
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
