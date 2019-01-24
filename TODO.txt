@@ -6,18 +6,21 @@
 
 
 [A]
-[   ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(0h)" 
+
 
 [TODO]
 
-[   ] Geolocation
-[   ] Login Bug
+
+[   ] Login Bug 
 [   ] Refresh Páginas
 [   ] Styles no ficheiro de styles
 [   ] Fazer a build e colocar nas stores
+[   ] Depois de confirmar o pedido de férias -> fazer refresh à pagina VacationsScreen
 
 [ ============================================================================================================================================ ]
 
+[ x ] Geolocation
+[ x ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(8h)" 
 [ x ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
 [ x ] mudar a cor de filtros na pagina Tasks para azul quando houverem filtros
 [ x ] Logout -> chamar deleteItem()

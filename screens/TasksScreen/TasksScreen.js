@@ -125,7 +125,6 @@ class TasksScreen extends Component {
         let in_progress= []
         let in_testing= []
         let done= [] 
-        console.log(this.state.tasks)
         this.state.tasks.forEach(state => {
             
             if(state.tasks.length > 0){

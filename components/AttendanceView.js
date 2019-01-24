@@ -4,7 +4,8 @@ import {
     View
 } from 'react-native'
 import Styles from '../constants/Styles'
-import CircularPhoto from './CircularPhoto';
+import CircularPhoto from './CircularPhoto'
+import * as PT from "../constants/labels/pt_labels"
 
 class 
 AttendanceView extends Component {
@@ -33,7 +34,7 @@ AttendanceView extends Component {
                 <View style= {{flex: 8, flexDirection: 'column', justifyContent: 'center',paddingLeft:10}}>
                     <View style={{flex:1, flexDirection: 'row', alignItems:'flex-end'}}>
                         <View style={{flex: 1}}>
-                            <Text style={{fontSize: 20}}>1 dia (8h)</Text>    
+                            <Text style={{fontSize: 20}}>{this.props.time == null ? PT.ATTENDANCE_VIEW_INFO_TEXT : this.props.time}</Text>    
                         </View>
                         <View style={{flex: 1, justifyContent: 'flex-end', alignItems:'flex-end', paddingRight:10}}>
                             <CircularPhoto image= {this.props.photo} 

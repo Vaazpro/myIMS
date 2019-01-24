@@ -49,7 +49,6 @@ TaskView extends Component {
                 </View>
             );
         }
-        console.log("XXXXXXXXXXXXXXXXXXXX")
         this.setState({
             userList: usersList
         })
@@ -58,7 +57,6 @@ TaskView extends Component {
     
 
     render() {
-        console.log(this.state.userList)
         return (
             
             <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>

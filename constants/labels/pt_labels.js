@@ -87,6 +87,8 @@ export const ATTENDANCE_STATE_HOLYDAY = "FERIADO"
 export const WEEKDAYS=['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 export const MONTHS=['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 
+//ATTENDANCE VIEW
+export const ATTENDANCE_VIEW_INFO_TEXT = "1 dia (8h)"
 
 export const COMPANY_ATTENDANCE_SUCCESS = "A sua presença foi confirmada"
 export const COMPANY_ATTENDANCE_FAILURE = "Não foi possivel marcar a sua presença"

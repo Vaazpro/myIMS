@@ -114,24 +114,29 @@ class AttendanceScreen extends Component {
                 let day = (attendance.date).slice(8,10)
                 let month = (attendance.date).slice(5,7)
                 let year = (attendance.date).slice(2,4)
-
                 switch(attendance.state){
-                    case 'UNJUSTIFIED': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_UNJUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
+                    case 'UNJUSTIFIED':
+                        monthList.push(<AttendanceView key={index} time={null} borderColor={Colors.COLOR_UNJUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_JUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_JUSTIFIED}></AttendanceView>)
+                    case 'JUSTIFIED': monthList.push(<AttendanceView key={index} time={null} borderColor={Colors.COLOR_JUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_JUSTIFIED}></AttendanceView>)
                     break;
 
-                    case 'PENDING': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_PENDING} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_PENDING}></AttendanceView>)
+                    case 'PENDING': monthList.push(<AttendanceView key={index} time={null} borderColor={Colors.COLOR_PENDING} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_PENDING}></AttendanceView>)
                     break;
 
-                    case 'ATTENDANCE': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_ATTENDANCE} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
+                    case 'ATTENDANCE':
+                    console.log(attendance)
+                    let time = attendance.attendances[0].date.split("T")
+                    time = time[1].substring(0, 5)
+                    console.log(time)
+                    monthList.push(<AttendanceView key={index} time={time} borderColor={Colors.COLOR_ATTENDANCE} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
                     break;
 
-                    case 'VACATION': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_VACATION} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_VACATION}></AttendanceView>)
+                    case 'VACATION': monthList.push(<AttendanceView key={index} time={null} borderColor={Colors.COLOR_VACATION} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_VACATION}></AttendanceView>)
                     break;
 
-                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} borderColor={Colors.COLOR_HOLIDAY} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_HOLYDAY}></AttendanceView>)
+                    case 'HOLIDAY': monthList.push(<AttendanceView key={index} time={null} borderColor={Colors.COLOR_HOLIDAY} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_HOLYDAY}></AttendanceView>)
                     break;
                 }
             }
@@ -176,44 +181,6 @@ class AttendanceScreen extends Component {
         })
     }
 
-    /* showFullAttendanceList = () => {
-        var attendanceList = [];
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
-        
-        this.state.attendance.forEach((attendance, index) => {
-            let day = (attendance.date).slice(8,10)
-            let month = (attendance.date).slice(5,7)
-            let year = (attendance.date).slice(2,4)
-
-            console.log(day + "/" + month + "/" + year) 
-            console.log(attendance)
-
-            switch(attendance.state){
-                case 'UNJUSTIFIED': attendanceList.push(<AttendanceView key={index} borderColor='#E91B37' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-
-                case 'JUSTIFIED': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-
-                case 'PENDING': attendanceList.push(<AttendanceView key={index} borderColor='#F5A623' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-
-                case 'ATTENDANCE': attendanceList.push(<AttendanceView key={index} borderColor='#4A90E2' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-
-                case 'VACATION': attendanceList.push(<AttendanceView key={index} borderColor='#96C269' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-
-                case 'HOLIDAY': attendanceList.push(<AttendanceView key={index} borderColor='#008040' day={day} monthYear={month + "/" + year} photo={logoImg} state={attendance.state}></AttendanceView>)
-                break;
-            } 
-        })
-
-        this.setState({
-            currentList: attendanceList
-        })
-    } */
-
     showUnjustifiedList = () => {
         var unjustifiedList = []
         const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
@@ -221,9 +188,6 @@ class AttendanceScreen extends Component {
             let day = (attendance.date).slice(8,10)
             let month = (attendance.date).slice(5,7)
             let year = (attendance.date).slice(2,4)
-
-            /* console.log(day + "/" + month + "/" + year) 
-            console.log(attendance) */
 
             if(attendance.state == 'UNJUSTIFIED'){
                 unjustifiedList.push(<AttendanceView key={index} borderColor={Colors.COLOR_UNJUSTIFIED} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_UNJUSTIFIED}></AttendanceView>)
