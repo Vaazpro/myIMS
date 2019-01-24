@@ -27,7 +27,7 @@ class OrderVacationScreen extends Component {
             headerRight: (
                 <View style={{width: 120,paddingRight: 10}}>
                     <Button 
-                        onPress={navigation.getParam('saveHandler')}
+                        onPress={() => {navigation.getParam('saveHandler')}}
                         title = {PT.ORDER_VACATIONS_BUTTON_SAVE}
                         color="#007FB7"
                     />

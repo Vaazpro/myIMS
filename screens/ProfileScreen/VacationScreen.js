@@ -128,44 +128,46 @@ class VacationScreen extends Component {
 
     buildVacationCalendar = () => {
         let days = {}
-        this.state.vacations.vacations.forEach(vacation => {
-            if(vacation.state !== 'REFUSED'){
-                let color = ""
-                let dateStart = new Date(vacation.dateFrom).toISOString("en-US").slice(0,10)
-                let dateEnd = new Date(vacation.dateTo).toISOString("en-US").slice(0,10)
-                let tomorrowDate = new Date()
-                tomorrowDate.setDate(new Date(vacation.dateFrom).getDate() + 1)
-                
-                switch(vacation.state){
-                    case 'PENDING':
-                        color = 'rgb(245, 166, 35)'
-                        break
-                    case 'APPROVED':
-                        color = '#96C269'
-                        break
-                    case 'TAKEN':
-                        color = '#628DC0'
-                        break
-                }
-
-                if(new Date(vacation.dateFrom).getTime() === new Date(vacation.dateTo).getTime()){
-                    days[dateStart] = {color: color, textColor: 'white', startingDay: true, endingDay: true}
-                }else{
-                    days[dateStart] = {color: color, textColor: 'white', startingDay: true}
-                    days[dateEnd] = {color: color, textColor: 'white', endingDay: true}
-
+        if(this.state.vacations.vacations != undefined){
+            this.state.vacations.vacations.forEach(vacation => {
+                if(vacation.state !== 'REFUSED'){
+                    let color = ""
+                    let dateStart = new Date(vacation.dateFrom).toISOString("en-US").slice(0,10)
+                    let dateEnd = new Date(vacation.dateTo).toISOString("en-US").slice(0,10)
+                    let tomorrowDate = new Date()
+                    tomorrowDate.setDate(new Date(vacation.dateFrom).getDate() + 1)
                     
-                    while(tomorrowDate.getTime() < new Date(vacation.dateTo).getTime()){
-                        days[tomorrowDate.toISOString("en-US").slice(0,10)] = {color: color, textColor: 'white'}
-                        tomorrowDate.setDate((tomorrowDate).getDate() + 1)
+                    switch(vacation.state){
+                        case 'PENDING':
+                            color = 'rgb(245, 166, 35)'
+                            break
+                        case 'APPROVED':
+                            color = '#96C269'
+                            break
+                        case 'TAKEN':
+                            color = '#628DC0'
+                            break
                     }
-
+    
+                    if(new Date(vacation.dateFrom).getTime() === new Date(vacation.dateTo).getTime()){
+                        days[dateStart] = {color: color, textColor: 'white', startingDay: true, endingDay: true}
+                    }else{
+                        days[dateStart] = {color: color, textColor: 'white', startingDay: true}
+                        days[dateEnd] = {color: color, textColor: 'white', endingDay: true}
+    
+                        
+                        while(tomorrowDate.getTime() < new Date(vacation.dateTo).getTime()){
+                            days[tomorrowDate.toISOString("en-US").slice(0,10)] = {color: color, textColor: 'white'}
+                            tomorrowDate.setDate((tomorrowDate).getDate() + 1)
+                        }
+    
+                    }
                 }
-            }
-        })
-        this.setState({
-            markedDates: days
-        })
+            })
+            this.setState({
+                markedDates: days
+            })
+        }
     }
 
     getVacationDays = (vacation) => {
@@ -200,55 +202,55 @@ class VacationScreen extends Component {
 
     onMonthUpdate = (month, year) => {
         var monthList = [];
-        (this.state.vacations.vacations).forEach((vacation, index) => {
 
-            let numberOfDays = this.getVacationDays(vacation)
+        if(this.state.vacations.vacations != undefined){
+            (this.state.vacations.vacations).forEach((vacation, index) => {
 
-            let dateFrom = new Date(vacation.dateFrom)
-            let dateTo = new Date(vacation.dateTo)
-            
-            if(((dateFrom.getMonth()+1) == month && dateFrom.getFullYear() == year) || ((dateTo.getMonth()+1) == month && dateTo.getFullYear() == year)){
-                let startingDay = (vacation.dateFrom).slice(8,10)
-                let startingMonth = (vacation.dateFrom).slice(5,7)
-                let endingDay = (vacation.dateTo).slice(8,10)
-                let endingMonth = (vacation.dateTo).slice(5,7)
-                let months= PT.MONTHS
-                let dayText = startingDay + ' - ' + endingDay
-                let monthText = months[startingMonth - 1]
+                let numberOfDays = this.getVacationDays(vacation)
+    
+                let dateFrom = new Date(vacation.dateFrom)
+                let dateTo = new Date(vacation.dateTo)
                 
-                if(numberOfDays == 1){
-                    durationText = numberOfDays + PT.ORDER_VACATIONS_DAY_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
-                }else{
-                    durationText = numberOfDays + PT.ORDER_VACATIONS_DAYS_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
+                if(((dateFrom.getMonth()+1) == month && dateFrom.getFullYear() == year) || ((dateTo.getMonth()+1) == month && dateTo.getFullYear() == year)){
+                    let startingDay = (vacation.dateFrom).slice(8,10)
+                    let startingMonth = (vacation.dateFrom).slice(5,7)
+                    let endingDay = (vacation.dateTo).slice(8,10)
+                    let endingMonth = (vacation.dateTo).slice(5,7)
+                    let months= PT.MONTHS
+                    let dayText = startingDay + ' - ' + endingDay
+                    let monthText = months[startingMonth - 1]
+                    
+                    if(numberOfDays == 1){
+                        durationText = numberOfDays + PT.ORDER_VACATIONS_DAY_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
+                    }else{
+                        durationText = numberOfDays + PT.ORDER_VACATIONS_DAYS_AUXILIARY_TEXT + numberOfDays * 8 + PT.ORDER_VACATIONS_HOURS_AUXILIARY_TEXT
+                    }
+                    
+                    if(startingMonth !== endingMonth){
+                        monthText = months[startingMonth - 1].slice(0,3) + '/' + months[endingMonth - 1].slice(0,3)
+                    }
+    
+                    if(startingDay === endingDay){
+                        dayText = startingDay
+                    }
+    
+                    switch(vacation.state){
+                        case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
+                        break;
+    
+                        case 'TAKEN': monthList.push(<VacationsView key={index} borderColor='#628DC0' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_TAKEN}></VacationsView>)
+                        break;
+    
+                        case 'PENDING': monthList.push(<VacationsView key={index} borderColor='rgb(245, 166, 35)' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_PENDING}></VacationsView>)
+                        break;
+                    }
                 }
-                
-                if(startingMonth !== endingMonth){
-                    monthText = months[startingMonth - 1].slice(0,3) + '/' + months[endingMonth - 1].slice(0,3)
-                }
+            });
 
-                if(startingDay === endingDay){
-                    dayText = startingDay
-                }
-
-                switch(vacation.state){
-                    case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
-                    break;
-
-                    case 'TAKEN': monthList.push(<VacationsView key={index} borderColor='#628DC0' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_TAKEN}></VacationsView>)
-                    break;
-
-                    case 'PENDING': monthList.push(<VacationsView key={index} borderColor='rgb(245, 166, 35)' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_PENDING}></VacationsView>)
-                    break;
-                }
-            }
-        });
-
-        
-
-        this.setState({
-            currentList: monthList
-        })
-        
+            this.setState({
+                currentList: monthList
+            })
+        }
     }
 
 

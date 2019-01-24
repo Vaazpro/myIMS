@@ -12,6 +12,7 @@ import ElevatedView from 'react-native-elevated-view'
 import HeaderView from '../../components/HeaderView'
 import Search from '../../components/IconSearch'
 import * as PT from "../../constants/labels/pt_labels"
+import * as CNST from "../../constants/labels/constants"
 
 
 class UnlockScreen extends Component {
@@ -58,10 +59,6 @@ class UnlockScreen extends Component {
         } catch (error) {
           // An error occurred!
         }
-        //SERVIÇO PARA MARCAR PRESENÇA
-       /*  new ProfileService().updateAttendanceByProfileId(this.state.profile.id, function(data){
-            console.log(data)
-        }) */
 
         navigator.geolocation.getCurrentPosition(function(pos){
             console.log("=========")
@@ -69,16 +66,22 @@ class UnlockScreen extends Component {
             console.log(pos.coords.longitude)
             
             //console.log(coordsDistance(pos.coords.latitude, pos.coords.longitude, 41.69422, -8.84872))
-            if(PT.COMPANY_COORDS_LAT - 0.0003 < pos.coords.latitude && pos.coords.latitude < PT.COMPANY_COORDS_LAT + 0.0003){
-                if(pos.coords.longitude > PT.COMPANY_COORDS_LNG - 0.0001 && pos.coords.longitude  < PT.COMPANY_COORDS_LNG + 0.0001){
-                    alert("CHECKED")
+            if(pos.coords.latitude >= CNST.COMPANY_COORDS_MIN_LAT  && pos.coords.latitude <= CNST.COMPANY_COORDS_MAX_LAT){
+                if(pos.coords.longitude <= CNST.COMPANY_COORDS_MIN_LNG && pos.coords.longitude  >= CNST.COMPANY_COORDS_MAX_LNG){
+                    //SERVIÇO PARA MARCAR PRESENÇA
                     console.log("CHECKED")
+                    new ProfileService().updateAttendanceByProfileId(this.state.profile.id, function(data){
+                        console.log(data)
+                        alert(PT.COMPANY_ATTENDANCE_SUCCESS)
+                    }, function(err){
+                        console.log(err)
+                    })
                 }else{
-                    alert("FAILED LONG")
+                    alert(PT.COMPANY_ATTENDANCE_FAILURE)
                     console.log("FAILED LONG")
                 }
             }else{
-                alert("FAILED LAT")
+                alert(PT.COMPANY_ATTENDANCE_FAILURE)
                 console.log("FAILED LAT")
             }
         })
