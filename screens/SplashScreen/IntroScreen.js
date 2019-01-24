@@ -46,12 +46,16 @@ class IntroScreen extends React.Component {
 
     logIn = (username, password) =>{
         var self = this;
-        //new SecurityService().login(username, password, function(response){
-        new SecurityService().login('jnunoferreira', '12345', function(response){
+        new SecurityService().login(username, password, function(response){
+        //new SecurityService().login('jnunoferreira', '12345', function(response){
         //new SecurityService().login('joao', '123456', function(response){
         //new SecurityService().login('edgar.novo@sparkleit.pt', '669347ab', function(response){
         //log in com sucesso
             self.props.navigation.navigate('profile')
+            self.setState({
+                username: '',
+                password: ''
+            })
         }, function(error){
             //erro ao fazer login
             //To Do
@@ -256,11 +260,11 @@ class IntroScreen extends React.Component {
                 <View style={{flex:1, marginBottom: 40, backgroundColor: 'rgb(73, 144, 226)', justifyContent: 'flex-start', alignItems:'center'}}>
                     
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXuser ,height: scaleValueYuser, opacity: opacityValueUser, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                    <TextInput onChangeText={(username) => this.setState({username: username})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder={PT.LABEL_PLACEHOLDER_USERNAME} placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    <TextInput value={this.state.username} onChangeText={(username) => this.setState({username: username})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} placeholder={PT.LABEL_PLACEHOLDER_USERNAME} placeholderTextColor='white' underlineColorAndroid='transparent' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXpass, height: scaleValueYpass, opacity: opacityValuePass, backgroundColor: 'rgb(123, 173, 232)', margin:5, justifyContent: 'center', alignItems: 'center' }}>
-                    <TextInput onChangeText={(password) => this.setState({password: password})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder={PT.LABEL_PLACEHOLDER_PASSWORD} secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
+                    <TextInput value={this.state.password} onChangeText={(password) => this.setState({password: password})} onFocus={()=> {this.setState({topMyIMS: '-10%'})}} underlineColorAndroid='transparent' placeholder={PT.LABEL_PLACEHOLDER_PASSWORD} secureTextEntry={true} placeholderTextColor='white' style={{color:'white', width: '100%', textAlign: 'center'}}></TextInput>
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
