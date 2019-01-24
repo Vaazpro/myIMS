@@ -28,9 +28,11 @@ class TaskService extends BaseService {
             })
         }
         
-        getFilteredMyTasks = (filters, callback, callbackError) =>{
-           var url = "mytask/find?showUserStories=true&limit=5"
-
+        getMyFilteredTasks = (filters, callback, callbackError) =>{
+            //console.log("I'm in getFilteredMyTasks")
+            console.log(filters)
+            var url = "mytask/find?showUserStories=true&limit=5&all=false"
+            
             if(filters.projetos.length > 0){
                 filters.projetos.forEach(projeto => {
                     url += ("&projects=" + projeto) 
@@ -42,7 +44,14 @@ class TaskService extends BaseService {
                 });
             }
             if(filters.datas.length > 0){
-                url += ("&start=" + data[0] + "&end=" + data[1])
+
+                if(filters.datas[0] != ""){
+                    url += ("&start=" + filters.datas[0] + "%2000:00:01")
+                }
+                if(filters.datas[1] != ""){
+                    url += ("&end=" + filters.datas[1] + "%2000:00:01")
+                }
+                
             }
             if(filters.tipos.length > 0){
                 filters.tipos.forEach(tipo => {
@@ -69,7 +78,7 @@ class TaskService extends BaseService {
                     url += ("&teams=" + equipa) 
                 });
             }
-
+            console.log(url)
             this.getAPI(url, function(tasks){
                 callback(tasks)
             }, callbackError)

@@ -62,13 +62,14 @@ class FiltersScreen extends Component {
             taskStatesSelected: [],
             employeesSelected: [],
             teamsSelected: [],
-            dateStart: "",
-            dateEnd: "",
 
             //filters
-            filters: this.props.navigation.getParam('filters')
-        }
+            filters: this.props.navigation.getParam('filters'),
 
+            dateStart: "",
+            dateEnd: ""
+        }
+        
         let self = this
 
         console.log(this.state.filters)
@@ -114,9 +115,9 @@ class FiltersScreen extends Component {
             })
             self.showAllTeams(teams)
         })
-
     }
-
+    
+    //TO DROP LATER
     componentWillMount(){
         if(this.state.filters == undefined){
             this.setState({
@@ -142,8 +143,35 @@ class FiltersScreen extends Component {
         
     }
 
-    arrayFunction = (id, array, key) => {
+    showAllDates = (dateStart, dateEnd) => {
+
         let filters = this.state.filters
+
+        filters.datas[0] = dateStart
+        filters.datas[1] = dateEnd
+
+        this.setState({
+            filters: filters
+        })
+    }
+
+    arrayFunction = (id, array, key) => {
+        let filters = {}
+        if(this.state.filters != undefined){
+            filters = this.state.filters
+        }else{
+            filters = {
+                projetos: [],
+                entregas: [],
+                datas: [],
+                tipos: [],
+                estados: [],
+                recursos: [],
+                tectipos: [],
+                equipas:[],
+            }
+        }
+
         if(array.includes(id)){
             //pop ao project
             array.forEach((element,index)=>{
@@ -235,6 +263,8 @@ class FiltersScreen extends Component {
             allReleasesView: allReleasesView
         })
     }
+
+    
     
     showAllTaskStates = (taskStates) => {
         let allTaskStatesView = []
@@ -346,10 +376,45 @@ class FiltersScreen extends Component {
     }
 
     refreshPage = (filters) => {
+        
         const { navigation } = this.props
-        //console.log(navigation.state)
         navigation.state.params.refPage(filters)
         navigation.goBack()
+        /* console.log("XXXXXXXXXXXXXXXXX")
+        console.log(filters) */
+    }
+
+    async clear() {
+        await this.setState({
+            filters: undefined,
+            allProjects: [],
+            allReleases: [],
+            allTaskStates: [],
+            allEmployees: [],
+            allTeams: [],
+            allTechTypes: ['MANAGER', 'TECHNICIAN', 'TESTER'],
+            allTypes: ['PROJECT', 'RELEASE', 'USERSTORIE', 'BUG', 'TASK'],
+
+            //arrays dos elementos apresentados
+            allProjectsView: [],
+            allReleasesView: [],
+            allTaskStatesView: [],
+            allEmployeesView: [],
+            allTeamsView: [],
+            allTechTypesView: [],
+            allTypesView: [],
+
+            //arrays dos elementos selecionados
+            projectsSelected: [],
+            releasesSelected: [],
+            taskStatesSelected: [],
+            employeesSelected: [],
+            teamsSelected: [],
+
+            dateStart: "",
+            dateEnd: ""
+        })
+        this.refreshPage(this.state.filters)
     }
 
     render() {
@@ -359,7 +424,7 @@ class FiltersScreen extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <View style={{height: StatusBar.currentHeight}}></View>
                 <View style={{flex:2}}>
-                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{}} />
+                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{this.clear()}} />
                 </View>
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
@@ -387,8 +452,8 @@ class FiltersScreen extends Component {
                                     mode="date"
                                     placeholder="select start date"
                                     format="YYYY-MM-DD"
-                                    minDate="2016-05-01"
-                                    maxDate="2025-06-01"
+                                    //minDate=""
+                                    maxDate={this.state.dateEnd}
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     customStyles={{
@@ -406,7 +471,10 @@ class FiltersScreen extends Component {
                                     }
                                     // ... You can check the source to find the other keys.
                                     }}
-                                    onDateChange={(date) => {this.setState({dateStart: date})}}
+                                    onDateChange={(date) => {
+                                        this.setState({dateStart: date})
+                                        this.showAllDates(date, this.state.dateEnd)
+                                    }}
                                 />
                             </View>
                             
@@ -417,8 +485,8 @@ class FiltersScreen extends Component {
                                     mode="date"
                                     placeholder="select end date"
                                     format="YYYY-MM-DD"
-                                    minDate="2016-05-01"
-                                    maxDate="2025-06-01"
+                                    minDate={this.state.dateStart}
+                                    //maxDate="2025-06-01"
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     customStyles={{
@@ -436,7 +504,10 @@ class FiltersScreen extends Component {
                                     }
                                     // ... You can check the source to find the other keys.
                                     }}
-                                    onDateChange={(date) => {this.setState({dateEnd: date})}}
+                                    onDateChange={(date) => {
+                                        this.setState({dateEnd: date})
+                                        this.showAllDates(this.state.dateStart, date)
+                                    }}
                                 />
                             </View>
                         </View>

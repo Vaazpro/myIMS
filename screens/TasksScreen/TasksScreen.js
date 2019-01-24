@@ -70,10 +70,11 @@ class TasksScreen extends Component {
 
     showTasks = (filters) => {
         if(filters == undefined){
-            console.log("ENTREIIIIIIIIIIIIIII");
+            console.log("FUNCTION showTasks -> FILTERS == UNDEFINED");
             this.getAllMyTasks()
         }else{
-            console.log("FILTRAGEM")
+            console.log("FUNCTION showTasks -> FILTERS != UNDEFINED")
+            this.getFilteredMyTasks()
         }
     }
     
@@ -97,26 +98,26 @@ class TasksScreen extends Component {
     }
 
     //Função que vai buscar as tarefas filtradas do Utilizador
-    //STUB
-
-    /* getFilteredMyTasks = (filters) => {
+    getFilteredMyTasks = () => {
+        //console.log("I'm in getFilteredMyTasks")
         let self = this
-        new TaskService().getMyFilteredTasks((filters),function(response){
+        new TaskService().getMyFilteredTasks((this.state.filters),function(response){
             //log in com sucesso
             //self.props.navigation.navigate('profile')
-            console.log("=======SUCCESS========")
-            //console.log(response)
+            console.log("=======SUCCESS NO getMyFilteredTasks========")
             self.setState({
                 tasks: response
-            })
-            self.fillAllTasksStates()
+            }, self.fillAllTasksStates)
+            /* self.setState({
+                tasks: response
+            }) */
+            //self.fillAllTasksStates()
         }, function(error){
             //erro ao fazer login
-            console.log("=======ERROR========")
+            console.log("=======ERROR NO getMyFilteredTasks========")
             console.log(error)
         })
-    } */
-
+    }
 
     fillAllTasksStates = () => {
         let open = []
@@ -190,14 +191,13 @@ class TasksScreen extends Component {
         })
     }
 
-    handleRefPage = (filters) =>{
-        this.setState({
+    handleRefPage = async (filters) =>{
+        await this.setState({
             filters: filters
         })
-
+        /* console.log("HHHHHHHHHHHHHHHHHHHHH")
+        console.log(this.state.filters) */
         this.showTasks(this.state.filters)
-
-        console.log(filters)
     }
 
     render() {
