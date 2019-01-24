@@ -43,7 +43,7 @@ TaskView extends Component {
         if(this.state.task.number > 2){
             var others = this.state.task.number - 2
             usersList.push(
-                <View style={{flexDirection: "row", marginTop: 6}}>
+                <View  key={this.state.task.number} style={{flexDirection: "row", marginTop: 6}}>
                     <Text> +{others} </Text>
                     <IconSearch name='users' biblio='Feather' color='black' size={13} />
                 </View>

@@ -31,7 +31,8 @@ TeamView extends Component {
 
     render() {
         var employeesList = []
-        if(this.state.employees.length<=6){
+        let offset = -10
+        if(this.state.employees.length<=5){
             this.state.employees.forEach((employee, index) => {
                 employeesList.push(
                     <View key={index} style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
@@ -40,17 +41,19 @@ TeamView extends Component {
                 )
             }) 
         }else{
-            for(var i=0; i<6;i++){
+            for(var i=0; i<5;i++){
                 employeesList.push(
-                    <View style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
+                    <View  key={i} style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center', marginRight: offset}}>
                         <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ this.state.employees[i].attachmentId+'.png?format=png&width=100%'} size={25}/>
                     </View>
                 )
             }
-            var others = this.state.employees.length -6
+            var others = this.state.employees.length -5
             employeesList.push(
-                <Text> +{others} </Text>,
-                <IconSearch name='users' biblio='Feather' color='black' size={13} />
+                <View  key={"others"} style={{flexDirection: "row", marginTop: 6, marginLeft: 10}}>
+                    <Text> +{others} </Text>,
+                    <IconSearch name='users' biblio='Feather' color='black' size={13} />
+                </View>
             );
         }
         if(this.state.icon.substring(0,1)==='#'){
