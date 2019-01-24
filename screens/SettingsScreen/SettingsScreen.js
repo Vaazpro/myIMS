@@ -9,6 +9,7 @@ import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
 import IntroScreen from '../SplashScreen/IntroScreen'
 import * as PT from "../../constants/labels/pt_labels"
+import SecurityService from "../SplashScreen/SecurityService"
 
 
 
@@ -57,6 +58,7 @@ class SettingsScreen extends Component {
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_EMAIL} icon='envelope' biblio='' />
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_PASSWORD} icon='key' biblio='' /> */}
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_LOGOUT} icon='sign-out' biblio='' onPressBtn={()=>{
+                        new SecurityService().logout()
                         this.props.navigation.navigate('intro')
                     }}/>
                 </View>
