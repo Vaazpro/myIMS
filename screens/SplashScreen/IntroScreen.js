@@ -44,8 +44,9 @@ class IntroScreen extends React.Component {
         this.animate()
     }
 
-    logIn = () =>{
+    logIn = (username, password) =>{
         var self = this;
+        //new SecurityService().login(username, password, function(response){
         new SecurityService().login('jnunoferreira', '12345', function(response){
         //new SecurityService().login('joao', '123456', function(response){
         //new SecurityService().login('edgar.novo@sparkleit.pt', '669347ab', function(response){
@@ -263,7 +264,7 @@ class IntroScreen extends React.Component {
                     </Animated.View>
 
                     <Animated.View style={{ borderRadius: 3, width:scaleValueXlogin, height: scaleValueYlogin, opacity: opacityValueLogin, margin:5, backgroundColor: 'white' }}>
-                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => { this.logIn()}}>
+                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} onPress={() => { this.logIn(this.state.username, this.state.password)}}>
                         <Text style={{color: 'rgb(123, 173, 232)', fontSize: 15, fontWeight: 'bold'}}>{PT.LABEL_LOGIN}</Text>
                     </TouchableOpacity>
                     </Animated.View>
