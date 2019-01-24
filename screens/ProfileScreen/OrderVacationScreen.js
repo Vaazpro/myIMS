@@ -55,7 +55,12 @@ class OrderVacationScreen extends Component {
 
     getHeight = () => {
         if(Platform.OS === 'ios'){ //André
-            return hp('40%')
+            
+            if(Dimensions.get('window').height > 700){ //André
+                return hp('40%')
+            }else{ // Iphone 6
+                return hp('49%')
+            }
         }else{
             if(Dimensions.get('window').height > 700){ //Rafa
                 return hp('48.5%')
