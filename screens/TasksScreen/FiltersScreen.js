@@ -4,7 +4,10 @@ import {
     View,
     SafeAreaView,
     StatusBar,
-    Text
+    Text,
+    ActivityIndicator,
+    Platform,
+    Dimensions
 } from 'react-native'
 import HeaderView from '../../components/HeaderView'
 import BtnTextIcon from '../../components/BtnTextIcon'
@@ -67,54 +70,14 @@ class FiltersScreen extends Component {
             filters: this.props.navigation.getParam('filters'),
 
             dateStart: "",
-            dateEnd: ""
+            dateEnd: "",
+
+            //ActivityIndicator
+            zIndex: 30,
+            animating: true,
+            countServices: 0,
+            backgroundColor: 'rgba(0,0,0,0.2)'
         }
-        
-        let self = this
-
-        console.log(this.state.filters)
-
-        //get all projects
-        new FilterService().getAllProjects(function(projects){
-            self.setState({
-                allProjects: projects
-            })
-            self.showAllProjects(projects);
-        })
-
-        //get all releases
-        new FilterService().getAllReleases(function(releases){
-            //console.log(releases)
-            self.setState({
-                allReleases: releases
-            })
-
-            self.showAllReleases(releases)
-        })
-
-        //get all tasks states
-        new FilterService().getAllTaskStates(function(states){
-            self.setState({
-                allTaskStates: states
-            })
-            self.showAllTaskStates(states)
-        })
-
-        //get all employees
-        new FilterService().getAllEmployees(function(employees){
-            self.setState({
-                allEmployees: employees
-            })
-            self.showAllEmployes(employees)
-        })
-
-        //get all teams
-        new FilterService().getAllTeams(function(teams){
-            self.setState({
-                allTeams: teams
-            })
-            self.showAllTeams(teams)
-        })
     }
     
     //TO DROP LATER
@@ -132,15 +95,87 @@ class FiltersScreen extends Component {
                      equipas:[],
                 }
             })
+        }else {
+            if(this.state.filters.datas[0]!= ''){
+                this.setState({
+                    dateStart: this.state.filters.datas[0]
+                })
+            }
+            if(this.state.filters.datas[1]!= ''){
+                this.setState({
+                    dateEnd: this.state.filters.datas[1]
+                })
+            }
         }
+        
+        
     }
 
     componentDidMount(){
-        
+        let self = this
+
+        //get all projects
+        new FilterService().getAllProjects(function(projects){
+            self.setState({
+                allProjects: projects,
+                countServices: self.state.countServices +1
+            },self.verifyAllServices())
+
+            self.showAllProjects(projects);
+        })
+
+        //get all releases
+        new FilterService().getAllReleases(function(releases){
+            //console.log(releases)
+            self.setState({
+                allReleases: releases,
+                countServices: self.state.countServices +1
+            },self.verifyAllServices())
+
+            self.showAllReleases(releases)
+        })
+
+        //get all tasks states
+        new FilterService().getAllTaskStates(function(states){
+            self.setState({
+                allTaskStates: states,
+                countServices: self.state.countServices +1
+            },self.verifyAllServices())
+            self.showAllTaskStates(states)
+        })
+
+        //get all employees
+        new FilterService().getAllEmployees(function(employees){
+            self.setState({
+                allEmployees: employees,
+                countServices: self.state.countServices +1
+            },self.verifyAllServices())
+            self.showAllEmployes(employees)
+        })
+
+        //get all teams
+        new FilterService().getAllTeams(function(teams){
+            self.setState({
+                allTeams: teams,
+                countServices: self.state.countServices +1
+            },self.verifyAllServices())
+            self.showAllTeams(teams)
+        })
         //Componentes que nao recorrem a serviços API, são estaticos
         this.showAllTechTypes(this.state.allTechTypes)
         this.showAllTypes(this.state.allTypes)
         
+    }
+
+    verifyAllServices(){
+        if(this.state.countServices == 4){
+            this.setState({
+                countServices: 5,
+                zIndex:-300,
+                animating: false, 
+                backgroundColor: 'transparent'
+            })
+        }
     }
 
     showAllDates = (dateStart, dateEnd) => {
@@ -421,11 +456,13 @@ class FiltersScreen extends Component {
     }
 
     render() {
-        
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <View style={{height: StatusBar.currentHeight}}></View>
+                <View style={{position: 'absolute',backgroundColor:this.state.backgroundColor,zIndex: this.state.zIndex, alignItems: "center", justifyContent:'center', width:'100%', height:Dimensions.get('window').height}}>
+                    <ActivityIndicator animating= {this.state.animating} size={Platform.OS === 'ios'? 'small':60 } color='#007fb7'></ActivityIndicator>
+                </View>
                 <View style={{flex:2}}>
                     <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{this.clear()}} />
                 </View>
@@ -435,8 +472,6 @@ class FiltersScreen extends Component {
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[0].display}}>
                             {this.state.allProjectsView}
                             <View style={{width:10}}></View>
-
-
                         </ScrollView>
                         
                         <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />

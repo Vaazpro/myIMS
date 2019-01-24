@@ -1,17 +1,27 @@
-[   ] Icon nas teams
-[  TD  ] Fazer os filtros no my tasks
-    - Fazer a Data
-    - Arrays de elementos selecionados
-    - Clique na cruz ou botao guardar para fazer pedido de tasks
-[ TD  ] Adaptar design para iphone 6
-[ TD  ] Tentar registar presença por localizaçao
+[HOJE]
+    - testar localização
+    - perguntar se podemos por codigo no relatorio
+    - devolver dispositivo NPC e iPhone 6
+
+
 [   ] Fazer a build e colocar nas stores
 [   ] Refresh Páginas
 [   ] Retirar os dados estáticos de login
 [   ] Styles no ficheiro de styles
-[   ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
+[   ] Login Bug
+[   ] Logout -> chamar deleteItem()
 
 
+[ ============================================================================================================================================ ]
+
+[ x ] Icon nas teams
+[ x ] Ao contar os dias de ferias, ver os feriados (melhorar a função getVacationDays que está no InitialOptions e no VacationsScreen)
+[ x ] Tentar registar presença por localizaçao
+[ x ] Adaptar design para iphone 6
+[ x ] Fazer os filtros no my tasks
+    - Fazer a Data
+    - Arrays de elementos selecionados
+    - Clique na cruz ou botao guardar para fazer pedido de tasks
 [ x ] Remover password nas configurações
 [ x ] Estado das presenças e ferias para PT          
 [ x ] Faltas em bold

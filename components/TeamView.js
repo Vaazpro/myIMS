@@ -19,6 +19,13 @@ TeamView extends Component {
         }
 
     }
+    
+    changeIcon(){
+        var newIcon = this.state.icon
+        newIcon = newIcon.split('-')
+        return newIcon[1]
+        
+    }
 
     
 
@@ -52,7 +59,8 @@ TeamView extends Component {
             </View>)
         }else{
             var x = (<View style= {{flex: 2, borderTopLeftRadius: 5 , borderBottomLeftRadius:5, justifyContent:'center', alignItems: 'center', marginBottom: 10, marginTop: 10, borderRightColor: 'rgb(216,217,221)', borderRightWidth:2}}>
-                <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ this.state.icon+'.png?format=png&width=100%'} size={25}/>
+                {/* <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ this.changeIcon()+'.png?format=png&width=100%'} size={25}/> */}
+                <IconSearch name={this.changeIcon()} biblio='' color='black' size={25} />
             </View>)
         }
         
