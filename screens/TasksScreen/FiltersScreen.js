@@ -201,9 +201,6 @@ class FiltersScreen extends Component {
 
     showAllDates = (dateStart, dateEnd) => {
 
-        console.log(dateStart)
-        console.log(dateEnd)
-
         let filters = this.state.filters
 
         filters.datas[0] = dateStart
@@ -235,7 +232,7 @@ class FiltersScreen extends Component {
             //pop ao project
             array.forEach((element,index)=>{
                 if(element == id){
-                    array.pop(index)
+                    array.splice(index, 1);
                 }
             })
             filters[key] = array
@@ -254,17 +251,7 @@ class FiltersScreen extends Component {
                 filters: filters
             })
             this.setIconFiltersTab(key)
-
         }
-        /* if(filters[key].length > 0){
-            this.setState({
-                exists: 'flex'
-            })
-        }else {
-            this.setState({
-                exists : 'none'
-            })
-        } */
     }
 
     setIconFiltersTab = (filter) => {
@@ -530,12 +517,9 @@ class FiltersScreen extends Component {
     }
 
     refreshPage = (filters) => {
-        
         const { navigation } = this.props
         navigation.state.params.refPage(filters)
         navigation.goBack()
-        /* console.log("XXXXXXXXXXXXXXXXX")
-        console.log(filters) */
     }
 
     async clear() {
