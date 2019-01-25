@@ -1,31 +1,24 @@
 [R]
-[  DOING  ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
+
 
 [J]
 [ DOING ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
 
-
 [A]
 
+[BUGS]
+[   ] Verificar Bug ao marcar elementos nos filtros
+[   ] Login Bug 
 
 [TODO]
-
-
-[   ] Login Bug 
 [   ] Refresh Páginas
 [   ] Styles no ficheiro de styles
-[TD ] mudar a cor de filtros na pagina Tasks para asul quando houverem filtros
-[TD ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
-[   ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(0h)" 
-[   ] mudar icon size (para 20) e a view do TaskView
-[   ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
-[   ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
-[   ] Login Bug
-[   ] Logout -> chamar deleteItem()
-
+[   ] Fazer a build e colocar nas stores
+[   ] Depois de confirmar o pedido de férias -> fazer refresh à pagina VacationsScreen
 
 [ ============================================================================================================================================ ]
 
+[ x ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
 [ x ] Geolocation
 [ x ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(8h)" 
 [ x ] Abrir o calendário ao entrar nas férias (para mostrar o mes atual)
@@ -52,4 +45,3 @@
 [ x ] Comentar presenças no unlock
 [ x ] Ficheiro de constantes
 [ x ] Na pag.inicial, como subtititulo das Férias, colocar numero de dias de ferias aprovados
-[ x ] iPhone 6 - calendario de marcar ferias
