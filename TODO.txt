@@ -2,7 +2,7 @@
 
 
 [J]
-
+[   ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
 
 [A]
 
@@ -10,8 +10,11 @@
 [   ] Login Bug 
 
 [TODO]
-[   ] Refresh Páginas
+[   ] Refresh Páginas (Férias - fazer funçao que comunica entre dois Screens (como nas tarefas) e invoca o ProfileService().getVacations())
+[   ] Adicionar cruz para sair no Unlock Screen
 [   ] Styles no ficheiro de styles
+[   ] Tentar fazer componente que funciona como "middleware" para navegar entre o SplashScreen e o ProfileScreen
+[   ] Percorrer todas os Screens e verificar se ha constantes a declarar
 [   ] Fazer a build e colocar nas stores
 [   ] Depois de confirmar o pedido de férias -> fazer refresh à pagina VacationsScreen
 
