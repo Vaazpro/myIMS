@@ -2,7 +2,8 @@
 
 
 [J]
-[   ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
+[  x  ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
+Logica diferente da deles - Ligar ao Edgar
 
 [A]
 

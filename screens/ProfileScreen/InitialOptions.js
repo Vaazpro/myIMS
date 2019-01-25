@@ -48,7 +48,7 @@ class InitialOptions extends Component {
         if(this.state.vacations.vacations != undefined){
             for (let index = 0; index < (this.state.vacations.vacations).length; index++) {
                 const element = (this.state.vacations.vacations)[index];
-                if(element.state == "APPROVED" || element.state == "FIXED"){
+                if(element.state == "APPROVED"){
                     daysCount += this.getVacationDays(element)
                 }
             }
@@ -63,6 +63,20 @@ class InitialOptions extends Component {
         var dateTo = new Date(vacation.dateTo);
         var indexDate = dateFrom
         var count = 0
+        var fixedVacations = []
+
+        this.state.vacations.vacations.forEach(element => {
+            if(element.state == "FIXED"){
+                var indexDate = new Date(element.dateFrom);
+                var dateTo = new Date(element.dateTo)
+
+                while(indexDate.getTime() <= dateTo.getTime()){
+                    fixedVacations.push(indexDate)
+                    indexDate.setDate(indexDate.getDate() + 1)
+                }
+            }
+        })
+        
 
         while(indexDate.getTime() <= dateTo.getTime()){
             if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
@@ -74,11 +88,24 @@ class InitialOptions extends Component {
                             exists = true
                         }
                     });
+                    fixedVacations.forEach(element => {
+                        if(element.toDateString() == indexDate.toDateString()){
+                            exists = true
+                        }
+                    })
                     if(!exists){
                         count ++
                     }
                 }else{
-                    count ++
+                    var exists = false
+                    fixedVacations.forEach(element => {
+                        if(element.toDateString() == indexDate.toDateString()){
+                            exists = true
+                        }
+                    })
+                    if(!exists){
+                        count ++
+                    }
                 }
                 //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
             }
