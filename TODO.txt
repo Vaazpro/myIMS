@@ -7,12 +7,15 @@ Logica diferente da deles - Ligar ao Edgar
 
 [A]
 
+[Perguntar ao Edgar]
+- Unlock Screen, ao confirmar presença parar o relógio na hora de entrada
+
 [BUGS]
 [   ] Login Bug 
 
 [TODO]
-[   ] Refresh Páginas (Férias - fazer funçao que comunica entre dois Screens (como nas tarefas) e invoca o ProfileService().getVacations())
-[   ] Adicionar cruz para sair no Unlock Screen
+[ x ] Refresh Páginas (Férias - fazer funçao que comunica entre dois Screens (como nas tarefas) e invoca o ProfileService().getVacations())
+[ x ] Adicionar cruz para sair no Unlock Screen
 [   ] Styles no ficheiro de styles
 [   ] Tentar fazer componente que funciona como "middleware" para navegar entre o SplashScreen e o ProfileScreen
 [   ] Percorrer todas os Screens e verificar se ha constantes a declarar

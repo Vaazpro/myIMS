@@ -127,6 +127,18 @@ class VacationScreen extends Component {
         }
     }
 
+    refreshPage = () => {
+        let self = this
+
+        new ProfileService().getVacations(this.state.profile.id, this.state.plan[0].dateStart, this.state.plan[0].dateEnd, this.state.plan[0].id, function(vacations){
+            self.setState({
+                vacations: vacations
+            })
+            self.buildVacationCalendar()
+            self.onMonthUpdate(new Date().getMonth() + 1, new Date().getFullYear())
+        })
+    }
+
     buildVacationCalendar = () => {
         let days = {}
         if(this.state.vacations.vacations != undefined){
@@ -427,7 +439,7 @@ class VacationScreen extends Component {
                     alignItems:'center',
                     justifyContent: 'center',
                     elevation: 5}]}>
-                    <TouchableOpacity style={{flex: 1}} onPress={() => {this.props.navigation.navigate('orderVacations', {plan: this.state.plan, profile: this.state.profile})}}>
+                    <TouchableOpacity style={{flex: 1}} onPress={() => {this.props.navigation.navigate('orderVacations', {plan: this.state.plan, profile: this.state.profile, refreshPage: this.refreshPage})}}>
                         
 
                             

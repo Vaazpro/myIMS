@@ -96,9 +96,10 @@ class OrderVacationScreen extends Component {
                         self.state.profile.id,
                         function(data){
                             console.log(data)
+                            self.props.navigation.state.params.refreshPage()
+                            self.props.navigation.goBack()
                         }
                     );
-                    this.props.navigation.navigate("vacations")
                     }
                 }
             ],

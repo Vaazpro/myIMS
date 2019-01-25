@@ -120,7 +120,7 @@ class UnlockScreen extends Component {
                         </View>
                     </View> */}
                     <View style={{flex:2}}>
-                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" display="flex" displayBtn="none" name="cross" biblio="" onPress={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" display="flex" displayBtn="flex" nameIcon="cross" biblio="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
                     </View>
                     <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
                         <Image source={{uri : logoImg}} 
