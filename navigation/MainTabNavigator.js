@@ -16,7 +16,6 @@ import IntroScreen from '../screens/SplashScreen/IntroScreen'
 import * as PT from "../constants/labels/pt_labels"
 
 const ProfileStack = createStackNavigator({
-  intro: IntroScreen,
   profile: ProfileScreen,
   unlock: UnlockScreen,
   teams: Teams,
@@ -27,12 +26,7 @@ const ProfileStack = createStackNavigator({
 
 
 ProfileStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true
-  if(navigation.state.index == 0){
-    tabBarVisible = false
-  }
   return {
-    tabBarVisible,
     tabBarLabel: PT.PROFILE_BUTTON,
     tabBarIcon: ({ focused }) => (
       <TabBarIcon

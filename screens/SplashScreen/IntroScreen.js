@@ -10,6 +10,7 @@ import {
     KeyboardAvoidingView 
 } from 'react-native'
 import SecurityService from './SecurityService'
+import BaseService from '../../Services/BaseService'
 
 class IntroScreen extends React.Component {
 
@@ -40,6 +41,14 @@ class IntroScreen extends React.Component {
         this.textSizeValue = new Animated.Value(0)
     }
 
+    componentWillMount(){
+        new BaseService().retrieveItem(new BaseService().getTokenKey()).then((token)=>{
+            if(token != null){
+                this.props.navigation.navigate('Main')
+            }
+        })
+    }
+
     componentDidMount(){
         this.animate()
     }
@@ -51,11 +60,12 @@ class IntroScreen extends React.Component {
         //new SecurityService().login('joao', '123456', function(response){
         //new SecurityService().login('edgar.novo@sparkleit.pt', '669347ab', function(response){
         //log in com sucesso
-            self.props.navigation.navigate('profile')
-            self.setState({
+            
+            self.props.navigation.navigate('Main')
+            /* self.setState({
                 username: '',
                 password: ''
-            })
+            }) */
         }, function(error){
             //erro ao fazer login
             //To Do

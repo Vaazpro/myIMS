@@ -59,7 +59,7 @@ class SettingsScreen extends Component {
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_PASSWORD}  exists={0} icon='key' biblio='' /> */}
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_LOGOUT} exists={0} icon='sign-out' biblio='' onPressBtn={()=>{
                         new SecurityService().logout()
-                        this.props.navigation.navigate('intro')
+                        this.props.navigation.navigate('Auth')
                     }}/>
                 </View>
 
