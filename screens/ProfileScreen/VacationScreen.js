@@ -135,8 +135,7 @@ class VacationScreen extends Component {
                     let color = ""
                     let dateStart = new Date(vacation.dateFrom).toISOString("en-US").slice(0,10)
                     let dateEnd = new Date(vacation.dateTo).toISOString("en-US").slice(0,10)
-                    let tomorrowDate = new Date()
-                    tomorrowDate.setDate(new Date(vacation.dateFrom).getDate() + 1)
+                    var tomorrowDate = new Date(vacation.dateFrom)
                     
                     switch(vacation.state){
                         case 'PENDING':
@@ -158,7 +157,8 @@ class VacationScreen extends Component {
                     }else{
                         days[dateStart] = {color: color, textColor: 'white', startingDay: true}
                         days[dateEnd] = {color: color, textColor: 'white', endingDay: true}
-    
+                        
+                        tomorrowDate.setDate((tomorrowDate).getDate() + 1)
                         
                         while(tomorrowDate.getTime() < new Date(vacation.dateTo).getTime()){
                             days[tomorrowDate.toISOString("en-US").slice(0,10)] = {color: color, textColor: 'white'}
@@ -168,6 +168,7 @@ class VacationScreen extends Component {
                     }
                 }
             })
+            /* console.log(days) */
             this.setState({
                 markedDates: days
             })
@@ -219,8 +220,8 @@ class VacationScreen extends Component {
             })
         }
 
-        console.log("VACATIONS")
-        console.log(this.state.vacations.vacations)
+        /* console.log("VACATIONS")
+        console.log(this.state.vacations.vacations) */
 
         if(this.state.vacations.vacations != undefined){
             this.state.vacations.vacations.forEach(vact => {
@@ -231,7 +232,7 @@ class VacationScreen extends Component {
                         holidaysAndFixedVac.push(fixedVacationIndexDate.toDateString())
                         fixedVacationIndexDate.setDate(fixedVacationIndexDate.getDate() + 1)
                     }
-                    console.log(holidaysAndFixedVac)
+                    //console.log(holidaysAndFixedVac)
                 }
             })
         }
