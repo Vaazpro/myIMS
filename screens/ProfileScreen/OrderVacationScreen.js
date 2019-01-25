@@ -19,6 +19,7 @@ import * as PT from "../../constants/labels/pt_labels"
 class OrderVacationScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
+        
         return {
             title: PT.ORDER_VACATIONS_HEADER_TITLE,
             headerTitleStyle: {
@@ -27,7 +28,7 @@ class OrderVacationScreen extends Component {
             headerRight: (
                 <View style={{width: 120,paddingRight: 10}}>
                     <Button 
-                        onPress={() => {navigation.getParam('saveHandler')}}
+                        onPress={() => navigation.state.params.saveHandler()}
                         title = {PT.ORDER_VACATIONS_BUTTON_SAVE}
                         color="#007FB7"
                     />
@@ -75,7 +76,6 @@ class OrderVacationScreen extends Component {
     }
 
     saveButtonHandler = () => {
-
         if(this.state.selectedEndDate == null){
             Alert.alert(PT.ORDER_VACATIONS_ALERT_ERROR_TITLE, PT.ORDER_VACATIONS_ALERT_ERROR_MESSAGE,
             [
@@ -84,19 +84,20 @@ class OrderVacationScreen extends Component {
             {cancelable: false}
             )
         }else{
+            let self = this
             Alert.alert(PT.ORDER_VACATIONS_ALERT_CONFIRMATION_TITLE, PT.ORDER_VACATIONS_ALERT_CONFIRMATION_MESSAGE,
             [
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {console.log("Cancelar")}},
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_YES, onPress: () => {
                     new ProfileService().postVacationRequest(
-                        this.state.plan, 
-                        this.state.selectedStartDateFormated,
-                        this.state.selectedEndDateFormated, 
-                        this.state.profile.id,
+                        self.state.plan, 
+                        self.state.selectedStartDateFormated,
+                        self.state.selectedEndDateFormated, 
+                        self.state.profile.id,
                         function(data){
                             console.log(data)
                         }
-                    )
+                    );
                     this.props.navigation.navigate("vacations")
                     }
                 }
@@ -107,6 +108,7 @@ class OrderVacationScreen extends Component {
         
     }
 
+    
     onDateChange(date, type) {
         const formatedDate = new Date(date);
 

@@ -48,7 +48,7 @@ class InitialOptions extends Component {
         if(this.state.vacations.vacations != undefined){
             for (let index = 0; index < (this.state.vacations.vacations).length; index++) {
                 const element = (this.state.vacations.vacations)[index];
-                if(element.state == "APPROVED"){
+                if(element.state == "APPROVED" || element.state == "FIXED"){
                     daysCount += this.getVacationDays(element)
                 }
             }

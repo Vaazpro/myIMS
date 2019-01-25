@@ -54,7 +54,7 @@ class VacationScreen extends Component {
             self.setState({
                 plan: plan
             })
-
+            
             let selfB = self
             new ProfileService().getVacations(self.state.profile.id, plan[0].dateStart, plan[0].dateEnd, plan[0].id, function(vacations){
                 selfB.setState({
@@ -148,6 +148,9 @@ class VacationScreen extends Component {
                         case 'TAKEN':
                             color = '#628DC0'
                             break
+                        case 'FIXED':
+                            color = 'rgb(18,121,6)'
+                            break
                     }
     
                     if(new Date(vacation.dateFrom).getTime() === new Date(vacation.dateTo).getTime()){
@@ -171,7 +174,7 @@ class VacationScreen extends Component {
         }
     }
 
-    getVacationDays = (vacation) => {
+    /* getVacationDays = (vacation) => {
         var dateFrom = new Date(vacation.dateFrom);
         var dateTo = new Date(vacation.dateTo);
         var indexDate = dateFrom
@@ -197,7 +200,59 @@ class VacationScreen extends Component {
             }
             indexDate.setDate(indexDate.getDate() + 1)
         }
-        return (count)
+        return (count) 
+    } */
+
+    getVacationDays = (vacation) => {
+        var dateFrom = new Date(vacation.dateFrom);
+        var dateTo = new Date(vacation.dateTo);
+        var indexDate = dateFrom
+        var count = 0
+        var holidaysAndFixedVac = []
+        var fixedVacationIndexDate = null
+
+        if(this.state.vacations.holidays != undefined){
+            this.state.vacations.holidays.forEach(holiday => {
+                if(!holidaysAndFixedVac.includes(holiday)){
+                    holidaysAndFixedVac.push(holiday)
+                }
+            })
+        }
+
+        console.log("VACATIONS")
+        console.log(this.state.vacations.vacations)
+
+        if(this.state.vacations.vacations != undefined){
+            this.state.vacations.vacations.forEach(vact => {
+                if(vact.state == "FIXED"){
+                    fixedVacationIndexDate = new Date(vact.dateFrom)
+                    fixedVacationToDate = new Date(vact.dateTo);
+                    while(fixedVacationIndexDate.getTime() <= fixedVacationToDate.getTime()){
+                        holidaysAndFixedVac.push(fixedVacationIndexDate.toDateString())
+                        fixedVacationIndexDate.setDate(fixedVacationIndexDate.getDate() + 1)
+                    }
+                    console.log(holidaysAndFixedVac)
+                }
+            })
+        }
+
+        while(indexDate.getTime() <= dateTo.getTime()){
+            if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
+                var exists = false;
+                holidaysAndFixedVac.forEach(element => {
+                    var holiday = new Date(element)
+                    if(holiday.toDateString() == indexDate.toDateString()){
+                        exists = true
+                    }
+                })
+                if(!exists){
+                    count ++
+                }
+                //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
+            }
+            indexDate.setDate(indexDate.getDate() + 1)
+        }
+        return (count) 
     }
 
 
@@ -257,7 +312,6 @@ class VacationScreen extends Component {
 
 
     render() {
-        /* console.log(this.state.vacations) */
         const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
         const iconsize = 32;
         //const gap = Platform.OS === 'ios' ? (iconsize) : 10;
@@ -349,7 +403,7 @@ class VacationScreen extends Component {
                         onPressArrowLeft={substractMonth => substractMonth()}
                         // Handler which gets executed when press arrow icon left. It receive a callback can go next month
                         onPressArrowRight={addMonth => addMonth()}
-                        theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
+                        theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12}}
                         
                         />
                     </View>
