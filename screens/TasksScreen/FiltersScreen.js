@@ -76,7 +76,18 @@ class FiltersScreen extends Component {
             zIndex: 30,
             animating: true,
             countServices: 0,
-            backgroundColor: 'rgba(0,0,0,0.2)'
+            backgroundColor: 'rgba(0,0,0,0.2)',
+
+            //iconChecked
+            existsProject: 0,
+            existsReleases: 0,
+            existsTypes: 0,
+            existsStates: 0,
+            existsResources: 0,
+            existsTecType: 0,
+            existsTeams: 0
+            
+        
         }
     }
     
@@ -106,6 +117,16 @@ class FiltersScreen extends Component {
                     dateEnd: this.state.filters.datas[1]
                 })
             }
+            console.log(this.state.filters)
+            this.setIconFiltersTab('projetos')
+            this.setIconFiltersTab('entregas')
+            this.setIconFiltersTab('tipos')
+            this.setIconFiltersTab('estados')
+            this.setIconFiltersTab('projetos')
+            this.setIconFiltersTab('recursos')
+            this.setIconFiltersTab('tectipos')
+            this.setIconFiltersTab('equipas')
+
         }
         
         
@@ -222,6 +243,7 @@ class FiltersScreen extends Component {
             this.setState({
                 filters: filters
             })
+            this.setIconFiltersTab(key)
         }else{
             //push
             array.push(id)
@@ -231,6 +253,100 @@ class FiltersScreen extends Component {
             this.setState({
                 filters: filters
             })
+            this.setIconFiltersTab(key)
+
+        }
+        /* if(filters[key].length > 0){
+            this.setState({
+                exists: 'flex'
+            })
+        }else {
+            this.setState({
+                exists : 'none'
+            })
+        } */
+    }
+
+    setIconFiltersTab = (filter) => {
+        switch(filter){
+            case 'projetos':
+                if(this.state.filters.projetos.length >0){
+                    this.setState({
+                        existsProject: 1
+                    })
+                }else {
+                    this.setState({
+                        existsProject: 0
+                    })
+                }
+                break
+            case 'entregas':
+                if(this.state.filters.entregas.length >0){
+                    this.setState({
+                        existsReleases: 1
+                    })
+                }else {
+                    this.setState({
+                        existsReleases: 0
+                    })
+                }
+                break    
+            case 'tipos':
+                if(this.state.filters.tipos.length >0){
+                    this.setState({
+                        existsTypes: 1
+                    })
+                }else {
+                    this.setState({
+                        existsTypes: 0
+                    })
+                }
+                break
+            case 'estados':
+                if(this.state.filters.estados.length >0){
+                    this.setState({
+                        existsStates: 1
+                    })
+                }else {
+                    this.setState({
+                        existsStates: 0
+                    })
+                }
+                break 
+            case 'recursos':
+                if(this.state.filters.recursos.length >0){
+                    this.setState({
+                        existsResources: 1
+                    })
+                }else {
+                    this.setState({
+                        existsResources: 0
+                    })
+                }
+                break    
+            case 'tectipos':
+                if(this.state.filters.tectipos.length >0){
+                    this.setState({
+                        existsTecType: 1
+                    })
+                }else {
+                    this.setState({
+                        existsTecType: 0
+                    })
+                }
+                break
+            case 'equipas':
+                if(this.state.filters.equipas.length >0){
+                    this.setState({
+                        existsTeams: 1
+                    })
+                }else {
+                    this.setState({
+                        existsTeams: 0
+                    })
+                }
+                break     
+                
         }
     }
 
@@ -468,19 +584,19 @@ class FiltersScreen extends Component {
                 </View>
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
+                        <BtnTextIcon exists={this.state.existsProject} activeOpacity={0.2} name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[0].display}}>
                             {this.state.allProjectsView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
+                        <BtnTextIcon exists={this.state.existsReleases} activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[1].display}}>
                             {this.state.allReleasesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={1} name={PT.FILTER_OPTIONS_DATE} />
+                        <BtnTextIcon exists={0} activeOpacity={1} name={PT.FILTER_OPTIONS_DATE} />
                         <View style={{height:5}}></View>
                         <View style={{height: 50, flexDirection: 'row'}}>
                             <View style={{flex:1, alignItems:'flex-start'}}>
@@ -550,31 +666,31 @@ class FiltersScreen extends Component {
                             </View>
                         </View>
 
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
+                        <BtnTextIcon exists={this.state.existsTypes} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[2].display}}>
                             {this.state.allTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
+                        <BtnTextIcon exists={this.state.existsStates} activeOpacity={0.2} name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[3].display}}>
                             {this.state.allTaskStatesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
+                        <BtnTextIcon exists={this.state.existsResources} activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
                             {this.state.allEmployeesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
+                        <BtnTextIcon exists={this.state.existsTecType} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[5].display}}>
                             {this.state.allTechTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon activeOpacity={0.2} name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
+                        <BtnTextIcon exists={this.state.existsTeams} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[6].display}}>
                             {this.state.allTeamsView}
                             <View style={{width:10}}></View>

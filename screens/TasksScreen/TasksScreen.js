@@ -46,7 +46,10 @@ class TasksScreen extends Component {
             in_progress: [],
             in_testing: [],
             done: [],
-            filters: undefined
+            filters: undefined,
+            
+            //Icon Color
+            color: 'black'
         }
 
         console.log(this.props.navigation.state)
@@ -72,9 +75,29 @@ class TasksScreen extends Component {
         if(filters == undefined){
             console.log("FUNCTION showTasks -> FILTERS == UNDEFINED");
             this.getAllMyTasks()
+            this.setState({
+                color: 'black'
+            })
         }else{
-            console.log("FUNCTION showTasks -> FILTERS != UNDEFINED")
             this.getFilteredMyTasks()
+            console.log(filters)
+            if(filters.projetos.length>0 || 
+                filters.entregas.length>0 ||
+                filters.datas.length>0 ||
+                filters.tipos.length>0 ||
+                filters.estados.length>0 ||
+                filters.recursos.length>0 ||
+                filters.tectipos.length>0 ||
+                filters.equipas.length>0  ){
+                    this.setState({
+                        color: '#007fb7'
+                    })
+                }else{
+                    this.setState({
+                        color: 'black'
+                    })
+                }
+            
         }
     }
     
@@ -222,7 +245,7 @@ class TasksScreen extends Component {
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
                             <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters', {profile: this.state.profile, filters: this.state.filters, refPage: this.handleRefPage  })}} style={{justifyContent:'center'}}>
-                                <IconSearch name="sliders" biblio='' size={22} color="black"/>
+                                <IconSearch name="sliders" biblio='' size={22} color={this.state.color}/>
                             </TouchableOpacity>    
                         </View>
                     </View>
