@@ -2,12 +2,11 @@
 
 
 [J]
-[ DOING ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
+
 
 [A]
 
 [BUGS]
-[   ] Verificar Bug ao marcar elementos nos filtros
 [   ] Login Bug 
 
 [TODO]
@@ -18,6 +17,8 @@
 
 [ ============================================================================================================================================ ]
 
+[ x ] Verificar Bug ao marcar elementos nos filtros
+[ x ] ver bug no calendário de ferias - está a apresentar sempre ferias a mais (sobreposição ?)
 [ x ] mudar labels de cada filtro - por um certinho ao lado caso existam filtros naquela dispositivo
 [ x ] Geolocation
 [ x ] caso seja do tipo attendance meter a hora de entrada em vez do "1d(8h)" 
