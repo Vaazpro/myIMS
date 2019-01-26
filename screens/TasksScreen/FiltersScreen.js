@@ -402,21 +402,37 @@ class FiltersScreen extends Component {
         })
     }
 
+    stateName = (state) => {
+        switch(state){
+            case 'OPEN': return PT.MODAL_TASK_STATE_OPEN
+            break
+            case 'PLANNED': return PT.MODAL_TASK_STATE_PLANNED
+            break
+            case 'IN_PROGRESS': return PT.MODAL_TASK_STATE_IN_PROGRESS
+            break
+            case 'IN_TESTING': return PT.MODAL_TASK_STATE_IN_TESTING
+            break
+            case 'DONE': return PT.MODAL_TASK_STATE_DONE
+            break
+        }
+    }
     
     
     showAllTaskStates = (taskStates) => {
         let allTaskStatesView = []
         if(this.state.filters == undefined){
             taskStates.forEach((state, ind) => {
-                allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={state.id}> </TasksFilterView>)
+                let stateName = this.stateName(state.id)
+                allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={stateName}> </TasksFilterView>)
             })
         }else{
             let estados = this.state.filters.estados
             taskStates.forEach((state, ind) => {
+                let stateName = this.stateName(state.id)
                 if(estados.includes(state.id)){
-                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={true} key={ind}  txt={state.id}> </TasksFilterView>)
+                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={true} key={ind}  txt={stateName}> </TasksFilterView>)
                 }else{
-                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={state.id}> </TasksFilterView>)
+                    allTaskStatesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(state.id, estados, "estados")}} clicked={false} key={ind}  txt={stateName}> </TasksFilterView>)
                 }
             })
         }
@@ -448,19 +464,33 @@ class FiltersScreen extends Component {
         })
     }
 
+    techTypesName = (techtypes) => {
+        switch(techtypes){
+            case 'MANAGER': return PT.TECH_TYPE_MANAGER
+            break
+            case 'TECHNICIAN': return PT.TECH_TYPE_TECHNICIAN
+            break
+            case 'TESTER': return PT.TECH_TYPE_TESTER
+            break
+            
+        }
+    }
+
     showAllTechTypes = (techTypes) => {
         let allTechTypesView = []
         if(this.state.filters == undefined){
             techTypes.forEach((tech, ind)=>{
-                allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={tech}> </TasksFilterView>)
+                let techtypeName = this.techTypesName(tech)
+                allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={techtypeName}> </TasksFilterView>)
             })
         }else{
             let tectipos = this.state.filters.tectipos
             techTypes.forEach((tech, ind)=>{
+                let techtypeName = this.techTypesName(tech)
                 if(tectipos.includes(tech)){
-                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={true} key={ind}  txt={tech}> </TasksFilterView>)
+                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={true} key={ind}  txt={techtypeName}> </TasksFilterView>)
                 }else{
-                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={tech}> </TasksFilterView>)
+                    allTechTypesView.push(<TasksFilterView checkArray={()=>{this.arrayFunction(tech, tectipos, "tectipos")}} clicked={false} key={ind}  txt={techtypeName}> </TasksFilterView>)
                 }  
             })
         }

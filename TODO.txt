@@ -1,22 +1,23 @@
 [Perguntar ao Edgar]
 - Unlock Screen, ao confirmar presença parar o relógio na hora de entrada
-[  x  ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
-Logica diferente da deles - Ligar ao Edgar
 
-[BUG]
-[   ] No SlideScreen temo o "Developer" estático (Linha 91), e no UnlockScreen (linha 110) também, mas nao encontrei a Role nem no profile nem no account através de console.log()
-[   ] Nos filtros temos de por os textos dos states em PT (ver outros casos onde isto possa estar a acontecer)
+Logica diferente da deles (FERIAS) - Ligar ao Edgar
+Functions Employees - aparece TECHNICAL
 
 [TODO]
-[   ] UnlockScreen - ao carregar no botao
-        - primeiro vemos se ja tem attendance no dia atual
-            - se sim o cadeado ja tem de estar aberto e não pode picar o ponto novamente
-            - senão deixamos ele picar o ponto, e abrimos o cadeado
+
 [   ] Descomentar Login Automático
 [   ] Fazer a build e colocar nas stores
 
 
 [ ============================================================================================================================================ ]
+[ x ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
+[ x ] Nos filtros temos de por os textos dos states em PT (ver outros casos onde isto possa estar a acontecer)
+[ x ] No SlideScreen temo o "Developer" estático (Linha 91), e no UnlockScreen (linha 110) também, mas nao encontrei a Role nem no profile nem no account através de console.log()
+[ x ] UnlockScreen - ao carregar no botao
+        - primeiro vemos se ja tem attendance no dia atual
+            - se sim o cadeado ja tem de estar aberto e não pode picar o ponto novamente
+            - senão deixamos ele picar o ponto, e abrimos o cadeado
 
 [ x ] Percorrer todas os Screens e verificar se ha constantes a declarar
 [ x ] Styles no ficheiro de styles

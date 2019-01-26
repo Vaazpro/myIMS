@@ -16,6 +16,7 @@ import CircularPhoto from '../../components/CircularPhoto'
 import * as CONST from "../../constants/labels/constants"
 import * as PT from "../../constants/labels/pt_labels"
 import Colors from '../../constants/Colors'
+import ProfileService from './ProfileService'
 
 class SlideScreen extends Component {
     static navigationOptions = {
@@ -37,7 +38,8 @@ class SlideScreen extends Component {
             displaystatus: 'none',
             expanded: 'none',
             profile:{},
-            account: {companies:[{name:''}]}
+            account: {companies:[{name:''}]},
+            function: ''
         }
         this.rotation = new Animated.Value(0)
     }
@@ -45,6 +47,14 @@ class SlideScreen extends Component {
     render() {
         const profile = this.props.prof
         const account = this.props.acc
+        let self = this
+        new ProfileService().getEmployeeFunction(this.props.prof.id, function(data){
+            self.setState({
+                function: data[0].name
+            })
+        }, 
+        function(err){console.log()})
+
         h1 = (Dimensions.get('window').height / 4) 
         h2 = (Dimensions.get('window').height / 1.7)
         iconsize = 32
@@ -87,7 +97,7 @@ class SlideScreen extends Component {
                             <View style={Styles.slideScreenInfoContainer}>
                                 <View style={Styles.slideScreenInfoData}>
                                     <Text style={Styles.font24}>{profile.name}</Text>
-                                    <Text style={Styles.font18}>{PT.USER_ROLE_DEVELOPER}</Text>
+                                    <Text style={Styles.font18}>{this.state.function}{/* {PT.USER_ROLE_DEVELOPER} */}</Text>
                                     <Text style={Styles.font14}>{diffDays}{PT.WORKING_DAYS_CONNECTOR}{company}</Text>
                                 </View>    
                                 <TouchableOpacity style={Styles.flex1} onPress={this.props.onP}>

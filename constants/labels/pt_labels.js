@@ -114,3 +114,8 @@ export const MODAL_TASK_STATE_DONE = "FEITO"
 
 //USER ROLE
 export const USER_ROLE_DEVELOPER = "Developer"
+
+//TECH TYPES
+export const TECH_TYPE_MANAGER = "GESTÃO"
+export const TECH_TYPE_TECHNICIAN = "DESENVOLVIMENTO"
+export const TECH_TYPE_TESTER = "TESTES"

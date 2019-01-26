@@ -76,6 +76,16 @@ class ProfileService extends BaseService {
         )
     }
 
+    getEmployeeFunction = (employeeID, callback, callbackError) =>{
+        this.getAPI("Function/functionsbyemployee/"+employeeID,
+        function(data){
+            callback(data)
+        },
+        function(err){
+            callbackError(err)
+        })
+    }
+
     postVacationRequest = (plan, dateFrom, dateTo, employeeID, callback) => {
         let body = {
             allDay: true,

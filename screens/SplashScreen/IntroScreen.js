@@ -63,10 +63,6 @@ class IntroScreen extends React.Component {
         //log in com sucesso
             
             self.props.navigation.navigate('Main')
-            /* self.setState({
-                username: '',
-                password: ''
-            }) */
         }, function(error){
             //erro ao fazer login
             //To Do

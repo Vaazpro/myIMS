@@ -16,7 +16,7 @@ import * as CNST from "../../constants/labels/constants"
 import ProfileService from "./ProfileService"
 import * as CONST from "../../constants/labels/constants"
 import Styles from '../../constants/Styles'
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/Colors'
 
 
 /** PROPS
@@ -37,7 +37,8 @@ class UnlockScreen extends Component {
             clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
             profile: this.props.navigation.getParam('profile'),
             dayAttendance: false,
-            timer: null
+            timer: null,
+            function: ''
         }
 
         let day = new Date();
@@ -47,9 +48,9 @@ class UnlockScreen extends Component {
     componentWillMount() {
         let self = this
         new ProfileService().getAttendanceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(attendance){
-            console.log(attendance)
+            //console.log(attendance)
             var attendanceDate = new Date(attendance[attendance.length - 1].date)
-            console.log(attendanceDate.toDateString())
+            //console.log(attendanceDate.toDateString())
             if(attendanceDate.toDateString() == new Date().toDateString()){
                 if(attendance[attendance.length - 1].state == "ATTENDANCE"){
                     self.setState({
@@ -59,11 +60,17 @@ class UnlockScreen extends Component {
                 }
             }
         })
+        new ProfileService().getEmployeeFunction(this.state.profile.id, function(data){
+            self.setState({
+                function: data[0].name
+            })
+        })
     }
 
     componentDidMount() {
         let timer = setInterval(this.timer, 1000)
         this.setState({timer: timer})
+        
     }
 
     componentWillUnmount() {
@@ -98,7 +105,7 @@ class UnlockScreen extends Component {
                     if(pos.coords.longitude <= CNST.COMPANY_COORDS_MIN_LNG && pos.coords.longitude  >= CNST.COMPANY_COORDS_MAX_LNG){
                         //SERVIÇO PARA MARCAR PRESENÇA
                         new ProfileService().updateAttendanceByProfileId(self.state.profile.id, function(data){
-                            console.log(data)
+                            //console.log(data)
                             alert(PT.COMPANY_ATTENDANCE_SUCCESS)
                             self.setState({
                                 attendanceDate: true,
@@ -136,7 +143,7 @@ class UnlockScreen extends Component {
                 <View style={Styles.unlockScreenTopContainer}>
                     <Image source={{uri : logoImg}} style={Styles.unlockScreenPhoto} />
                     <Text style={Styles.font24}>{this.state.profile.name}</Text>
-                    <Text style={Styles.font18}>{PT.USER_ROLE_DEVELOPER}</Text>
+                    <Text style={Styles.font18}>{this.state.function} {/* {PT.USER_ROLE_DEVELOPER} */}</Text>
                     <Text style={Styles.font14}>{account.companies[0].name}</Text>                                        
                 </View>
                 <View style={Styles.unlockScreenMiddleContainer}>
