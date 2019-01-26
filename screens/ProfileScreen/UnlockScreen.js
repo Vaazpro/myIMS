@@ -35,60 +35,93 @@ class UnlockScreen extends Component {
         this.state={
             icon : CONST.ICON_NAME_LOCK_CLOSED,
             clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
-            profile: this.props.navigation.getParam('profile')
+            profile: this.props.navigation.getParam('profile'),
+            dayAttendance: false,
+            timer: null
         }
 
         let day = new Date();
         day.setHours(0,0,0,0);
     }
-   
-    playMusicAndUpdateAttendance = async () => {
-        const soundObject = new Expo.Audio.Sound();
-        
-        try {
-            await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
-            await soundObject.playAsync();
-        } catch (error) {
-            console.log(error)
-        }
 
+    componentWillMount() {
         let self = this
-
-        navigator.geolocation.getCurrentPosition(function(pos){
-            console.log("=========")
-            console.log(pos.coords.latitude)
-            console.log(pos.coords.longitude)
-            
-            if(pos.coords.latitude >= CNST.COMPANY_COORDS_MIN_LAT  && pos.coords.latitude <= CNST.COMPANY_COORDS_MAX_LAT){
-                if(pos.coords.longitude <= CNST.COMPANY_COORDS_MIN_LNG && pos.coords.longitude  >= CNST.COMPANY_COORDS_MAX_LNG){
-                    //SERVIÇO PARA MARCAR PRESENÇA
-                    new ProfileService().updateAttendanceByProfileId(self.state.profile.id, function(data){
-                        console.log(data)
-                        alert(PT.COMPANY_ATTENDANCE_SUCCESS)
-                    }, function(error){
-                        console.log(error)
+        new ProfileService().getAttendanceByEmployeeId(this.state.profile, this.state.profile.admissionDate, function(attendance){
+            console.log(attendance)
+            var attendanceDate = new Date(attendance[attendance.length - 1].date)
+            console.log(attendanceDate.toDateString())
+            if(attendanceDate.toDateString() == new Date().toDateString()){
+                if(attendance[attendance.length - 1].state == "ATTENDANCE"){
+                    self.setState({
+                        dayAttendance: true,
+                        icon: CONST.ICON_NAME_LOCK_OPEN
                     })
-                }else{
-                    alert(PT.COMPANY_ATTENDANCE_FAILURE)
-                    console.log("FAILED LONG")
                 }
-            }else{
-                alert(PT.COMPANY_ATTENDANCE_FAILURE)
-                console.log("FAILED LAT")
             }
         })
-        
     }
 
-    
+    componentDidMount() {
+        let timer = setInterval(this.timer, 1000)
+        this.setState({timer: timer})
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.timer)
+    }
+
+    timer = () => {
+        this.setState({
+            clock: (new Date().getHours()<10?'0'+new Date().getHours():new Date().getHours()) + ":" + (new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes()) + ":" + (new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds())
+        })
+    }
+   
+    playMusicAndUpdateAttendance = async () => {
+
+        if(!this.state.dayAttendance){
+            const soundObject = new Expo.Audio.Sound();
+            try {
+                await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
+                await soundObject.playAsync();
+            } catch (error) {
+                console.log(error)
+            }
+
+            let self = this
+
+            navigator.geolocation.getCurrentPosition(function(pos){
+                console.log("=========")
+                console.log(pos.coords.latitude)
+                console.log(pos.coords.longitude)
+                
+                if(pos.coords.latitude >= CNST.COMPANY_COORDS_MIN_LAT  && pos.coords.latitude <= CNST.COMPANY_COORDS_MAX_LAT){
+                    if(pos.coords.longitude <= CNST.COMPANY_COORDS_MIN_LNG && pos.coords.longitude  >= CNST.COMPANY_COORDS_MAX_LNG){
+                        //SERVIÇO PARA MARCAR PRESENÇA
+                        new ProfileService().updateAttendanceByProfileId(self.state.profile.id, function(data){
+                            console.log(data)
+                            alert(PT.COMPANY_ATTENDANCE_SUCCESS)
+                            self.setState({
+                                attendanceDate: true,
+                                icon: CONST.ICON_NAME_LOCK_OPEN
+                            });
+                        }, function(error){
+                            console.log(error)
+                        })
+                    }else{
+                        alert(PT.COMPANY_ATTENDANCE_FAILURE)
+                        console.log("FAILED LONG")
+                    }
+                }else{
+                    alert(PT.COMPANY_ATTENDANCE_FAILURE)
+                    console.log("FAILED LAT")
+                }
+            })
+        }else{
+            alert("Já marcou a sua presença hoje")
+        }
+    }
 
     render() {
-
-        setTimeout(() => {
-            this.setState({
-                clock: (new Date().getHours()<10?'0'+new Date().getHours():new Date().getHours()) + ":" + (new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes()) + ":" + (new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds())
-            })
-        }, 500);
         const {navigation} = this.props
         const account = navigation.getParam('account')
         const logoImg = CONST.URL_BEGIN + this.state.profile.attachmentId + CONST.URL_END
@@ -111,7 +144,7 @@ class UnlockScreen extends Component {
                     <Text style={Styles.font18}>{new Date().toLocaleDateString()}</Text>                                                
                 </View>
                 <View style={Styles.unlockScreenBottomContainer}>
-                <TouchableOpacity style={Styles.unlockScreenLoginButtonContainer} onPress={() => {this.setState({icon: CONST.ICON_NAME_LOCK_OPEN}); this.playMusicAndUpdateAttendance() }}>
+                <TouchableOpacity style={Styles.unlockScreenLoginButtonContainer} onPress={() => {this.playMusicAndUpdateAttendance() }}>
                     <ElevatedView elevation={5} style={Styles.unlockScreenLoginButton}> 
                         <View style={Styles.unlockScreenIconHoler}>
                             <Search name={this.state.icon} biblio={CONST.LIBRARY_4} size={100} color={Colors.SPARKLE_IT_MAINCOLOR}></Search>

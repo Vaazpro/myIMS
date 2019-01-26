@@ -55,8 +55,8 @@ class IntroScreen extends React.Component {
 
     logIn = (username, password) =>{
         var self = this;
-        //new SecurityService().login(username, password, function(response){
-        new SecurityService().login('jnunoferreira', '12345', function(response){
+        new SecurityService().login(username, password, function(response){
+        //new SecurityService().login('jnunoferreira', '12345', function(response){
         //new SecurityService().login('userc', 'userc', function(response){
         //new SecurityService().login('joao', '123456', function(response){
         //new SecurityService().login('edgar.novo@sparkleit.pt', '669347ab', function(response){
