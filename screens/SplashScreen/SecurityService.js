@@ -24,4 +24,5 @@ class SecurityService extends BaseService {
             this.deleteItem(this.getProfileKey())
         }
     }
+    
 export default SecurityService

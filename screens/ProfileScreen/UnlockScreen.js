@@ -14,7 +14,15 @@ import Search from '../../components/IconSearch'
 import * as PT from "../../constants/labels/pt_labels"
 import * as CNST from "../../constants/labels/constants"
 import ProfileService from "./ProfileService"
+import * as CONST from "../../constants/labels/constants"
+import Styles from '../../constants/Styles'
+import Colors from '../../constants/Colors';
 
+
+/** PROPS
+ * navigation.getParam('profile')
+ * navigation.goBack()
+ */
 
 class UnlockScreen extends Component {
 
@@ -25,41 +33,23 @@ class UnlockScreen extends Component {
     constructor(props) {
         super(props)
         this.state={
-            icon : 'lock',
+            icon : CONST.ICON_NAME_LOCK_CLOSED,
             clock: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
             profile: this.props.navigation.getParam('profile')
         }
 
-        let self = this
         let day = new Date();
         day.setHours(0,0,0,0);
-        /* day = day.toISOString(); */
-        console.log("======= DATE =======")
-        console.log(day.toISOString())
-        
     }
-
-    coordsDistance = (lat1, lon1, lat2, lon2) => {
-        var p = 0.017453292519943295;    // Math.PI / 180
-        var c = Math.cos;
-        var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-                c(lat1 * p) * c(lat2 * p) * 
-                (1 - c((lon2 - lon1) * p))/2;
-      
-        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-      }
-
-    
    
     playMusicAndUpdateAttendance = async () => {
         const soundObject = new Expo.Audio.Sound();
         
         try {
-          await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
-          await soundObject.playAsync();
-          // Your sound is playing!
+            await soundObject.loadAsync(require('../../assets/sounds/unlock.wav'));
+            await soundObject.playAsync();
         } catch (error) {
-          // An error occurred!
+            console.log(error)
         }
 
         let self = this
@@ -75,8 +65,8 @@ class UnlockScreen extends Component {
                     new ProfileService().updateAttendanceByProfileId(self.state.profile.id, function(data){
                         console.log(data)
                         alert(PT.COMPANY_ATTENDANCE_SUCCESS)
-                    }, function(err){
-                        console.log(err)
+                    }, function(error){
+                        console.log(error)
                     })
                 }else{
                     alert(PT.COMPANY_ATTENDANCE_FAILURE)
@@ -94,8 +84,6 @@ class UnlockScreen extends Component {
 
     render() {
 
-        
-
         setTimeout(() => {
             this.setState({
                 clock: (new Date().getHours()<10?'0'+new Date().getHours():new Date().getHours()) + ":" + (new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes()) + ":" + (new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds())
@@ -103,58 +91,35 @@ class UnlockScreen extends Component {
         }, 500);
         const {navigation} = this.props
         const account = navigation.getParam('account')
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        const logoImg = CONST.URL_BEGIN + this.state.profile.attachmentId + CONST.URL_END
         
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-                <SafeAreaView style={styles.container}>
-                    {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
-                    <View style={{height: StatusBar.currentHeight}}></View>
-                    
-                    {/* <View style={{flex: 2, backgroundColor:'black', flexDirection: 'row'}}>
-                        <View style={{flex: 1, backgroundColor:'red'}}>
-
+            <SafeAreaView style={styles.container}>
+                <View style={{height: StatusBar.currentHeight}}></View>
+                <View style={Styles.flex2}>
+                    <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" display="flex" displayBtn="flex" nameIcon={CONST.ICON_NAME_CROSS} biblio={CONST.LIBRARY_0} onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
+                </View>
+                <View style={Styles.unlockScreenTopContainer}>
+                    <Image source={{uri : logoImg}} style={Styles.unlockScreenPhoto} />
+                    <Text style={Styles.font24}>{this.state.profile.name}</Text>
+                    <Text style={Styles.font18}>{PT.USER_ROLE_DEVELOPER}</Text>
+                    <Text style={Styles.font14}>{account.companies[0].name}</Text>                                        
+                </View>
+                <View style={Styles.unlockScreenMiddleContainer}>
+                    <Text style={Styles.font24}>{this.state.clock}</Text>
+                    <Text style={Styles.font18}>{new Date().toLocaleDateString()}</Text>                                                
+                </View>
+                <View style={Styles.unlockScreenBottomContainer}>
+                <TouchableOpacity style={Styles.unlockScreenLoginButtonContainer} onPress={() => {this.setState({icon: CONST.ICON_NAME_LOCK_OPEN}); this.playMusicAndUpdateAttendance() }}>
+                    <ElevatedView elevation={5} style={Styles.unlockScreenLoginButton}> 
+                        <View style={Styles.unlockScreenIconHoler}>
+                            <Search name={this.state.icon} biblio={CONST.LIBRARY_4} size={100} color={Colors.SPARKLE_IT_MAINCOLOR}></Search>
                         </View>
-                        <View style={{flex: 1, backgroundColor:'blue'}}>
-
-                        </View>
-                    </View> */}
-                    <View style={{flex:2}}>
-                        <HeaderView txtTitle={PT.UNLOCK_HEADER_TITLE} textBtn="" display="flex" displayBtn="flex" nameIcon="cross" biblio="" onPressIcon={() => this.props.navigation.goBack()} onPressBtn={() => console.log()} />
-                    </View>
-                    <View style={{flex: 3, justifyContent:'flex-end', alignItems: 'center'}}>
-                        <Image source={{uri : logoImg}} 
-                                                        style={{ width: 50,
-                                                                height: 50, 
-                                                                borderRadius: 50/2}} />
-                        <Text style={{fontSize: 24}}>{this.state.profile.name}</Text>
-                        <Text style={{fontSize: 18}}>Developer</Text>
-                        <Text style={{fontSize: 14}}>{account.companies[0].name}</Text>                                        
-                    </View>
-                    <View style={{flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                        <Text style={{fontSize: 24}}>{this.state.clock}</Text>
-                        <Text style={{fontSize: 18}}>{new Date().toLocaleDateString()}</Text>                                                
-                    </View>
-                    <View style={{flex: 5,justifyContent: 'center', alignItems:'center'}}>
-                    <TouchableOpacity style={{padding:4,borderRadius:75}} onPress={() => {this.setState({icon: 'unlock-alt'}); this.playMusicAndUpdateAttendance() }}>
-                        <ElevatedView elevation={5} 
-                            style={{
-                                width: 150,
-                                height: 150,
-                                borderRadius: 150/2,
-                                alignItems:'center',
-                                justifyContent: 'center',
-                                backgroundColor: '#F2F2F2',
-                                borderWidth:2, 
-                                borderColor: '#007FB7'
-                                }}> 
-                                <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
-                                    <Search name={this.state.icon} biblio='FontAwesome' size={100} color="#007FB7"></Search>
-                                </View>
-                            </ElevatedView>
-                    </TouchableOpacity>
-                    </View>
-                </SafeAreaView>
+                    </ElevatedView>
+                </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         )
     }
 }

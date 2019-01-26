@@ -1,30 +1,25 @@
-[R]
-
-
-[J]
+[Perguntar ao Edgar]
+- Unlock Screen, ao confirmar presença parar o relógio na hora de entrada
 [  x  ] InitialOptions - as fixed date estao a ser contabilizadas 2x (testar tb para holidays)
 Logica diferente da deles - Ligar ao Edgar
 
-[A]
-
-[Perguntar ao Edgar]
-- Unlock Screen, ao confirmar presença parar o relógio na hora de entrada
-
 [BUG]
+[   ] No SlideScreen temo o "Developer" estático (Linha 91), e no UnlockScreen (linha 110) também, mas nao encontrei a Role nem no profile nem no account através de console.log()
+[   ] Nos filtros temos de por os textos dos states em PT (ver outros casos onde isto possa estar a acontecer)
 
 [TODO]
-[   ] UnlockScreen - verificar se ja está com attendance no dia atual - Só abrir o cadeado se conseguir marcar a presença else deixar cadeado fechado
-[   ] Apagar cores comentadas do ficheiro de Colors
-[   ] Verificar se há imports desnecessários
-[   ] Verificar se os font-sizes podem estar definidos no ficheiro de constantes (main title, subtitle, etc.) - procurar "size" em todas os js's
-[   ] Tirar todos os console.log()
-[   ] Styles no ficheiro de styles
-[   ] Percorrer todas os Screens e verificar se ha constantes a declarar
+[   ] UnlockScreen - ao carregar no botao
+        - primeiro vemos se ja tem attendance no dia atual
+            - se sim o cadeado ja tem de estar aberto e não pode picar o ponto novamente
+            - senão deixamos ele picar o ponto, e abrimos o cadeado
+[   ] Descomentar Login Automático
 [   ] Fazer a build e colocar nas stores
 
 
 [ ============================================================================================================================================ ]
 
+[ x ] Percorrer todas os Screens e verificar se ha constantes a declarar
+[ x ] Styles no ficheiro de styles
 [ x ] Login Bug 
 [ x ] Refresh Páginas (Férias - fazer funçao que comunica entre dois Screens (como nas tarefas) e invoca o ProfileService().getVacations())
 [ x ] Adicionar cruz para sair no Unlock Screen

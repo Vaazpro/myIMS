@@ -8,7 +8,7 @@ import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto'
 import IconSearch from "./IconSearch"
 import * as CONST from '../constants/labels/constants'
-import Colors from '../constants/Colors';
+import Colors from '../constants/Colors'
 
 class 
 TaskView extends Component {

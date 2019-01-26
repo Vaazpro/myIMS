@@ -1,5 +1,4 @@
 import { createSwitchNavigator } from 'react-navigation'
-
 import MainTabNavigator from './MainTabNavigator'
 import IntroScreen from '../screens/SplashScreen/IntroScreen'
 

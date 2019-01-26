@@ -4,7 +4,6 @@ import {
     View,
     SafeAreaView,
     StatusBar,
-    Text,
     ActivityIndicator,
     Platform,
     Dimensions
@@ -16,6 +15,15 @@ import ResourcesFilterView from '../../components/ResourcesFilterView'
 import * as PT from "../../constants/labels/pt_labels"
 import FilterService from "./FilterService"
 import DatePicker from 'react-native-datepicker'
+import * as CONST from "../../constants/labels/constants"
+import Colors from '../../constants/Colors'
+import Styles from '../../constants/Styles'
+
+
+/** PROPS
+ * navigation.getParam('profile')
+ * navigation.getParam('filters')
+ */
 
 class FiltersScreen extends Component {
 
@@ -76,7 +84,7 @@ class FiltersScreen extends Component {
             zIndex: 30,
             animating: true,
             countServices: 0,
-            backgroundColor: 'rgba(0,0,0,0.2)',
+            backgroundColor: Colors.LOADING_BACKGROUND,
 
             //iconChecked
             existsProject: 0,
@@ -86,12 +94,9 @@ class FiltersScreen extends Component {
             existsResources: 0,
             existsTecType: 0,
             existsTeams: 0
-            
-        
         }
     }
     
-    //TO DROP LATER
     componentWillMount(){
         if(this.state.filters == undefined){
             this.setState({
@@ -117,7 +122,6 @@ class FiltersScreen extends Component {
                     dateEnd: this.state.filters.datas[1]
                 })
             }
-            console.log(this.state.filters)
             this.setIconFiltersTab('projetos')
             this.setIconFiltersTab('entregas')
             this.setIconFiltersTab('tipos')
@@ -126,10 +130,7 @@ class FiltersScreen extends Component {
             this.setIconFiltersTab('recursos')
             this.setIconFiltersTab('tectipos')
             this.setIconFiltersTab('equipas')
-
         }
-        
-        
     }
 
     componentDidMount(){
@@ -147,7 +148,6 @@ class FiltersScreen extends Component {
 
         //get all releases
         new FilterService().getAllReleases(function(releases){
-            //console.log(releases)
             self.setState({
                 allReleases: releases,
                 countServices: self.state.countServices +1
@@ -185,7 +185,6 @@ class FiltersScreen extends Component {
         //Componentes que nao recorrem a serviços API, são estaticos
         this.showAllTechTypes(this.state.allTechTypes)
         this.showAllTypes(this.state.allTypes)
-        
     }
 
     verifyAllServices(){
@@ -229,7 +228,7 @@ class FiltersScreen extends Component {
         }
 
         if(array.includes(id)){
-            //pop ao project
+            //remover ao array
             array.forEach((element,index)=>{
                 if(element == id){
                     array.splice(index, 1);
@@ -242,9 +241,8 @@ class FiltersScreen extends Component {
             })
             this.setIconFiltersTab(key)
         }else{
-            //push
+            //adicionar ao array
             array.push(id)
-            //setState ao filters
             filters[key] = array
             //setState ao filters
             this.setState({
@@ -266,7 +264,7 @@ class FiltersScreen extends Component {
                         existsProject: 0
                     })
                 }
-                break
+            break
             case 'entregas':
                 if(this.state.filters.entregas.length >0){
                     this.setState({
@@ -277,7 +275,7 @@ class FiltersScreen extends Component {
                         existsReleases: 0
                     })
                 }
-                break    
+            break    
             case 'tipos':
                 if(this.state.filters.tipos.length >0){
                     this.setState({
@@ -288,7 +286,7 @@ class FiltersScreen extends Component {
                         existsTypes: 0
                     })
                 }
-                break
+            break
             case 'estados':
                 if(this.state.filters.estados.length >0){
                     this.setState({
@@ -299,7 +297,7 @@ class FiltersScreen extends Component {
                         existsStates: 0
                     })
                 }
-                break 
+            break 
             case 'recursos':
                 if(this.state.filters.recursos.length >0){
                     this.setState({
@@ -310,7 +308,7 @@ class FiltersScreen extends Component {
                         existsResources: 0
                     })
                 }
-                break    
+            break    
             case 'tectipos':
                 if(this.state.filters.tectipos.length >0){
                     this.setState({
@@ -321,7 +319,7 @@ class FiltersScreen extends Component {
                         existsTecType: 0
                     })
                 }
-                break
+            break
             case 'equipas':
                 if(this.state.filters.equipas.length >0){
                     this.setState({
@@ -332,8 +330,7 @@ class FiltersScreen extends Component {
                         existsTeams: 0
                     })
                 }
-                break     
-                
+            break     
         }
     }
 
@@ -488,6 +485,7 @@ class FiltersScreen extends Component {
                 }
             })
         }
+
         this.setState({
             allTypesView: allTypesView
         })
@@ -512,15 +510,12 @@ class FiltersScreen extends Component {
         this.setState({array});
     }
 
-    changeBorder(){
-        return {borderWidth:5,borderColor: 'red'}
-    }
-
     refreshPage = (filters) => {
         const { navigation } = this.props
         navigation.state.params.refPage(filters)
         navigation.goBack()
     }
+    
 
     async clear() {
         await this.setState({
@@ -533,7 +528,7 @@ class FiltersScreen extends Component {
             allTechTypes: ['MANAGER', 'TECHNICIAN', 'TESTER'],
             allTypes: ['PROJECT', 'RELEASE', 'USERSTORIE', 'BUG', 'TASK'],
 
-            //arrays dos elementos apresentados
+            //reinicializar os arrays dos elementos apresentados if any
             allProjectsView: [],
             allReleasesView: [],
             allTaskStatesView: [],
@@ -542,13 +537,14 @@ class FiltersScreen extends Component {
             allTechTypesView: [],
             allTypesView: [],
 
-            //arrays dos elementos selecionados
+            //reinicializar os arrays dos elementos selecionados if any
             projectsSelected: [],
             releasesSelected: [],
             taskStatesSelected: [],
             employeesSelected: [],
             teamsSelected: [],
-
+            
+            //reinicializar as datas selecionadas if any
             dateStart: "",
             dateEnd: ""
         })
@@ -558,23 +554,23 @@ class FiltersScreen extends Component {
     render() {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_WHITE}]}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                <View style={{position: 'absolute',backgroundColor:this.state.backgroundColor,zIndex: this.state.zIndex, alignItems: "center", justifyContent:'center', width:'100%', height:Dimensions.get('window').height}}>
-                    <ActivityIndicator animating= {this.state.animating} size={Platform.OS === 'ios'? 'small':60 } color='#007fb7'></ActivityIndicator>
+                <View style={[{backgroundColor:this.state.backgroundColor, zIndex: this.state.zIndex, height:Dimensions.get('window').height}, Styles.filtersScreenLoadingBackgrond]}>
+                    <ActivityIndicator animating= {this.state.animating} size={Platform.OS === 'ios'? 'small':60 } color={Colors.SPARKLE_IT_MAINCOLOR}></ActivityIndicator>
                 </View>
-                <View style={{flex:2}}>
-                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon="cross" biblioIcon="" onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{this.clear()}} />
+                <View style={Styles.flex2}>
+                    <HeaderView txtTitle={PT.FILTER_HEADER_TITLE} txtBtn={PT.FILTER_HEADER_BUTTON_CLEAR} displayIcon="flex" displayBtn="flex" nameIcon={CONST.ICON_NAME_CROSS} biblioIcon={CONST.LIBRARY_0} onPressIcon={() => {this.refreshPage(this.state.filters)}} onPressBtn={() =>{this.clear()}} />
                 </View>
                 <View style={{flex:10, margin: 10}}>
                     <ScrollView>
-                        <BtnTextIcon exists={this.state.existsProject} activeOpacity={0.2} name={PT.FILTER_OPTIONS_PROJECT} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(0)} />
+                        <BtnTextIcon exists={this.state.existsProject} activeOpacity={0.2} name={PT.FILTER_OPTIONS_PROJECT} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS} biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(0)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[0].display}}>
                             {this.state.allProjectsView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon exists={this.state.existsReleases} activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(1)} />
+                        <BtnTextIcon exists={this.state.existsReleases} activeOpacity={0.2} name={PT.FILTER_OPTIONS_DELIEVERY} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(1)} />
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[1].display}}>
                             {this.state.allReleasesView}
                             <View style={{width:10}}></View>
@@ -582,18 +578,19 @@ class FiltersScreen extends Component {
                         
                         <BtnTextIcon exists={0} activeOpacity={1} name={PT.FILTER_OPTIONS_DATE} />
                         <View style={{height:5}}></View>
-                        <View style={{height: 50, flexDirection: 'row'}}>
-                            <View style={{flex:1, alignItems:'flex-start'}}>
+                        <View style={Styles.filtersScreenDatePickersMainContainer}>
+                            <View style={Styles.filtersScreenDatePickersInnerLeftContainer}>
                                 <DatePicker
-                                    style={{width:'90%', height: 50}}
+                                    locale={'PT'}
+                                    style={Styles.filtersScreenCalendar}
                                     date={this.state.dateStart}
                                     mode="date"
-                                    placeholder="select start date"
+                                    placeholder = {PT.FILTER_CALENDAR_PLACEHOLDER_START}
                                     format="YYYY-MM-DD"
                                     //minDate=""
                                     maxDate= {this.state.dateEnd == "" ? undefined : this.state.dateEnd}
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
+                                    confirmBtnText = {PT.FILTER_CALENDAR_ALERT_CONFIRMATION_YES}
+                                    cancelBtnText = {PT.FILTER_CALENDAR_ALERT_CONFIRMATION_NO}
                                     customStyles={{
                                     dateIcon: {
                                         position: 'absolute',
@@ -605,7 +602,7 @@ class FiltersScreen extends Component {
                                         marginLeft: 36,
                                     },
                                     btnTextConfirm: {
-                                        color: '#007FB7'
+                                        color: Colors.SPARKLE_IT_MAINCOLOR
                                     }
                                     // ... You can check the source to find the other keys.
                                     }}
@@ -616,17 +613,18 @@ class FiltersScreen extends Component {
                                 />
                             </View>
                             
-                            <View style={{flex:1, alignItems:'flex-end'}}>
+                            <View style={Styles.filtersScreenDatePickersInnerRightContainer}>
                                 <DatePicker
-                                    style={{width:'90%', height: 50}}
+                                    locale={'PT'}
+                                    style={Styles.filtersScreenCalendar}
                                     date={this.state.dateEnd}
                                     mode="date"
-                                    placeholder="select end date"
+                                    placeholder = {PT.FILTER_CALENDAR_PLACEHOLDER_END}
                                     format="YYYY-MM-DD"
                                     minDate={this.state.dateStart == "" ? undefined : this.state.dateStart}
                                     //maxDate="2025-06-01"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
+                                    confirmBtnText = {PT.FILTER_CALENDAR_ALERT_CONFIRMATION_YES}
+                                    cancelBtnText = {PT.FILTER_CALENDAR_ALERT_CONFIRMATION_NO}
                                     customStyles={{
                                     dateIcon: {
                                         position: 'absolute',
@@ -638,7 +636,7 @@ class FiltersScreen extends Component {
                                         marginLeft: 36,
                                     },
                                     btnTextConfirm: {
-                                        color: '#007FB7'
+                                        color: Colors.SPARKLE_IT_MAINCOLOR
                                     }
                                     // ... You can check the source to find the other keys.
                                     }}
@@ -650,31 +648,31 @@ class FiltersScreen extends Component {
                             </View>
                         </View>
 
-                        <BtnTextIcon exists={this.state.existsTypes} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(2)}/>
+                        <BtnTextIcon exists={this.state.existsTypes} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TYPE} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(2)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[2].display}}>
                             {this.state.allTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon exists={this.state.existsStates} activeOpacity={0.2} name={PT.FILTER_OPTIONS_STATE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(3)}/>
+                        <BtnTextIcon exists={this.state.existsStates} activeOpacity={0.2} name={PT.FILTER_OPTIONS_STATE} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(3)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[3].display}}>
                             {this.state.allTaskStatesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon exists={this.state.existsResources} activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(4)}/>
+                        <BtnTextIcon exists={this.state.existsResources} activeOpacity={0.2} name={PT.FILTER_OPTIONS_RESOURCES} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(4)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 150, display: this.state.array[4].display}}>
                             {this.state.allEmployeesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon exists={this.state.existsTecType} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(5)}/>
+                        <BtnTextIcon exists={this.state.existsTecType} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TECHNICIAN_TYPE} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(5)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[5].display}}>
                             {this.state.allTechTypesView}
                             <View style={{width:10}}></View>
                         </ScrollView>
                         
-                        <BtnTextIcon exists={this.state.existsTeams} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TEAM} icon='arrow-down' biblio='' onPressBtn={() => this.optionsHandler(6)}/>
+                        <BtnTextIcon exists={this.state.existsTeams} activeOpacity={0.2} name={PT.FILTER_OPTIONS_TEAM} icon={CONST.ICON_NAME_ARROWDOWN_FILTERS}  biblio={CONST.LIBRARY_0} onPressBtn={() => this.optionsHandler(6)}/>
                         <ScrollView alwaysBounceHorizontal={true} horizontal={true} style={{height: 100, display: this.state.array[6].display}}>
                             {this.state.allTeamsView}
                             <View style={{width:10}}></View>

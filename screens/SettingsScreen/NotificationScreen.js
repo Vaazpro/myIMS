@@ -4,7 +4,9 @@ import {
     SafeAreaView,
     StatusBar
 } from 'react-native'
-import ToggleLine from '../../components/ToggleLine';
+import ToggleLine from '../../components/ToggleLine'
+import Colors from '../../constants/Colors'
+import Styles from '../../constants/Styles'
 
 class NotificationsScreen extends Component {
 
@@ -23,12 +25,9 @@ class NotificationsScreen extends Component {
     render() {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_WHITE}]}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                {/* <View style={{flex: 2}}>
-                    <HeaderView txtTitle="Configurações" txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
-                </View> */}
-                 <View style={{flex: 1, margin: 10}}>
+                 <View style={[Styles.flex1, Styles.m10]}>
                     <ToggleLine texto='Criação de Tarefas'></ToggleLine>
                     <ToggleLine texto='Atualização de Tarefas'></ToggleLine>
                     <ToggleLine texto='Férias'></ToggleLine>

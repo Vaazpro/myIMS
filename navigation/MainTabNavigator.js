@@ -23,7 +23,6 @@ const ProfileStack = createStackNavigator({
   attendances: AttendanceScreen
 });
 
-
 ProfileStack.navigationOptions = ({ navigation }) => {
   return {
     tabBarLabel: PT.PROFILE_BUTTON,

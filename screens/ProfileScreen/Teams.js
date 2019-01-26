@@ -10,6 +10,9 @@ import styles from '../../constants/Styles'
 import TeamView from '../../components/TeamView'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
+import * as CONST from "../../constants/labels/constants"
+import Colors from '../../constants/Colors'
+import Styles from '../../constants/Styles';
 
 class Teams extends Component {
 
@@ -20,12 +23,15 @@ class Teams extends Component {
         }
     };
     
+    /** PROPS
+     * navigation.getParam('profile')
+     */
+
     constructor(props) {
         super(props)
         this.state={
             teams:[] ,
             profile: this.props.navigation.getParam('profile')
-            
         }
        
         let self = this
@@ -39,26 +45,23 @@ class Teams extends Component {
 
     render() {
         const gap = Platform.OS === 'ios' ? 20 : 0;
-       
         var teamsList = []
         this.state.teams.forEach((team, index) => {
             teamsList.push(
-                <TeamView key={index} iconName= 'train' iconBiblio='MaterialIcons' iconSize={20} iconColor='black' txt= {team.name} employees={team.employees} icon={team.icon}>
+                <TeamView key={index} iconName={CONST.ICON_NAME_TRAIN} iconBiblio={CONST.LIBRARY_5} iconSize={20} iconColor={Colors.SPARKLE_IT_BLACK} txt= {team.name} employees={team.employees} icon={team.icon}>
                 </TeamView>
             )
         })
         
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-                <SafeAreaView style={styles.container}>
-                    <View style={{height: StatusBar.currentHeight}}></View>
-                    
-                    <ScrollView style={{flex: 1, paddingLeft:10, paddingRight:10}}>
-                        <View style={{height:gap}}></View>
-
-                        {teamsList}
-                    </ScrollView>
-                </SafeAreaView>
+            <SafeAreaView style={styles.container}>
+                <View style={{height: StatusBar.currentHeight}}></View>
+                <ScrollView style={Styles.teamsComponentContainer}>
+                    <View style={{height:gap}}></View>
+                    {teamsList}
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }

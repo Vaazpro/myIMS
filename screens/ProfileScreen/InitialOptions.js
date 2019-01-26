@@ -7,6 +7,7 @@ import ButtonInitialOptions from './ButtonInitialOptions'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
+import * as CONST from "../../constants/labels/constants"
 
 
 class InitialOptions extends Component {
@@ -14,6 +15,12 @@ class InitialOptions extends Component {
         header: null,
     };
 
+    /** PROPS
+     * prof
+     * attendanceP
+     * vacationP
+     * teamsP
+     */
 
     constructor (props){
         super(props)
@@ -115,7 +122,6 @@ class InitialOptions extends Component {
     }
 
     render() {
-        //console.log(this.props.prof)
         if(!this.state.gotInfo){
             let self = this
             new ProfileService().getTeamsByEmployeeId(this.props.prof.id, function(teams){
@@ -144,28 +150,20 @@ class InitialOptions extends Component {
             })
         }
         
-        
-        
-        
         return (
             <View style={{flex:1, alignItems:'center', marginTop: getStatusBarHeight()}}>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions nextPage={this.props.attendancesP} name={PT.TITLE_ATTENDANCE_BUTTON} name2={this.state.unjustifiedAttendances + PT.SUBTITLE_ATTENDANCE_BUTTON} biblio=''  icon='beach-access' disabled={false}/>
-                    <ButtonInitialOptions nextPage={this.props.vacationsP} name={PT.TITLE_VACATIONS_BUTTON} name2={this.state.approvedDays + PT.SUBTITLE_VACATIONS_BUTTON} biblio='MaterialIcons' icon='flag' disabled={false}/>
-                    {/* <Card nextPage={this.props.teamsP} name='Presenças' name2='0 Faltas' link={require('../../assets/images/presencas.jpg') }></Card>
-                    <Card name='Férias' name2='Aprovado' link={require('../../assets/images/vacations.jpeg')}></Card> */}
+                    <ButtonInitialOptions nextPage={this.props.attendancesP} name={PT.TITLE_ATTENDANCE_BUTTON} name2={this.state.unjustifiedAttendances + PT.SUBTITLE_ATTENDANCE_BUTTON} biblio={CONST.LIBRARY_0}  icon={CONST.ICON_NAME_BEACH} disabled={false}/>
+                    <ButtonInitialOptions nextPage={this.props.vacationsP} name={PT.TITLE_VACATIONS_BUTTON} name2={this.state.approvedDays + PT.SUBTITLE_VACATIONS_BUTTON} biblio={CONST.LIBRARY_5} icon={CONST.ICON_NAME_FLAG} disabled={false}/>
                 </View>
                 <View style={ styles.row }>
-                    <ButtonInitialOptions nextPage={this.props.teamsP} name={PT.TITLE_TEAMS_BUTTON} name2={this.state.teams.length + PT.SUBTITLE_TEAMS_BUTTON} biblio='MaterialIcons' icon='people' disabled={false}/>
-                    <ButtonInitialOptions name={PT.TITLE_INVOICE_BUTTON} name2={PT.SUBTITLE_INVOICE_BUTTON} biblio='' icon='euro-symbol' disabled={true}/>
-                    {/* <Card name='Reuniões' name2='Sem Reuniões' link={require('../../assets/images/business.png')}></Card> */}
-                    {/* <Card name='Recibos' name2='29-10-2018' link={require('../../assets/images/recibos.jpg')}></Card> */}
+                    <ButtonInitialOptions nextPage={this.props.teamsP} name={PT.TITLE_TEAMS_BUTTON} name2={this.state.teams.length + PT.SUBTITLE_TEAMS_BUTTON} biblio={CONST.LIBRARY_5} icon={CONST.ICON_NAME_PEOPLE} disabled={false}/>
+                    <ButtonInitialOptions name={PT.TITLE_INVOICE_BUTTON} name2={PT.SUBTITLE_INVOICE_BUTTON} biblio={CONST.LIBRARY_0} icon={CONST.ICON_NAME_EURO} disabled={true}/>
                 </View> 
             </View>
         )
     }
 }
-
 
 export default InitialOptions
 

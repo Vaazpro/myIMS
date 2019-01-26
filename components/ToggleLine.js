@@ -3,9 +3,9 @@ import {
     Text,
     View
 } from 'react-native'
-import { Switch } from 'react-native-switch';
-import Colors from '../constants/Colors';
-import Styles from '../constants/Styles';
+import { Switch } from 'react-native-switch'
+import Colors from '../constants/Colors'
+import Styles from '../constants/Styles'
 
 class ToggleLine extends Component {
 

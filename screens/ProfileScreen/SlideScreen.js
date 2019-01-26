@@ -12,14 +12,21 @@ import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import IconSearch from '../../components/IconSearch'
 import TextIcon from '../../components/TextIcon'
-import CircularPhoto from '../../components/CircularPhoto';
-/* import ProfileService from './ProfileService' */
-
+import CircularPhoto from '../../components/CircularPhoto'
+import * as CONST from "../../constants/labels/constants"
+import * as PT from "../../constants/labels/pt_labels"
+import Colors from '../../constants/Colors'
 
 class SlideScreen extends Component {
     static navigationOptions = {
         header: null,
     };
+
+    /** PROPS
+     * prof -> profile do User
+     * acc ->account do User
+     * onP -> método onPress()
+     */
 
     constructor(props) {
         super(props)
@@ -33,130 +40,86 @@ class SlideScreen extends Component {
             account: {companies:[{name:''}]}
         }
         this.rotation = new Animated.Value(0)
-
-        /* let self = this
-        new ProfileService().getProfile(function(profile){
-           self.setState({
-               profile: profile
-           }) 
-        })
-        new ProfileService().getAccount(function(account){
-            self.setState({
-                account: account
-            })
-        })    */
     }
 
     render() {
-        const profile = this.props.prof;
-        const account = this.props.acc;
-        //console.log(profile)
-        /* setTimeout(() => {
-            console.log(this.state.account);
-          }, 5000);
-         */
-        //setTimeout(() => {console.log("ryegfrt")}, 5000)
-         /* Dinamizar as dimensões da View dos dados pessoais, dependendo da plataforma */
-         h1 = (Dimensions.get('window').height / 4) 
-         h2 = (Dimensions.get('window').height / 1.7)
-         iconsize = 32
-         var gap = 0
-         if(Platform.OS === 'ios'){
-             if(Dimensions.get('window').height > 700){
-                 gap = iconsize
-             }else{
-                 gap = 10 // Iphone 6
-             }
-         }else{
-            gap = 10
-         }
-         //const gap = Platform.OS === 'ios' ? (iconsize) : 10
-         /* Realizar a Animação da arrow */
-         const { style, rotation } = this.props
-         const rotate = this.rotation.interpolate({
-             inputRange: [0, 1],
-             outputRange: ['0deg','180deg'],
-           })
+        const profile = this.props.prof
+        const account = this.props.acc
+        h1 = (Dimensions.get('window').height / 4) 
+        h2 = (Dimensions.get('window').height / 1.7)
+        iconsize = 32
+        var gap = 10
+        if(Platform.OS === 'ios'){
+            if(Dimensions.get('window').height > 700){ // Large iOS
+                gap = iconsize
+            }
+        }
+         
+        const rotate = this.rotation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg','180deg'],
+        })
 
         //Calcular o número de dias desde a sua admissão
-
         var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
         var initialDate = new Date(profile.admissionDate);
         var endDate = new Date();
 
         var diffDays = Math.round(Math.abs((endDate.getTime() - initialDate.getTime())/(oneDay)));
 
-        const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+        const months = PT.MONTHS
 
         const birthDate = new Date(profile.birthDate)
 
-        const birthDay = birthDate.getDay() + " de " + months[birthDate.getMonth()]
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ profile.attachmentId +".png?format=png&width=100%"
+        const birthDay = birthDate.getDay() + PT.DATE_CONNECTOR + months[birthDate.getMonth()]
+        const logoImg = CONST.URL_BEGIN + profile.attachmentId + CONST.URL_END
         const company = account.companies[0].name
-        
         return (
-            <View style={{ flex: 1, position: 'absolute'}}>
-                <View style={{justifyContent:'center',
-                        alignItems:'center',
-                        alignSelf:'center',
-                        marginTop: getStatusBarHeight(),
-                        height: this.state.h,
-                        width: Dimensions.get('window').width,
-                        backgroundColor: '#F2F2F2'}}>
-                        
-                    <View style={{flex: 1, width: Dimensions.get('window').width , position: 'relative'  }}>
-                        <View style={{flex: 1, margin: 20, flexDirection: 'row'}}>
-                            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-                                <View style={{height: 104, width: 104, borderRadius: 52, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
-                                <CircularPhoto image={logoImg} size={100}/>
+            <View style={Styles.slideScreenMainContainer}>
+                <View style={[Styles.slideScreenExpandableView, {marginTop: getStatusBarHeight(), height: this.state.h, width: Dimensions.get('window').width}]}>
+                    <View style={[Styles.slideScreenHeadeContainer, {width: Dimensions.get('window').width}]}>
+                        <View style={Styles.slideScreenHeaderInnerView}>
+                            <View style={Styles.slideScreenPhotoContainer}>
+                                <View style={[Styles.shadow, Styles.slideScreenPhoto]}>
+                                    <CircularPhoto image={logoImg} size={100}/>
                                 </View>
-                                
                             </View>                            
-                            <View style={{flex: 2,flexDirection: 'row'}}>
-                                <View style={{flex: 8,justifyContent: 'center'}}>
-                                    <Text style={{fontSize: 24}}>{profile.name}</Text>
-                                    <Text style={{fontSize: 18}}>Developer</Text>
-                                    <Text style={{fontSize: 14}}>{diffDays}º dia na {company}</Text>
+                            <View style={Styles.slideScreenInfoContainer}>
+                                <View style={Styles.slideScreenInfoData}>
+                                    <Text style={Styles.font24}>{profile.name}</Text>
+                                    <Text style={Styles.font18}>{PT.USER_ROLE_DEVELOPER}</Text>
+                                    <Text style={Styles.font14}>{diffDays}{PT.WORKING_DAYS_CONNECTOR}{company}</Text>
                                 </View>    
-                                <TouchableOpacity style={{flex: 1}} onPress={this.props.onP}>
-                                    <View style={{flex: 1}}>
-                                        <IconSearch style={{ alignSelf: 'flex-end'}} name="unlock-alt" biblio='FontAwesome' size={iconsize} color="grey"/>
+                                <TouchableOpacity style={Styles.flex1} onPress={this.props.onP}>
+                                    <View style={Styles.flex1}>
+                                        <IconSearch style={Styles.selfRight} name={CONST.ICON_NAME_UNLOCK} biblio={CONST.LIBRARY_4} size={iconsize} color={Colors.SPARKLE_IT_DARKGRAY}/>
                                     </View>
                                 </TouchableOpacity>
                             </View>           
                         </View>
                     </View>
                     <View style={{paddingHorizontal:20 ,flex: 2, width: Dimensions.get('window').width,display: this.state.expanded}}>
-                        <View style={{height: 10, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1 }}></View>
-                        <TextIcon name={profile.email} icon='mail' biblio='Entypo'></TextIcon>
-                        <TextIcon name={profile.email} icon='skype' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name={profile.phone} icon='phone' biblio='FontAwesome'></TextIcon>
-                        <TextIcon name={(profile.sosContact ? profile.sosContact : profile.phone)} icon='medical-bag' biblio=''></TextIcon>
-                        <TextIcon name={birthDay} icon='birthday-cake' biblio='FontAwesome'></TextIcon>
+                        <View style={{height: 10, borderBottomColor: Colors.SPARKLE_IT_GRAY, borderBottomWidth: 1 }}></View>
+                        <TextIcon name={profile.email} icon={CONST.ICON_NAME_MAIL} biblio={CONST.LIBRARY_3}></TextIcon>
+                        <TextIcon name={profile.email} icon={CONST.ICON_NAME_SKYPE} biblio={CONST.LIBRARY_4}></TextIcon>
+                        <TextIcon name={profile.phone} icon={CONST.ICON_NAME_PHONE} biblio={CONST.LIBRARY_4}></TextIcon>
+                        <TextIcon name={(profile.sosContact ? profile.sosContact : profile.phone)} icon={CONST.ICON_NAME_MEDIC} biblio=''></TextIcon>
+                        <TextIcon name={birthDay} icon={CONST.ICON_NAME_CAKE} biblio={CONST.LIBRARY_4}></TextIcon>
                         <View style={{flex: 1}}></View>
                     </View>
                 </View>
-                <View style={{
-                    height:(Dimensions.get('window').height - this.state.h),
-                    backgroundColor: 'black',
-                    opacity: 0.4,
-                    display: this.state.displaystatus}}>
+                <View style={[Styles.slideScreenExpandedBackView, {height:(Dimensions.get('window').height - this.state.h), display: this.state.displaystatus}]}>
                 </View>
-                <View style={[Styles.shadowArrow,{
-                    flex: 1,
-                    position: 'absolute',
+                <View style={[Styles.shadowArrow, Styles.slideScreenAnimatedArrow, {
                     width: iconsize,
                     height: iconsize,
                     borderRadius: iconsize/2,
                     left: Dimensions.get('window').width / 2 - (iconsize/2),
                     top: this.state.h + gap,
-                    alignItems:'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#F2F2F2',
-                    paddingTop: 3, elevation: 5}]
+                    }]
                     }>
-                    <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
-                        <TouchableOpacity style={{flex: 1}} onPress={() => {
+                    <Animated.View style={[Styles.slideScreenAnimatedView, {transform:[{rotate}]}]}>
+                        <TouchableOpacity style={Styles.flex1} onPress={() => {
                             if(!this.state.clicked){
                                 LayoutAnimation.spring()
                                 Animated.spring(this.rotation, {
@@ -187,7 +150,7 @@ class SlideScreen extends Component {
                                     
                                 })
                             }}}>
-                            <IconSearch name="ios-arrow-down" biblio="Ionicons" size={iconsize} color="#007FB7"/>
+                            <IconSearch name={CONST.ICON_NAME_ARROWDOWN} biblio={CONST.LIBRARY_2} size={iconsize} color={Colors.SPARKLE_IT_MAINCOLOR}/>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>

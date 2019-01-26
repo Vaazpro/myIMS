@@ -5,8 +5,8 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Styles from '../constants/Styles'
-import IconSearch from './IconSearch';
-import Colors from '../constants/Colors';
+import IconSearch from './IconSearch'
+import Colors from '../constants/Colors'
 import * as CONST from '../constants/labels/constants'
 
 class 

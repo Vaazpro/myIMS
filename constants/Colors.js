@@ -1,17 +1,4 @@
-//const tintColor = '#2f95dc';
-
 export default {
-  
-  /* tintColor,
-  tabIconDefault: '#ccc',
-  tabIconSelected: tintColor,
-  tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
-  noticeBackground: tintColor,
-  noticeText: '#fff', */
  
   //COLORS ATTENDANCE
   COLOR_JUSTIFIED: "#96C269",
@@ -21,14 +8,24 @@ export default {
   COLOR_VACATION: "#96C269",
   COLOR_HOLIDAY: "#008040",
 
-  //GUIDELINE COLLORS
+  //COLORS VACATIONS
+  VACATIONS_PENDING: 'rgb(245, 166, 35)',
+  VACATIONS_APPROVED: '#96C269',
+  VACATIONS_TAKEN: '#628DC0',
+  VACATIONS_FIXED: 'rgb(18,121,6)',
+
+  //GUIDELINE COLLORS 
   SPARKLE_IT_MAINCOLOR: "#007FB7",
+  SPARKLE_IT_MAINCOLOR_DISABLE: "rgba(0,127,183,0.1)",
   SPARKLE_IT_LIGHTGRAY: "#F2F2F2",
   SPARKLE_IT_GRAY: "rgb(216,217,221)",
+  SPARKLE_IT_HEADERGRAY: "#e6e6e6",
   SPARKLE_IT_DARKGRAY: "gray",
   SPARKLE_IT_BLACK: "black",
+  SPARKLE_IT_BLACK_DISABLE: "rgba(0,0,0, 0.1)",
   SPARKLE_IT_WHITE: "white",
   SPARKLE_IT_TRANSPARENT: "transparent",
+  LOADING_BACKGROUND: "rgba(0, 0, 0, 0.2)",
 
   CALLENDAR_ARROW: '#000',
 };

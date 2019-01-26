@@ -19,16 +19,23 @@ import Styles from '../../constants/Styles'
 import VacationsView from '../../components/VacationsView'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
-import {LocaleConfig} from 'react-native-calendars';
-import Colors from '../../constants/Colors';
-
-
+import {LocaleConfig} from 'react-native-calendars'
+import Colors from '../../constants/Colors'
+import * as CONST from "../../constants/labels/constants"
 
 class VacationScreen extends Component {
 
     static navigationOptions = {
         header: null,
     };
+
+    /** PROPS
+    * navigation.getParam('profile')
+    * navigation.goBack()
+    * onPressBtn
+    * displayBtn
+    * navigation.navigate('orderVacations')
+    */
 
     constructor(props) {
         super(props)
@@ -65,7 +72,6 @@ class VacationScreen extends Component {
                 selfB.onMonthUpdate(new Date().getMonth() + 1, new Date().getFullYear())
             })
         })
-        
     }
 
     componentDidMount(){
@@ -98,28 +104,28 @@ class VacationScreen extends Component {
 
     expand = () => {
         if(Platform.OS === 'ios'){ 
-            if(Dimensions.get('window').height > 700){ //iPhone X
+            if(Dimensions.get('window').height > 700){ // Large iOS
                 this.setState({
                     clicked: true,
                     hg: hp('45%'),
                     disp: 'flex'
                 })
             }else{
-                this.setState({ // Iphone 6
+                this.setState({ // Small iOS
                     clicked: true,
                     hg: hp('54%'),
                     disp: 'flex'
                 })
             }
         }else{
-            if(Dimensions.get('window').height > 700){ // Higher than 700px of height
+            if(Dimensions.get('window').height > 700){ // Large Android
                 this.setState({
                     clicked: true,
                     hg: hp('51%'),
                     disp: 'flex'
                 })
             }else{
-                this.setState({ // Lesses than 700px of height
+                this.setState({ // Small Android
                     clicked: true,
                     hg: hp('57%'),
                     disp: 'flex'
@@ -152,29 +158,29 @@ class VacationScreen extends Component {
                     
                     switch(vacation.state){
                         case 'PENDING':
-                            color = 'rgb(245, 166, 35)'
+                            color = Colors.VACATIONS_PENDING
                             break
                         case 'APPROVED':
-                            color = '#96C269'
+                            color = Colors.VACATIONS_APPROVED
                             break
                         case 'TAKEN':
-                            color = '#628DC0'
+                            color = Colors.VACATIONS_TAKEN
                             break
                         case 'FIXED':
-                            color = 'rgb(18,121,6)'
+                            color = Colors.VACATIONS_FIXED
                             break
                     }
     
                     if(new Date(vacation.dateFrom).getTime() === new Date(vacation.dateTo).getTime()){
-                        days[dateStart] = {color: color, textColor: 'white', startingDay: true, endingDay: true}
+                        days[dateStart] = {color: color, textColor: Colors.SPARKLE_IT_WHITE, startingDay: true, endingDay: true}
                     }else{
-                        days[dateStart] = {color: color, textColor: 'white', startingDay: true}
-                        days[dateEnd] = {color: color, textColor: 'white', endingDay: true}
+                        days[dateStart] = {color: color, textColor: Colors.SPARKLE_IT_WHITE, startingDay: true}
+                        days[dateEnd] = {color: color, textColor: Colors.SPARKLE_IT_WHITE, endingDay: true}
                         
                         tomorrowDate.setDate((tomorrowDate).getDate() + 1)
                         
                         while(tomorrowDate.getTime() < new Date(vacation.dateTo).getTime()){
-                            days[tomorrowDate.toISOString("en-US").slice(0,10)] = {color: color, textColor: 'white'}
+                            days[tomorrowDate.toISOString("en-US").slice(0,10)] = {color: color, textColor: Colors.SPARKLE_IT_WHITE}
                             tomorrowDate.setDate((tomorrowDate).getDate() + 1)
                         }
     
@@ -270,13 +276,13 @@ class VacationScreen extends Component {
                     }
     
                     switch(vacation.state){
-                        case 'APPROVED': monthList.push(<VacationsView key={index} borderColor='#96C269' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
+                        case 'APPROVED': monthList.push(<VacationsView key={index} borderColor={Colors.VACATIONS_APPROVED} monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_APPROVED}></VacationsView>)
                         break;
     
-                        case 'TAKEN': monthList.push(<VacationsView key={index} borderColor='#628DC0' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_TAKEN}></VacationsView>)
+                        case 'TAKEN': monthList.push(<VacationsView key={index} borderColor={Colors.VACATIONS_TAKEN} monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_TAKEN}></VacationsView>)
                         break;
     
-                        case 'PENDING': monthList.push(<VacationsView key={index} borderColor='rgb(245, 166, 35)' monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_PENDING}></VacationsView>)
+                        case 'PENDING': monthList.push(<VacationsView key={index} borderColor={Colors.VACATIONS_PENDING} monthText={monthText} startEndDays={dayText} durationText={durationText} state={PT.VACATIONS_STATE_PENDING}></VacationsView>)
                         break;
                     }
                 }
@@ -291,19 +297,14 @@ class VacationScreen extends Component {
 
 
     render() {
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
-        const iconsize = 32;
-        //const gap = Platform.OS === 'ios' ? (iconsize) : 10;
-        var gap = 0
-         if(Platform.OS === 'ios'){
-             if(Dimensions.get('window').height > 700){
-                 gap = iconsize
-             }else{
-                 gap = 10 // Iphone 6
-             }
-         }else{
-            gap = 10
-         }
+        const logoImg = CONST.URL_BEGIN + this.state.profile.attachmentId + CONST.URL_END
+        const iconsize = 32
+        var gap = 10
+        if(Platform.OS === 'ios'){
+            if(Dimensions.get('window').height > 700){
+                gap = iconsize
+            }
+        }
         /* Realizar a Animação da arrow */
         const rotate = this.rotation.interpolate({
             inputRange: [0, 1],
@@ -320,35 +321,43 @@ class VacationScreen extends Component {
         return (
 
             /* SafeAreaView avoids the iPhone X's notch  */
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_WHITE}]}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
-                    <View style={{flex:1, justifyContent: 'center'}}>
-                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)
+                <View style={[{height: Dimensions.get('window').height*0.15}, Styles.vacationsScreenMainHeaderContainer]}>
+                    <View style={[Styles.flex1, Styles.justifyCenter]}>
+                        <TouchableOpacity style={[Styles.justifyCenter, Styles.CrossButtonHolder]} onPress={() => {
                             this.props.navigation.goBack()}}>
-                            <IconSearch name='cross' biblio='' color='black' size={25} />
+                            <IconSearch name={CONST.ICON_NAME_CROSS} biblio={CONST.LIBRARY_0} color={Colors.SPARKLE_IT_BLACK} size={25} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex:1, flexDirection: "row"}}>
-                        <View style={{flex:1, justifyContent: 'center', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>{PT.VACATIONS_HEADER_TITLE}</Text>
+                    <View style={Styles.flex1horizontal}>
+                        <View style={Styles.vacationsScreenHeaderTitleBar}>
+                            <Text style={Styles.font20}>{PT.VACATIONS_HEADER_TITLE}</Text>
                         </View>
-                        <View style={{flex:1, alignItems: 'flex-end', justifyContent: 'center'}}>
+                        <View style={Styles.vacationsScreenPhotoContainer}>
                             <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
                                 <CircularPhoto size={25} image={logoImg}/>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <Animated.View style={{height: this.state.hg, backgroundColor:'#e6e6e6'}}>
-                    <View style={{display: this.state.disp, marginBottom:10}} >
+                <Animated.View style={{height: this.state.hg, backgroundColor: Colors.SPARKLE_IT_HEADERGRAY}}>
+                    <View style={[{display: this.state.disp}, Styles.mbot10]} >
                     <Calendar
+                        markedDates={this.state.markedDates}
+                        markingType={'period'}
+                        onMonthChange={(monthYear) => {this.onMonthUpdate(monthYear.month, monthYear.year)}}
+                        hideArrows={false}
+                        hideExtraDays={true}
+                        disableMonthChange={false}
+                        hideDayNames={false}
+                        showWeekNumbers={false}
+                        onPressArrowLeft={substractMonth => substractMonth()}
+                        onPressArrowRight={addMonth => addMonth()}
+                        theme={{calendarBackground: Colors.SPARKLE_IT_HEADERGRAY, textDayFontSize: 12}}
 
                         // Collection of dates that have to be colored in a special way. Default = {}
-                        markedDates={this.state.markedDates}
                         // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-                        markingType={'period'}
                         // Initially visible month. Default = Date()
                         //current={'2012-03-01'}
                         // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -362,75 +371,46 @@ class VacationScreen extends Component {
                         // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                         //monthFormat={'yyyy MM'}
                         // Handler which gets executed when visible month changes in calendar. Default = undefined
-                        onMonthChange={(monthYear) => {this.onMonthUpdate(monthYear.month, monthYear.year)}}
                         // Hide month navigation arrows. Default = false
-                        hideArrows={false}
                         // Replace default arrows with custom ones (direction can be 'left' or 'right')
                         //renderArrow={(direction) => (<Arrow />)}
                         // Do not show days of other months in month page. Default = false
-                        hideExtraDays={true}
                         // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
                         // day from another month that is visible in calendar page. Default = false
-                        disableMonthChange={false}
                         // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
                         //firstDay={1}
                         // Hide day names. Default = false
-                        hideDayNames={false}
                         // Show week numbers to the left. Default = false
-                        showWeekNumbers={false}
                         // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-                        onPressArrowLeft={substractMonth => substractMonth()}
                         // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-                        onPressArrowRight={addMonth => addMonth()}
-                        theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12}}
-                        
                         />
                     </View>
                 </Animated.View>
 
                 <View style={{flex:1}}>
-                    <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
-                        <View style={{marginTop:40}} />
+                    <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={Styles.vacationsSreenComponentContainer}>
+                        <View style={Styles.mtop40} />
                         {this.state.currentList}
                     </ScrollView>
                 </View>
-                <View style={[Styles.shadowArrow,{
-                    backgroundColor: '#007FB7',
-                    position: 'absolute',
-                    width: 60,
-                    height: 60,
-                    borderRadius: 60/2,
-                    right: 10,
-                    bottom: 10,
-                    alignItems:'center',
-                    justifyContent: 'center',
-                    elevation: 5}]}>
-                    <TouchableOpacity style={{flex: 1}} onPress={() => {this.props.navigation.navigate('orderVacations', {plan: this.state.plan, profile: this.state.profile, refreshPage: this.refreshPage})}}>
-                        
-
-                            
-                                <View style={{ flex: 1, alignSelf:'center', justifyContent: 'center' }}>
-                                    <IconSearch name='plus' biblio='Entypo' size={32} color="white"></IconSearch>
-                                </View>
-                            
+                <View style={[Styles.shadowArrow, Styles.vacationsScreenAddButton]}>
+                    <TouchableOpacity style={Styles.flex1} onPress={() => {this.props.navigation.navigate('orderVacations', {plan: this.state.plan, profile: this.state.profile, refreshPage: this.refreshPage})}}>
+                        <View style={Styles.vacationsScreenAddButtonIconHolder}>
+                            <IconSearch name={CONST.ICON_NAME_PLUS} biblio={CONST.LIBRARY_3} size={32} color={Colors.SPARKLE_IT_WHITE}></IconSearch>
+                        </View>
                     </TouchableOpacity>
                 </View>    
 
-                <View style={[Styles.shadowArrow,{
-                            flex: 1,
-                            position: 'absolute',
+                <View style={[Styles.shadowArrow, Styles.vacationsScreenAnimatedArrow,{
+                            paddingTop: this.state.clicked ? 0 : 3,
                             width: iconsize,
                             height: iconsize,
                             borderRadius: iconsize/2,
                             left: Dimensions.get('window').width / 2 - (iconsize/2),
-                            top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap,
-                            alignItems:'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#e6e6e6',
-                            paddingTop: 3, elevation: 5}]
-                            }>
-                    <Animated.View style={{transform: [{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
-                        <TouchableOpacity style={{flex: 1}} onPress={() => {
+                            top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap}]
+                }>
+                    <Animated.View style={[{transform: [{rotate}]}, Styles.vacationsScreemAniatedArrow]}>
+                        <TouchableOpacity style={Styles.flex1} onPress={() => {
                             if(this.state.clicked){
                                 LayoutAnimation.spring()
                                 Animated.spring(this.rotation, {
@@ -451,11 +431,10 @@ class VacationScreen extends Component {
                                 this.expand()
                                 }
                             }}>
-                            <IconSearch name="ios-arrow-up" biblio="Ionicons" size={iconsize} color={Colors.SPARKLE_IT_MAINCOLOR}/>
+                            <IconSearch name={CONST.ICON_NAME_ARROWUP} biblio={CONST.LIBRARY_2} size={iconsize} color={Colors.SPARKLE_IT_MAINCOLOR}/>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>
-                
             </SafeAreaView>
         )
     }

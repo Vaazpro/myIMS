@@ -7,8 +7,8 @@ import {
 } from 'react-native'
 import InitialOptions from './InitialOptions'
 import SlideScreen from './SlideScreen'
-import styles from '../../constants/Styles'
 import ProfileService from './ProfileService'
+import Styles from '../../constants/Styles'
 
 const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -18,6 +18,13 @@ class ProfileScreen extends Component{
     static navigationOptions = {
         header: null,
     };
+
+    /** PROPS
+     * navigation.navigate('unlock')
+     * navigation.navigate('teams')
+     * navigation.navigate('vacations')
+     * navigation.navigate('attendances')
+     */
 
     constructor(props) {
         super(props)
@@ -59,15 +66,15 @@ class ProfileScreen extends Component{
     render() {
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-                <SafeAreaView style={styles.container}>
+                <SafeAreaView style={Styles.container}>
                     {/* StatusBar.currentHeight avoids the StatusBar to overlap our screen */}
                     <View style={{height: StatusBar.currentHeight}}></View>
                     
-                    <View style={{flex: 1}}>
+                    <View style={Styles.flex1}>
 
                     </View>
 
-                    <View style={{flex: 2, elevation:0}}>
+                    <View style={[Styles.flex2, { elevation:0}]}>
                         <InitialOptions prof={this.state.profile} teamsP= {this.TeamsPressedHandler} vacationsP={this.VacationsPressedHandler} attendancesP={this.AttendancesPressedHandler}/>
                     </View>
 

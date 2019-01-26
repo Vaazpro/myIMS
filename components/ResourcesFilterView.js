@@ -7,7 +7,7 @@ import {
 import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto'
 import IconSearch from './IconSearch'
-import Colors from '../constants/Colors';
+import Colors from '../constants/Colors'
 import * as CONST from '../constants/labels/constants'
 
 class 

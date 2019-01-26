@@ -40,6 +40,10 @@ export const FILTER_OPTIONS_STATE = "Estado"
 export const FILTER_OPTIONS_RESOURCES = "Recursos"
 export const FILTER_OPTIONS_TECHNICIAN_TYPE = "Tipo de Técnico"
 export const FILTER_OPTIONS_TEAM = "Equipa"
+export const FILTER_CALENDAR_PLACEHOLDER_START = "Data de Início"
+export const FILTER_CALENDAR_PLACEHOLDER_END = "Data de Fim"
+export const FILTER_CALENDAR_ALERT_CONFIRMATION_YES = 'Confirmar'
+export const FILTER_CALENDAR_ALERT_CONFIRMATION_NO = 'Cancelar'
 
 //SETTINGS SCREEN
 export const SETTINGS_HEADER_TITLE = "Configurações"
@@ -90,5 +94,23 @@ export const MONTHS=['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
 //ATTENDANCE VIEW
 export const ATTENDANCE_VIEW_INFO_TEXT = "1 dia (8h)"
 
+//UNSLOCK SCREEN -> GEOLOCATION MESSAGES
 export const COMPANY_ATTENDANCE_SUCCESS = "A sua presença foi confirmada"
 export const COMPANY_ATTENDANCE_FAILURE = "Não foi possivel marcar a sua presença"
+
+//SLIDE SCREEN
+export const DATE_CONNECTOR = " de "
+export const WORKING_DAYS_CONNECTOR = "º dia na "
+
+//TASKS SCREEN
+export const MODAL_TITTLE = "Selecione o novo estado"
+export const MODAL_CANCEL = "Cancelar"
+export const MODAL_CONFIRM = " Alterar "
+export const MODAL_TASK_STATE_OPEN = "ABERTO"
+export const MODAL_TASK_STATE_PLANNED = "PLANEADO"
+export const MODAL_TASK_STATE_IN_PROGRESS = "EM PROGRESSO"
+export const MODAL_TASK_STATE_IN_TESTING = "EM TESTES"
+export const MODAL_TASK_STATE_DONE = "FEITO"
+
+//USER ROLE
+export const USER_ROLE_DEVELOPER = "Developer"

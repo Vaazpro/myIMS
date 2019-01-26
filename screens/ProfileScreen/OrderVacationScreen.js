@@ -13,8 +13,14 @@ import CalendarPicker from 'react-native-calendar-picker'
 import { Hoshi } from 'react-native-textinput-effects'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
+import Colors from '../../constants/Colors'
+import Styles from '../../constants/Styles'
 
-
+/** PROPS
+ * navigation.getParam('plan')
+ * navigation.getParam('profile')
+ * goBack()
+ */
 
 class OrderVacationScreen extends Component {
 
@@ -30,7 +36,7 @@ class OrderVacationScreen extends Component {
                     <Button 
                         onPress={() => navigation.state.params.saveHandler()}
                         title = {PT.ORDER_VACATIONS_BUTTON_SAVE}
-                        color="#007FB7"
+                        color={Colors.SPARKLE_IT_MAINCOLOR}
                     />
                 </View>
                 
@@ -55,17 +61,17 @@ class OrderVacationScreen extends Component {
     }
 
     getHeight = () => {
-        if(Platform.OS === 'ios'){ //André
+        if(Platform.OS === 'ios'){
             
-            if(Dimensions.get('window').height > 700){ //André
+            if(Dimensions.get('window').height > 700){ // Large iOS
                 return hp('40%')
-            }else{ // Iphone 6
+            }else{ // Small iOS
                 return hp('49%')
             }
         }else{
-            if(Dimensions.get('window').height > 700){ //Rafa
+            if(Dimensions.get('window').height > 700){ // Large Android
                 return hp('48.5%')
-            }else{ //João
+            }else{ // Small Android
                 return hp('50%')
             }
         } 
@@ -87,15 +93,14 @@ class OrderVacationScreen extends Component {
             let self = this
             Alert.alert(PT.ORDER_VACATIONS_ALERT_CONFIRMATION_TITLE, PT.ORDER_VACATIONS_ALERT_CONFIRMATION_MESSAGE,
             [
-                {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {console.log("Cancelar")}},
+                {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {}},
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_YES, onPress: () => {
                     new ProfileService().postVacationRequest(
                         self.state.plan, 
                         self.state.selectedStartDateFormated,
                         self.state.selectedEndDateFormated, 
                         self.state.profile.id,
-                        function(data){
-                            console.log(data)
+                        function(){
                             self.props.navigation.state.params.refreshPage()
                             self.props.navigation.goBack()
                         }
@@ -129,24 +134,22 @@ class OrderVacationScreen extends Component {
       }
 
       setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+        this.setState({modalVisible: visible})
       }
 
 
     render() {
-        const { selectedStartDate, selectedEndDate } = this.state;
-        const minDate = new Date(); // Today
-        const maxDate = null;
-        const startDate  =  selectedStartDate ? selectedStartDate.toString() : '';
-        const endDate = selectedEndDate ? selectedEndDate.toString() : '';
-        const iconsize = 32;
-        const gap = Platform.OS === 'ios' ? (iconsize) : 10;
+        const { selectedStartDate, selectedEndDate } = this.state
+        const minDate = new Date() // Today
+        const maxDate = null
+        const startDate  =  selectedStartDate ? selectedStartDate.toString() : ''
+        const endDate = selectedEndDate ? selectedEndDate.toString() : ''
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_WHITE}]}>
                 
-                <View style={{width: '100%', height: this.getHeight(), backgroundColor:'#e6e6e6', paddingTop: 10}}>
+                <View style={[{height: this.getHeight()}, Styles.orderVacationsViewCalendarContainer]}>
                     <CalendarPicker
                         weekdays={ PT.WEEKDAYS }
                         months={ PT.MONTHS }
@@ -156,19 +159,19 @@ class OrderVacationScreen extends Component {
                         allowRangeSelection={true}
                         minDate={minDate}
                         maxDate={maxDate}
-                        todayBackgroundColor="gray"
-                        selectedDayColor="#007FB7"
-                        selectedDayTextColor="#FFFFFF"
+                        todayBackgroundColor={Colors.SPARKLE_IT_DARKGRAY}
+                        selectedDayColor={Colors.SPARKLE_IT_MAINCOLOR}
+                        selectedDayTextColor={Colors.SPARKLE_IT_WHITE}
                         onDateChange={this.onDateChange}
                     />  
                 </View>
 
                 <View style={{flex:2.5}}>
-                    <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={{paddingLeft:10, paddingRight: 10}}>
-                        <View style={{height: 10, backgroundColor: 'white'}}></View>
-                        <View style={{ backgroundColor: 'white'}}>
-                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_BEGGINING_DATE_PLACEHOLDER} value={startDate} borderColor={'rgb(123, 173, 232)'}/>
-                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_ENDING_DATE_PLACEHOLDER} value={endDate} borderColor={'rgb(123, 173, 232)'}/>      
+                    <ScrollView scrollEnabled={true} alwaysBounceVertical={true} overScrollMode='always' style={Styles.orderVacationsViewDatesContainer}>
+                        <View style={[Styles.h10, {backgroundColor: Colors.SPARKLE_IT_WHITE}]}></View>
+                        <View style={{ backgroundColor: Colors.WHI}}>
+                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_BEGGINING_DATE_PLACEHOLDER} value={startDate} borderColor={Colors.SPARKLE_IT_MAINCOLOR}/>
+                            <Hoshi editable={false} label={PT.ORDER_VACATIONS_ENDING_DATE_PLACEHOLDER} value={endDate} borderColor={Colors.SPARKLE_IT_MAINCOLOR}/>      
                         </View>
                     </ScrollView>
                 </View>

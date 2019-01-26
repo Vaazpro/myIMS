@@ -19,8 +19,15 @@ import Colors from '../../constants/Colors'
 import AttendanceView from '../../components/AttendanceView'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
+import * as CONST from "../../constants/labels/constants"
 import {LocaleConfig} from 'react-native-calendars'
 
+
+/** PROPS
+ * navigation.goBack()
+ * navigation.getParam('profile')
+ * displayBtn
+ */
 
 class AttendanceScreen extends Component {
 
@@ -71,29 +78,29 @@ class AttendanceScreen extends Component {
     }
 
     expand = () => {
-        if(Platform.OS === 'ios'){ //André
-            if(Dimensions.get('window').height > 700){ //André
+        if(Platform.OS === 'ios'){
+            if(Dimensions.get('window').height > 700){ // Large iOS
                 this.setState({
                     clicked: true,
                     hg: hp('43%'),
                     disp: 'flex'
                 })
             }else{
-                this.setState({ // Iphone 6
+                this.setState({ // Small iOS
                     clicked: true,
                     hg: hp('53%'),
                     disp: 'flex'
                 })
             }
         }else{
-            if(Dimensions.get('window').height > 700){ //Rafa
+            if(Dimensions.get('window').height > 700){ // Large Android
                 this.setState({
                     clicked: true,
                     hg: hp('49%'),
                     disp: 'flex'
                 })
             }else{
-                this.setState({ //João
+                this.setState({ // Small Android
                     clicked: true,
                     hg: hp('55%'),
                     disp: 'flex'
@@ -101,13 +108,14 @@ class AttendanceScreen extends Component {
             } 
         }
     }
+
     onPressBtn = () =>{
         console.log("WxH: " + Dimensions.get('window').width + "x" + Dimensions.get('window').height)
     }
 
     onMonthUpdate = (monthYear) => {
         var monthList = [];
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%";
+        const logoImg = CONST.URL_BEGIN + this.state.profile.attachmentId + CONST.URL_END;
         (this.state.attendance).forEach((attendance, index) => {
             let date = new Date(attendance.date)
             if((date.getMonth()+1)==monthYear.month && date.getFullYear()==monthYear.year){
@@ -126,10 +134,8 @@ class AttendanceScreen extends Component {
                     break;
 
                     case 'ATTENDANCE':
-                    console.log(attendance)
                     let time = attendance.attendances[0].date.split("T")
                     time = time[1].substring(0, 5)
-                    console.log(time)
                     monthList.push(<AttendanceView key={index} time={time} borderColor={Colors.COLOR_ATTENDANCE} day={day} monthYear={month + "/" + year} photo={logoImg} state={PT.ATTENDANCE_STATE_ATTENDANCE}></AttendanceView>)
                     break;
 
@@ -183,7 +189,7 @@ class AttendanceScreen extends Component {
 
     showUnjustifiedList = () => {
         var unjustifiedList = []
-        const logoImg = "http://ims-demoipvc.sparkleit.pt/"+ this.state.profile.attachmentId +".png?format=png&width=100%"
+        const logoImg = CONST.URL_BEGIN + this.state.profile.attachmentId + CONST.URL_END;
         this.state.attendance.forEach((attendance, index) => {
             let day = (attendance.date).slice(8,10)
             let month = (attendance.date).slice(5,7)
@@ -194,9 +200,9 @@ class AttendanceScreen extends Component {
             }
         })
 
-            this.setState({
-                currentList: unjustifiedList
-            })
+        this.setState({
+            currentList: unjustifiedList
+        })
     }
 
     
@@ -204,22 +210,20 @@ class AttendanceScreen extends Component {
     render() {
         const iconsize = 32;
         var gap = 0
-         if(Platform.OS === 'ios'){
-             if(Dimensions.get('window').height > 700){
-                 gap = (iconsize/1.3)
-             }else{
-                 gap = 12 // Iphone 6
-             }
-         }else{
+        if(Platform.OS === 'ios'){
+            if(Dimensions.get('window').height > 700){
+                gap = (iconsize/1.3)
+            }else{
+                gap = 12 // Small iOS
+            }
+        }else{
             gap = 6
-         }
+        }
         /* Realizar a Animação da arrow */
         const rotate = this.rotation.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg','180deg'],
         });
-
-        const tweak = Platform.OS === 'ios' ? 0 : StatusBar.currentHeight;
 
         LocaleConfig.locales['PT'] = {
             monthNames: PT.MONTHS,
@@ -227,8 +231,6 @@ class AttendanceScreen extends Component {
           };
           
         LocaleConfig.defaultLocale = 'PT';
-
-        //console.log(this.state.attendance[0])
 
         var top = 0;
 
@@ -244,49 +246,36 @@ class AttendanceScreen extends Component {
 
         return (
             /* SafeAreaView avoids the iPhone X's notch  */
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#e6e6e6' }}>
+            <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_HEADERGRAY}]}>
                 <View style={{height: StatusBar.currentHeight}}></View>
-                <View style={{height: Dimensions.get('window').height*0.15, paddingRight: 10, backgroundColor:'#e6e6e6'}}>
-                    <View style={{flex:1, justifyContent: 'center'}}>
-                        <TouchableOpacity style={{justifyContent: 'center', alignSelf:'baseline', height:'100%', paddingLeft:5}} onPress={() => {
-                            /*console.warn(Dimensions.get('window').width + 'x' + Dimensions.get('window').height)*/
-                            this.props.navigation.goBack()}}>
-                            <IconSearch name='cross' biblio='' color='black' size={25} />
+                <View style={[Styles.attendanceScreenHeaderMainContainer, {height: Dimensions.get('window').height*0.15}]}>
+                    <View style={[Styles.flex1, Styles.justifyCenter]}>
+                        <TouchableOpacity style={[Styles.justifyCenter, Styles.CrossButtonHolder]} onPress={() => {this.props.navigation.goBack()}}>
+                            <IconSearch name={CONST.ICON_NAME_CROSS} biblio={CONST.LIBRARY_0} color={Colors.SPARKLE_IT_BLACK} size={25} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex:1, flexDirection: "row"}}>
-                        <View style={{flex:1, justifyContent: 'center', alignItems:'flex-start', paddingLeft: 10}}>
-                            <Text style={{fontSize:20}}>{PT.ATTENDANCE_HEADER_TITLE}</Text>
+                    <View style={Styles.flex1horizontal}>
+                        <View style={Styles.attendanceScreenHeaderTitleHolder}>
+                            <Text style={Styles.font20}>{PT.ATTENDANCE_HEADER_TITLE}</Text>
                         </View>
-                        <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end', flexDirection: "row"}}>
+                        <View style={Styles.attendanceScreenButtonsContainer}>
                             <TouchableOpacity onPress={() => {this.onMonthUpdate(this.state.selectedMonth); this.setState({tudo: "bold", faltas: "normal"})}} style={{display: this.props.displayBtn}}>
                                 <Text style={{fontWeight: this.state.tudo}}>{PT.ATTENDANCE_HEADER_BUTTON_ALL}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {this.showUnjustifiedList(); this.setState({tudo: "normal", faltas: "bold"})}} style={{marginLeft: 10, display: this.props.displayBtn}}>
+                            <TouchableOpacity onPress={() => {this.showUnjustifiedList(); this.setState({tudo: "normal", faltas: "bold"})}} style={[Styles.mleft10, {display: this.props.displayBtn}]}>
                                 <Text style={{fontWeight: this.state.faltas}}>{PT.ATTENDANCE_HEADER_BUTTON_ABSENCES}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
 
-                <ScrollView style={{flex: 1, backgroundColor: 'white', paddingLeft: 10, paddingRight: 10}}>
+                <ScrollView style={Styles.attendanceScreenComponentsContainer}>
                     <View style={{height: this.state.hg + 25}}></View>
-                    {/* <AttendanceView borderColor='red'></AttendanceView>
-                    <AttendanceView borderColor='green'></AttendanceView>
-                    <AttendanceView borderColor='orange'></AttendanceView> */}
                     {this.state.currentList}
                 </ScrollView>
                     
-                <View style={{
-                    //top: Platform.OS === 'ios' ? Dimensions.get('window').height*0.20 : Dimensions.get('window').height*0.18,
-                    top: top,
-                    flex:1,
-                    display: this.state.disp, 
-                    backgroundColor:'#e6e6e6',
-                    position: 'absolute',
-                    width:'100%',
-                    height: this.state.hg}}>
-                    <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+                <View style={[Styles.attendanceScreenCalendarContainer, {top: top, display: this.state.disp, height: this.state.hg}]}>
+                    <SafeAreaView style={[Styles.flex1, {backgroundColor: Colors.SPARKLE_IT_TRANSPARENT0}]}>
                         <View style={{display: this.state.disp}}>
                             <Calendar
                                 // Collection of dates that have to be colored in a special way. Default = {}
@@ -306,11 +295,19 @@ class AttendanceScreen extends Component {
                                         '2018-11-19': {marked: true, dotColor: 'rgb(1, 231, 13)'},
                                     }*/
                                     this.state.markedDates
-                                    
-                                    }
+                                }
+                                onMonthChange={(monthYear) => {this.onMonthUpdate(monthYear)}}
+                                hideArrows={false}
+                                hideExtraDays={true}
+                                disableMonthChange={false}
+                                hideDayNames={false}
+                                showWeekNumbers={false}
+                                onPressArrowLeft={substractMonth => substractMonth()}
+                                onPressArrowRight={addMonth => addMonth()}
+                                theme={{calendarBackground: Colors.SPARKLE_IT_HEADERGRAY, textDayFontSize: 12,}}
+
                                 // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
                                 //markingType={'multi-dot'}
-                                
                                 // Initially visible month. Default = Date()
                                 //current={'2012-03-01'}
                                 // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -324,47 +321,31 @@ class AttendanceScreen extends Component {
                                 // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                                 //monthFormat={'yyyy MM'}
                                 // Handler which gets executed when visible month changes in calendar. Default = undefined
-                                onMonthChange={(monthYear) => {this.onMonthUpdate(monthYear)}}
                                 // Hide month navigation arrows. Default = false
-                                hideArrows={false}
                                 // Replace default arrows with custom ones (direction can be 'left' or 'right')
                                 //renderArrow={(direction) => (<Arrow />)}
                                 // Do not show days of other months in month page. Default = false
-                                hideExtraDays={true}
                                 // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
                                 // day from another month that is visible in calendar page. Default = false
-                                disableMonthChange={false}
                                 // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
                                 //firstDay={1}
                                 // Hide day names. Default = false
-                                hideDayNames={false}
                                 // Show week numbers to the left. Default = false
-                                showWeekNumbers={false}
                                 // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-                                onPressArrowLeft={substractMonth => substractMonth()}
                                 // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-                                onPressArrowRight={addMonth => addMonth()}
-                                theme={{calendarBackground: '#e6e6e6', textDayFontSize: 12,}}
                                 />
                             </View>
                         </SafeAreaView>
                     </View>
 
-                <View style={[Styles.shadowArrow,{
-                            flex: 1,
-                            position: 'absolute',
-                            width: iconsize,
-                            height: iconsize,
-                            borderRadius: iconsize/2,
-                            left: Dimensions.get('window').width / 2 - (iconsize/2),
-                            top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap,
-                            alignItems:'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#e6e6e6',
-                            paddingTop: 3, elevation: 5}]
-                            }>
-                    <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
-                        <TouchableOpacity style={{flex: 1}} onPress={() => {
+                <View style={[Styles.shadowArrow, Styles.flex1, Styles.expandableView, {width: iconsize,
+                                                                                        height: iconsize,
+                                                                                        borderRadius: iconsize/2,
+                                                                                        left: Dimensions.get('window').width / 2 - (iconsize/2),
+                                                                                        top: this.state.hg + (Dimensions.get('window').height * 0.15) + gap}
+                ] }>
+                    <Animated.View style={[Styles.attendanceScreenAnimatedArrow, {transform:[{rotate}]}]}>
+                        <TouchableOpacity style={Styles.flex1} onPress={() => {
                             if(!this.state.clicked){
                                 LayoutAnimation.spring()
                                 Animated.spring(this.rotation, {
@@ -385,7 +366,7 @@ class AttendanceScreen extends Component {
                                 this.colapse()
                                 }
                             }}>
-                            <IconSearch name="ios-arrow-down" biblio="Ionicons" size={iconsize} color="#007FB7"/>
+                            <IconSearch name={CONST.ICON_NAME_ARROWDOWN} biblio={CONST.LIBRARY_2} size={iconsize} color={Colors.SPARKLE_IT_MAINCOLOR}/>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>    

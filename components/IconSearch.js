@@ -46,8 +46,6 @@ const Tag = (props) => {
             }
         })
     }
-
-    //console.log(icon)
     return icon
 }
 

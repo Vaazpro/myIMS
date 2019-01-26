@@ -7,7 +7,7 @@ import Styles from '../constants/Styles'
 import IconSearch from '../components/IconSearch'
 import CircularPhoto from './CircularPhoto'
 import * as CONST from '../constants/labels/constants'
-import Colors from '../constants/Colors';
+import Colors from '../constants/Colors'
 
 class 
 TeamView extends Component {

@@ -4,8 +4,8 @@ import {
     View
 } from 'react-native'
 import IconSearch from '../components/IconSearch'
-import Colors from '../constants/Colors';
-import Styles from '../constants/Styles';
+import Colors from '../constants/Colors'
+import Styles from '../constants/Styles'
 
 class 
 TextIcon extends Component {

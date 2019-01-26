@@ -1,4 +1,3 @@
-//import { AsyncStorage } from "react-native"
 import {SecureStore} from 'expo';
 
 class BaseService {
@@ -17,7 +16,6 @@ class BaseService {
         this.getAcceptHeader = function() { return _acceptHeader; }
         this.getContentTypeHeader = function() { return _contentTypeHeader; }
     } 
-
 
     postAPI = (url, body, callback, callbackError) =>{
         var _headers = {"Accept":this.getAcceptHeader(), "Content-Type":this.getContentTypeHeader()}
@@ -53,8 +51,6 @@ class BaseService {
                         callbackError(error)
                     });
             });
-
-            
         }).catch((error) => {
             callbackError(error)
         }); 
@@ -134,9 +130,8 @@ class BaseService {
             }).catch((error) => {
                 callbackError(error)
             }); 
-            });
+        });
     }
-
 
     storeItem = async (key, token) => {
         try {
@@ -169,8 +164,7 @@ class BaseService {
           console.log(error.message);
         }
         return
-      }
-
+    }
 }
 
 export default BaseService
