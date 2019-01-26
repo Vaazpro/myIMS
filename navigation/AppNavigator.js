@@ -1,7 +1,7 @@
-import { createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation'
 
-import MainTabNavigator from './MainTabNavigator';
-import IntroScreen from '../screens/SplashScreen/IntroScreen';
+import MainTabNavigator from './MainTabNavigator'
+import IntroScreen from '../screens/SplashScreen/IntroScreen'
 
 export default createSwitchNavigator({
   // You could add another route here for authentication.

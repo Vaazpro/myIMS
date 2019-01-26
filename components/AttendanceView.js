@@ -9,46 +9,49 @@ import * as PT from "../constants/labels/pt_labels"
 
 class 
 AttendanceView extends Component {
-
+    
     constructor(props) {
         super(props)
         this.state={}
     }
 
-    
-
+    /** PROPS
+    * borderColor
+    * day
+    * monthYear
+    * time
+    * photo
+    * state
+    */
+   
     render() {
         return (
-            <View style={[Styles.shadow, {height: 60, flexDirection: 'row', borderRadius: 5, elevation: 1,marginBottom: 20,backgroundColor: '#F2F2F2'}]}>
-                <View style= {{flex: 2, paddingLeft: 10, borderTopLeftRadius: 5 , flexDirection: 'column', borderBottomLeftRadius:5, borderLeftColor: this.props.borderColor, borderLeftWidth: 2,justifyContent:'center'}}>
-                    <View style={{justifyContent:'flex-end', flex:1}}>
-                        <Text style={{fontSize: 20}}>{this.props.day}</Text>
+            <View style={[Styles.shadow, Styles.attendanceScreenMainView]}>
+                <View style= {[Styles.attendaceBorderColor, {borderLeftColor: this.props.borderColor}]}>
+                    <View style={Styles.alignBottom}>
+                        <Text style={Styles.font20}>{this.props.day}</Text>
                     </View>
-                    <View style={{justifyContent:'flex-start', flex:1}}>
-                        <Text style={{fontSize: 10}}>{this.props.monthYear}</Text>
+                    <View style={Styles.alignTop}>
+                        <Text style={Styles.font10}>{this.props.monthYear}</Text>
                     </View>
-                   
                 </View>
-                <View style={{borderLeftColor: 'rgb(216,217,221)', borderLeftWidth:2, marginTop: 10, marginBottom: 10}}>
+                <View style={Styles.attendanceSeparator}>
                 </View>
-                <View style= {{flex: 8, flexDirection: 'column', justifyContent: 'center',paddingLeft:10}}>
-                    <View style={{flex:1, flexDirection: 'row', alignItems:'flex-end'}}>
-                        <View style={{flex: 1}}>
-                            <Text style={{fontSize: 20}}>{this.props.time == null ? PT.ATTENDANCE_VIEW_INFO_TEXT : this.props.time}</Text>    
+                <View style= {Styles.attendanceStateView}>
+                    <View style={[Styles.flex1, Styles.rowAlignRight]}>
+                        <View style={Styles.flex1}>
+                            <Text style={Styles.font20}>{this.props.time == null ? PT.ATTENDANCE_VIEW_INFO_TEXT : this.props.time}</Text>    
                         </View>
-                        <View style={{flex: 1, justifyContent: 'flex-end', alignItems:'flex-end', paddingRight:10}}>
-                            <CircularPhoto image= {this.props.photo} 
-                            size={20}/>
+                        <View style={Styles.attendacePhotoView}>
+                            <CircularPhoto image= {this.props.photo} size={20}/>
                         </View>
                     </View>
-                    <View style={{flex:1, justifyContent: 'flex-start'}}>
-                        <Text style={{fontSize: 10, color: 'grey'}}>{this.props.state}</Text>
+                    <View style={Styles.alignTop}>
+                        <Text style={Styles.attendanceStateSubtitle}>{this.props.state}</Text>
                     </View>
                 </View>   
-                
             </View>
         )
     }
 }
-
 export default AttendanceView

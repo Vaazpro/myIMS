@@ -10,12 +10,14 @@ Logica diferente da deles - Ligar ao Edgar
 [Perguntar ao Edgar]
 - Unlock Screen, ao confirmar presença parar o relógio na hora de entrada
 
-[BUGS]
-
+[BUG]
 
 [TODO]
-
-
+[   ] UnlockScreen - verificar se ja está com attendance no dia atual - Só abrir o cadeado se conseguir marcar a presença else deixar cadeado fechado
+[   ] Apagar cores comentadas do ficheiro de Colors
+[   ] Verificar se há imports desnecessários
+[   ] Verificar se os font-sizes podem estar definidos no ficheiro de constantes (main title, subtitle, etc.) - procurar "size" em todas os js's
+[   ] Tirar todos os console.log()
 [   ] Styles no ficheiro de styles
 [   ] Percorrer todas os Screens e verificar se ha constantes a declarar
 [   ] Fazer a build e colocar nas stores

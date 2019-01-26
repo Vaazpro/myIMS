@@ -54,7 +54,7 @@ class SettingsScreen extends Component {
                     <HeaderView txtTitle={PT.SETTINGS_HEADER_TITLE} txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={this.xpto} onPressBtn={this.xpto} />
                 </View>
                 <View style={{flex:10, margin: 10}}>
-                     {/* <BtnTextIcon name={PT.SETTINGS_OPTIONS_NOTIFICATIONS}  exists={0} icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
+                    {/* <BtnTextIcon name={PT.SETTINGS_OPTIONS_NOTIFICATIONS}  exists={0} icon='bell' biblio='' onPressBtn={this.notificationsOptionHandler}/>
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_EMAIL}  exists={0} icon='envelope' biblio='' />
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_CHANGE_PASSWORD}  exists={0} icon='key' biblio='' /> */}
                     <BtnTextIcon name={PT.SETTINGS_OPTIONS_LOGOUT} exists={0} icon='sign-out' biblio='' onPressBtn={()=>{

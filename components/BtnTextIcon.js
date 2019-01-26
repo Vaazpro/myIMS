@@ -5,7 +5,9 @@ import {
     TouchableOpacity
 } from 'react-native'
 import IconSearch from '../components/IconSearch'
-import Styles from '../constants/Styles';
+import Styles from '../constants/Styles'
+import Colors from '../constants/Colors'
+import * as CONST from '../constants/labels/constants'
 
 class BtnTextIcon extends Component {
 
@@ -14,31 +16,27 @@ class BtnTextIcon extends Component {
         this.state={}
     }
 
-    /*
-    props:
-
-    onPressBtn
-    name
-    icon
-    biblio
-    exists
+    /** PROPS
+    * onPressBtn
+    * activeOpacity
+    * name
+    * exists
+    * icon
+    * biblio
     */
 
     render() {
         return (
             <TouchableOpacity activeOpacity={this.props.activeOpacity} onPress={this.props.onPressBtn}>
-                <View style={{paddingBottom: 5, height: 50, borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1, alignItems: 'flex-end', flexDirection: 'row'}}>
-                    <View style={{flex: 9,alignItems: 'flex-start', flexDirection:'row'}}>
-                        <Text style={{color: '#9A999E'}}>{this.props.name}</Text>    
-                        <View style={{marginLeft:5, width:20, height: 20, opacity: this.props.exists, justifyContent: 'center', alignItems:'center'}}>
-                            <IconSearch name="check" biblio="Feather" color="#007FB7" size={17}></IconSearch>
+                <View style={Styles.btnTextIconContainer}>
+                    <View style={Styles.btnTextIconFilterName}>
+                        <Text style={{color: Colors.SPARKLE_IT_DARKGRAY}}>{this.props.name}</Text>    
+                        <View style={[Styles.btnTextIconImageHolder, {opacity: this.props.exists}]}>
+                            <IconSearch name={CONST.ICON_NAME_CHECK} biblio={CONST.LIBRARY_1} color={Colors.SPARKLE_IT_MAINCOLOR} size={17}></IconSearch>
                         </View>
-                        {/* <View style={{marginLeft:10, width:20, height: 20, opacity: this.props.exists, justifyContent: 'center', alignItems:'center', borderRadius: 5, borderWidth:1, borderColor: '#007fb7'}}>
-                            <IconSearch name="check" biblio="Feather" color="#007FB7" size={17}></IconSearch>
-                        </View> */}
                     </View>
-                    <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                        <IconSearch name={this.props.icon} biblio={this.props.biblio} size={16} color="black"></IconSearch>     
+                    <View  style={Styles.alignBottom}>
+                        <IconSearch name={this.props.icon} biblio={this.props.biblio} size={16} color={Colors.SPARKLE_IT_BLACK}></IconSearch>     
                     </View>                                       
                 </View>
             </TouchableOpacity>

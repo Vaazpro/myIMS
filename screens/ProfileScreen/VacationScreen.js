@@ -20,6 +20,7 @@ import VacationsView from '../../components/VacationsView'
 import ProfileService from './ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
 import {LocaleConfig} from 'react-native-calendars';
+import Colors from '../../constants/Colors';
 
 
 
@@ -180,42 +181,12 @@ class VacationScreen extends Component {
                     }
                 }
             })
-            /* console.log(days) */
             this.setState({
                 markedDates: days
             })
         }
     }
-
-    /* getVacationDays = (vacation) => {
-        var dateFrom = new Date(vacation.dateFrom);
-        var dateTo = new Date(vacation.dateTo);
-        var indexDate = dateFrom
-        var count = 0
-
-        while(indexDate.getTime() <= dateTo.getTime()){
-            if(indexDate.getDay() != 0 && indexDate.getDay() != 6){
-                if(this.state.vacations.holidays != undefined){
-                    var exists = false;
-                    (this.state.vacations.holidays).forEach(element => {
-                        var holiday = new Date(element)
-                        if(holiday.toDateString() == indexDate.toDateString()){
-                            exists = true
-                        }
-                    });
-                    if(!exists){
-                        count ++
-                    }
-                }else{
-                    count ++
-                }
-                //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
-            }
-            indexDate.setDate(indexDate.getDate() + 1)
-        }
-        return (count) 
-    } */
-
+    
     getVacationDays = (vacation) => {
         var dateFrom = new Date(vacation.dateFrom);
         var dateTo = new Date(vacation.dateTo);
@@ -232,9 +203,6 @@ class VacationScreen extends Component {
             })
         }
 
-        /* console.log("VACATIONS")
-        console.log(this.state.vacations.vacations) */
-
         if(this.state.vacations.vacations != undefined){
             this.state.vacations.vacations.forEach(vact => {
                 if(vact.state == "FIXED"){
@@ -244,7 +212,6 @@ class VacationScreen extends Component {
                         holidaysAndFixedVac.push(fixedVacationIndexDate.toDateString())
                         fixedVacationIndexDate.setDate(fixedVacationIndexDate.getDate() + 1)
                     }
-                    //console.log(holidaysAndFixedVac)
                 }
             })
         }
@@ -261,7 +228,6 @@ class VacationScreen extends Component {
                 if(!exists){
                     count ++
                 }
-                //count ++ //REMOVER ESTA LINHA QUANDO A API DER OS HOLIDAYS CERTOS
             }
             indexDate.setDate(indexDate.getDate() + 1)
         }
@@ -463,9 +429,9 @@ class VacationScreen extends Component {
                             backgroundColor: '#e6e6e6',
                             paddingTop: 3, elevation: 5}]
                             }>
-                    <Animated.View style={{transform:[{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
+                    <Animated.View style={{transform: [{rotate}], flex: 1, alignItems:'center', justifyContent: 'center', alignSelf:'stretch'}}>
                         <TouchableOpacity style={{flex: 1}} onPress={() => {
-                            if(!this.state.clicked){
+                            if(this.state.clicked){
                                 LayoutAnimation.spring()
                                 Animated.spring(this.rotation, {
                                     toValue: 1,
@@ -473,7 +439,7 @@ class VacationScreen extends Component {
                                     friction: 5,
                                     useNativeDriver: true,
                                 }).start()
-                                this.expand()
+                                this.colapse()
                             }else{
                                 LayoutAnimation.spring()
                                 Animated.spring(this.rotation, {
@@ -482,10 +448,10 @@ class VacationScreen extends Component {
                                     friction: 5,
                                     useNativeDriver: true,
                                 }).start()
-                                this.colapse()
+                                this.expand()
                                 }
                             }}>
-                            <IconSearch name="ios-arrow-down" biblio="Ionicons" size={iconsize} color="#007FB7"/>
+                            <IconSearch name="ios-arrow-up" biblio="Ionicons" size={iconsize} color={Colors.SPARKLE_IT_MAINCOLOR}/>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>

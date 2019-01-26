@@ -7,6 +7,8 @@ import {
 import Styles from '../constants/Styles'
 import CircularPhoto from './CircularPhoto'
 import IconSearch from "./IconSearch"
+import * as CONST from '../constants/labels/constants'
+import Colors from '../constants/Colors';
 
 class 
 TaskView extends Component {
@@ -19,60 +21,51 @@ TaskView extends Component {
         }
     }
 
-    /*
-        props:
-
-        txt
-        time
-        color
-        photo2
-
+    /** PROPS:
+    * txt
+    * time
+    * color
+    * taskHandler
     */
 
     componentWillMount(){
-        //console.log(this.state.users)
         var usersList = []
-
         this.state.task.users.forEach((user, index) => {
             usersList.push(
-                <View key={index} style={{backgroundColor: 'white', width: 22, height: 22 , borderRadius: 12, alignItems:'center', justifyContent: 'center'}}>
-                    <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={20}/>
+                <View key={index} style={Styles.taskViewPhotoContainer}>
+                    <CircularPhoto image= {CONST.URL_BEGIN + user.attachmentId + CONST.URL_END} size={20}/>
                 </View>
             )
         }) 
         if(this.state.task.number > 2){
             var others = this.state.task.number - 2
             usersList.push(
-                <View  key={this.state.task.number} style={{flexDirection: "row", marginTop: 6}}>
+                <View  key={this.state.task.number} style={Styles.taskViewOtherUserContainer}>
                     <Text> +{others} </Text>
-                    <IconSearch name='users' biblio='Feather' color='black' size={13} />
+                    <IconSearch name={CONST.ICON_NAME_USERS} biblio={CONST.LIBRARY_1} color={Colors.SPARKLE_IT_BLACK} size={13} />
                 </View>
             );
         }
         this.setState({
             userList: usersList
         })
-        
     }
     
-
     render() {
         return (
-            
-            <View style={[Styles.shadow, {backgroundColor: '#F2F2F2',width: 120, borderRadius: 5, elevation: 1,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5, borderLeftColor: this.props.color, borderLeftWidth: 2}]}>
-                <TouchableOpacity style={{flex: 1}} onPress={this.props.taskHandler}>
-                <View style= {{flex: 1, justifyContent: 'flex-end'}}>
-                    <Text style={{fontSize:15}}>{this.props.txt}</Text>  
+            <View style={[Styles.shadow, Styles.taskViewMainContainer, {borderLeftColor: this.props.color}]}>
+                <TouchableOpacity style={Styles.flex1} onPress={this.props.taskHandler}>
+                <View style= {Styles.alignBottom}>
+                    <Text style={Styles.font16}>{this.props.txt}</Text>  
                 </View>
-                <View style= {{flex: 1, justifyContent: 'center', flexDirection: 'row', }}>
+                <View style= {[Styles.flex1, Styles.VerticalCenterRow]}>
                     {this.state.userList}
-                    <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}>
-                        <Text style={{fontSize:14, color: 'grey'}}>{this.props.time}</Text>  
+                    <View style={Styles.taskViewTextHolder}>
+                        <Text style={[Styles.font14, {color: Colors.SPARKLE_IT_DARKGRAY}]}>{this.props.time}</Text>  
                     </View>
                 </View>
                 </TouchableOpacity>
             </View>
-            
         )
     }
 }

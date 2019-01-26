@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View,
-    Image
+    View
 } from 'react-native'
 import IconSearch from '../components/IconSearch'
+import Colors from '../constants/Colors';
+import Styles from '../constants/Styles';
 
 class 
 TextIcon extends Component {
@@ -14,17 +15,21 @@ TextIcon extends Component {
         this.state={}
     }
 
-    
+    /** PROPS
+     * name
+     * biblio
+     * icon
+     */
 
     render() {
         return (
             
-                <View style={{paddingBottom: 5,flex:1,borderBottomColor: 'rgba(216,217,221,0.5)', borderBottomWidth: 1, alignItems: 'flex-end', flexDirection: 'row'}}>
-                    <View style={{flex: 9,alignItems: 'flex-start'}}>
-                        <Text style={{color: '#9A999E'}}>{this.props.name}</Text>        
+                <View style={[Styles.flex1, Styles.textIcon_MainContainer]}>
+                    <View style={Styles.textIcon_TitleContainer}>
+                        <Text style={{color: Colors.SPARKLE_IT_DARKGRAY}}>{this.props.name}</Text>        
                     </View>
-                    <View  style={{flex: 1,alignItems: 'flex-end'}}>
-                        <IconSearch name={this.props.icon} biblio={this.props.biblio} size={16} color="grey"></IconSearch>     
+                    <View  style={Styles.textIcon_IconContainer}>
+                        <IconSearch name={this.props.icon} biblio={this.props.biblio} size={16} color={Colors.SPARKLE_IT_DARKGRAY}></IconSearch>     
                     </View>
                                                          
                 </View>

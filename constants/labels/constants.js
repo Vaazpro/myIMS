@@ -18,9 +18,17 @@ export const STATE_IN_TESTING = "IN_TESTING"
 export const STATE_DONE = "DONE"
 
 //COMPANY COORDS
-
 export const COMPANY_COORDS_MAX_LAT = 41.6906537
 export const COMPANY_COORDS_MIN_LAT = 41.6905204
 export const COMPANY_COORDS_MAX_LNG = -8.8281911
 export const COMPANY_COORDS_MIN_LNG = -8.8280342
 
+//HIGHLIGHT BTNTEXTICON
+export const ICON_NAME_CHECK = "check"
+export const ICON_NAME_USERS = "users"
+export const LIBRARY_0 = ""
+export const LIBRARY_1 = "Feather"
+
+//URL TO GET PHOTOS FROM API
+export const URL_BEGIN = "http://ims-demoipvc.sparkleit.pt/"
+export const URL_END = ".png?format=png&width=100%"

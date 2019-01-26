@@ -6,6 +6,8 @@ import {
 } from 'react-native'
 import styles from '../constants/Styles'
 import IconSearch from '../components/IconSearch'
+import Colors from '../constants/Colors'
+import Styles from '../constants/Styles'
 
 class HeaderView extends Component {
 
@@ -14,35 +16,33 @@ class HeaderView extends Component {
         this.state={}
     }
 
-    /*
-    props:
-
-    textTitle
-    textBtn
-    displayIcon
-    displayBtn
-    nameIcon
-    biblioIcon
-    onPressBtn
-    onPressIcon
-
+    /** PROPS
+    * txtTitle
+    * textBtn
+    * displayIcon
+    * displayBtn
+    * nameIcon
+    * colorIcon
+    * biblioIcon
+    * onPressBtn
+    * onPressIcon
     */
 
     render() {
         return (
-            <View style={[styles.container, {borderBottomWidth:1, borderBottomColor: '#C2C3C9'}]}>
-                <View style={{flex:1, justifyContent: 'center', padding:3}}>
-                    <TouchableOpacity style={{justifyContent:'center'}} onPress={this.props.onPressIcon}>
+            <View style={[styles.container, {borderBottomWidth:1, borderBottomColor: Colors.SPARKLE_IT_GRAY}]}>
+                <View style={Styles.headerContainer}>
+                    <TouchableOpacity style={Styles.verticalCenter} onPress={this.props.onPressIcon}>
                         <IconSearch name={this.props.nameIcon} biblio={this.props.biblioIcon} color={this.props.colorIcon} size={25} style={{display: this.props.displayIcon}} />
                     </TouchableOpacity>
                 </View>
-                <View style={{flex:1, flexDirection: "row"}}>
-                    <View style={{flex:1, justifyContent: 'center', paddingLeft: 10}}>
-                        <Text style={{fontSize:20}}>{this.props.txtTitle}</Text>
+                <View style={Styles.flex1horizontal}>
+                    <View style={Styles.headerTitleContainer}>
+                        <Text style={Styles.font20}>{this.props.txtTitle}</Text>
                     </View>
-                    <View style={{flex:1,justifyContent:'center', alignItems:'flex-end', paddingRight:10, }}>
+                    <View style={Styles.headerSecondaryContainer}>
                         <TouchableOpacity onPress={this.props.onPressBtn} style={{display: this.props.displayBtn}}>
-                            <Text style={{fontSize:16}}>{this.props.txtBtn}</Text>
+                            <Text style={Styles.font16}>{this.props.txtBtn}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

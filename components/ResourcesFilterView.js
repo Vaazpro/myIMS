@@ -5,8 +5,10 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Styles from '../constants/Styles'
-import CircularPhoto from './CircularPhoto';
-import IconSearch from './IconSearch';
+import CircularPhoto from './CircularPhoto'
+import IconSearch from './IconSearch'
+import Colors from '../constants/Colors';
+import * as CONST from '../constants/labels/constants'
 
 class 
 TaskFilterView extends Component {
@@ -18,54 +20,27 @@ TaskFilterView extends Component {
         }
     }
 
-    /*
-        props:
-
-        txt
-
+    /** PROPS
+    * checkArray()
+    * id
+    * txt
+    * clicked
     */
 
-    
-
     render() {
-       /*  var usersList = []
-        if(this.state.users.length<=6){
-            this.state.users.forEach((user, index) => {
-                usersList.push(
-                    <View key={index} style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ user.attachmentId+'.png?format=png&width=100%'} size={25}/>
-                    </View>
-                )
-            }) 
-        }else{
-            for(var i=0; i<6;i++){
-                usersList.push(
-                    <View style={{backgroundColor: 'white', width: 27, height: 27 , borderRadius: 13.5, alignItems:'center', justifyContent: 'center'}}>
-                        <CircularPhoto image= {'http://ims-demoipvc.sparkleit.pt/'+ this.state.users[i].attachmentId+'.png?format=png&width=100%'} size={25}/>
-                    </View>
-                )
-            }
-            var others = this.state.users.length -6
-            usersList.push(
-                <Text> +{others} </Text>,
-                <IconSearch name='users' biblio='Feather' color='black' size={13} />
-            );
-        } */
-        /* , borderWidth: 2, borderColor: !this.state.clicked ? 'black': 'red' */
-
         return (
-            <View style={{width: 140,height:130 ,marginLeft: 15, marginTop:10, marginBottom:15, paddingLeft:5, paddingRight: 5}}>
-                <TouchableOpacity style={{flex: 1, position:"relative"}} onPress={() => {this.props.checkArray(); this.setState({clicked: !this.state.clicked})}}> 
-                    <View style={{flex:3, justifyContent: 'center', alignItems: 'center', position: "relative"}}>
-                        <View style={[Styles.shadow, {width:94, height:94, backgroundColor: 'white',borderWidth:1, borderColor:'rgba(216,217,221,0.5)', borderRadius: 47, justifyContent:"center", alignItems: "center", elevation: 5}]}>
-                            <CircularPhoto image={'http://ims-demoipvc.sparkleit.pt/'+ this.props.id +'.png?format=png&width=100%'} size={94}/>
+            <View style={Styles.resourcerFilterViewMainContainer}>
+                <TouchableOpacity style={Styles.flex1relative} onPress={() => {this.props.checkArray(); this.setState({clicked: !this.state.clicked})}}> 
+                    <View style={Styles.resourcerFilterViewPhotoContainer}>
+                        <View style={[Styles.shadow, Styles.resourcerFilterViewPhotoHolder]}>
+                            <CircularPhoto image={CONST.URL_BEGIN + this.props.id + CONST.URL_END} size={94}/>
                         </View>
                     </View>
-                    <View style={{position:"absolute", width: 26, height: 26, alignItems: "center", justifyContent: "center", borderRadius: 13, backgroundColor: "#007FB7", top: "5%", right: "10%", elevation: 10, opacity: this.state.clicked ? 1 : 0}}>
-                        <IconSearch name="check" biblio="Feather" color="white" size={20}></IconSearch>
+                    <View style={[Styles.resourceFilterViewIconHolder, {opacity: this.state.clicked ? 1 : 0}]}>
+                        <IconSearch name={CONST.ICON_NAME_CHECK} biblio={CONST.LIBRARY_1} color={Colors.SPARKLE_IT_WHITE} size={20}></IconSearch>
                     </View>
-                    <View style= {{flex: 1, justifyContent: 'flex-end', alignItems:'center'}}>
-                        <Text style={{fontSize:14}}>{this.props.txt}</Text>  
+                    <View style= {Styles.resourceFilterViewTextHolder}>
+                        <Text style={Styles.font14}>{this.props.txt}</Text>  
                     </View>
                 </TouchableOpacity>
             </View>

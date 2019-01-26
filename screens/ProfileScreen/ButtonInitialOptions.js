@@ -8,59 +8,6 @@ import {
 import styles from '../../constants/Styles'
 import IconSearch from '../../components/IconSearch'
 
-
-/*
-
-*https://expo.github.io/vector-icons/
-
-*This constant brings a feature that helps to dynamically create an icon using the 'vector-icons' library
-*This library contains 'sub-libraries' which coexist as components
-*We use the global prop named 'biblio' so we can check in the vector-icons' library if the component we want to use exists.
-*If it exists we will search directly into that component the icon we wanted in the first place
-*After that we create the element.
-
-*/
-/* const Tag = (props) => {
-    let icon = null
-    let found = false
-    let keyFound = null
-
-    Object.keys(array).map((key, index) => {
-        const item = array[key]
-        if(key == props.biblio){
-            found = true
-            keyFound = key
-            console.log(keyFound)
-            return
-        }
-    })
-
-    if(found){
-        const item = array[keyFound]
-        Object.keys(item.glyphMap).map((k, i) => {
-            if(k == props.name){
-                icon = React.createElement(item, props, '')
-                return
-            }
-        })
-    }else{
-        Object.keys(array).map((key, index) => {  
-            const item = array[key]
-            if(item.glyphMap != undefined){
-                Object.keys(item.glyphMap).map((k, i) => {
-                    if(k == props.name){
-                        icon = React.createElement(item, props, '')
-                        return
-                    }
-                })
-            }
-        })
-    }
-
-    //console.log(icon)
-    return icon
-} */
-
 class ButtonInitialOptions extends Component {
 
     constructor(props) {

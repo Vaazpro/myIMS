@@ -17,6 +17,7 @@ import TaskView from '../../components/TaskView'
 import TaskService from './TaskService'
 import ProfileService from '../ProfileScreen/ProfileService'
 import * as PT from "../../constants/labels/pt_labels"
+import Colors from '../../constants/Colors';
 
 
 class TasksScreen extends Component {
@@ -241,7 +242,7 @@ class TasksScreen extends Component {
                     <View style={{flex:9, justifyContent:'center'}}>
                         <HeaderView txtTitle={PT.TASKS_HEADER_TITLE} txtBtn="" displayIcon="none" displayBtn="none" nameIcon="" biblioIcon="" onPressIcon={() =>{}} onPressBtn={() =>{}} />
                     </View>
-                    <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: '#C2C3C9'}}>
+                    <View style={{flex:1, flexDirection:'column', borderBottomWidth:1, borderBottomColor: Colors.SPARKLE_IT_GRAY}}>
                         <View style={{flex:1, backgroundColor: 'white'}}></View>
                         <View style={{flex:1, justifyContent:'center', backgroundColor: 'white'}}>
                             <TouchableOpacity onPress={() =>{this.props.navigation.navigate('filters', {profile: this.state.profile, filters: this.state.filters, refPage: this.handleRefPage  })}} style={{justifyContent:'center'}}>

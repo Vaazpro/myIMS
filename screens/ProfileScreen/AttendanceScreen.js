@@ -203,7 +203,6 @@ class AttendanceScreen extends Component {
 
     render() {
         const iconsize = 32;
-        //const gap = Platform.OS === 'ios' ? (iconsize/1.3) : 6;
         var gap = 0
          if(Platform.OS === 'ios'){
              if(Dimensions.get('window').height > 700){
