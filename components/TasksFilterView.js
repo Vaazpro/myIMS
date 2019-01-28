@@ -10,7 +10,7 @@ import Colors from '../constants/Colors'
 import * as CONST from '../constants/labels/constants'
 
 class 
-TaksFilterView extends Component {
+TasksFilterView extends Component {
 
     constructor(props) {
         super(props)
@@ -41,4 +41,4 @@ TaksFilterView extends Component {
     }
 }
 
-export default TaksFilterView
+export default TasksFilterView
