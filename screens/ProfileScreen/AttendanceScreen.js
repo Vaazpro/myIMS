@@ -150,9 +150,10 @@ class AttendanceScreen extends Component {
 
         this.setState({
             currentList: monthList,
-            selectedMonth: monthYear
-        })
-        
+            selectedMonth: monthYear,
+            tudo:"bold",
+            faltas:"normal"
+        }) 
     }
 
     onMarkedDatesUpdate = () => {

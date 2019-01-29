@@ -87,15 +87,26 @@ class ProfileService extends BaseService {
     }
 
     postVacationRequest = (plan, dateFrom, dateTo, employeeID, callback) => {
+        let rightPlan = null
+
+        plan.forEach(element => {
+            var dateStart = new Date(element.dateStart)
+            var dateEnd = new Date(element.dateEnd)
+
+            if(dateStart.getTime() <= new Date(dateFrom).getTime() && dateEnd.getTime() >= new Date(dateTo).getTime()){
+                rightPlan = element
+            }
+        })
+
         let body = {
             allDay: true,
             dateFrom: dateFrom,
             dateTo: dateTo,
             employeeId: employeeID,
-            max: plan[0].dateEnd,
-            min: plan[0].dateStart,
+            max: rightPlan.dateEnd,
+            min: rightPlan.dateStart,
             notes: "-",
-            vacationsPlanId: plan[0].id
+            vacationsPlanId: rightPlan.id
         }
         this.postAPI("vacation", body,
         function(data){

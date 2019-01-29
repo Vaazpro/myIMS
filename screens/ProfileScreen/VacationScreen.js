@@ -63,8 +63,15 @@ class VacationScreen extends Component {
                 plan: plan
             })
             
+            let rightPlan = null
+            self.state.plan.forEach(element => {
+                if(new Date(element.dateStart).getTime() <= new Date().getTime() && new Date(element.dateEnd).getTime() >= new Date().getTime()){
+                    rightPlan = element
+                }
+            })
+            
             let selfB = self
-            new ProfileService().getVacations(self.state.profile.id, plan[0].dateStart, plan[0].dateEnd, plan[0].id, function(vacations){
+            new ProfileService().getVacations(self.state.profile.id, rightPlan.dateStart, rightPlan.dateEnd, rightPlan.id, function(vacations){
                 selfB.setState({
                     vacations: vacations
                 })
@@ -136,8 +143,13 @@ class VacationScreen extends Component {
 
     refreshPage = () => {
         let self = this
-
-        new ProfileService().getVacations(this.state.profile.id, this.state.plan[0].dateStart, this.state.plan[0].dateEnd, this.state.plan[0].id, function(vacations){
+        let rightPlan = null
+            this.state.plan.forEach(element => {
+                if(new Date(element.dateStart).getTime() <= new Date().getTime() && new Date(element.dateEnd).getTime() >= new Date().getTime()){
+                    rightPlan = element
+                }
+            })
+        new ProfileService().getVacations(this.state.profile.id, rightPlan.dateStart, rightPlan.dateEnd, rightPlan.id, function(vacations){
             self.setState({
                 vacations: vacations
             })

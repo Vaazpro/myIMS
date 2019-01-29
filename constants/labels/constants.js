@@ -18,10 +18,10 @@ export const STATE_IN_TESTING = "IN_TESTING"
 export const STATE_DONE = "DONE"
 
 //COMPANY COORDS
-export const COMPANY_COORDS_MAX_LAT = 41.6906537
+export const COMPANY_COORDS_MAX_LAT = 41.6906737
 export const COMPANY_COORDS_MIN_LAT = 41.6905204
 export const COMPANY_COORDS_MAX_LNG = -8.8281911
-export const COMPANY_COORDS_MIN_LNG = -8.8280342
+export const COMPANY_COORDS_MIN_LNG = -8.8277342
 
 //HIGHLIGHT BTNTEXTICON
 export const ICON_NAME_ARROWDOWN = "ios-arrow-down"
@@ -55,5 +55,5 @@ export const LIBRARY_4 = "FontAwesome"
 export const LIBRARY_5 = "MaterialIcons"
 
 //URL TO GET PHOTOS FROM API
-export const URL_BEGIN = "http://ims-demoipvc.sparkleit.pt/"
+export const URL_BEGIN = "https://ims.sparkleit.pt/"
 export const URL_END = ".png?format=png&width=100%"

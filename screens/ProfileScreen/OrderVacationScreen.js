@@ -95,6 +95,7 @@ class OrderVacationScreen extends Component {
             [
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {}},
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_YES, onPress: () => {
+                    console.log(self.state.plan)
                     new ProfileService().postVacationRequest(
                         self.state.plan, 
                         self.state.selectedStartDateFormated,
