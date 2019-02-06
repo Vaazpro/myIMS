@@ -55,5 +55,5 @@ export const LIBRARY_4 = "FontAwesome"
 export const LIBRARY_5 = "MaterialIcons"
 
 //URL TO GET PHOTOS FROM API
-export const URL_BEGIN = "https://ims.sparkleit.pt/"
+export const URL_BEGIN = "https://ims-demoipvc.sparkleit.pt/"
 export const URL_END = ".png?format=png&width=100%"

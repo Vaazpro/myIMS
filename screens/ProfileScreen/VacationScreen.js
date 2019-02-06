@@ -52,7 +52,9 @@ class VacationScreen extends Component {
             vacations: {},
             markedDates: {},
             currentList: [],
-            mounted: true
+            mounted: true,
+            visibleMonth: null,
+            visibleYear: null
         }
         this.onDateChange = this.onDateChange.bind(this);
         this.rotation = new Animated.Value(0);
@@ -141,22 +143,7 @@ class VacationScreen extends Component {
         }
     }
 
-    refreshPage = () => {
-        let self = this
-        let rightPlan = null
-            this.state.plan.forEach(element => {
-                if(new Date(element.dateStart).getTime() <= new Date().getTime() && new Date(element.dateEnd).getTime() >= new Date().getTime()){
-                    rightPlan = element
-                }
-            })
-        new ProfileService().getVacations(this.state.profile.id, rightPlan.dateStart, rightPlan.dateEnd, rightPlan.id, function(vacations){
-            self.setState({
-                vacations: vacations
-            })
-            self.buildVacationCalendar()
-            self.onMonthUpdate(new Date().getMonth() + 1, new Date().getFullYear())
-        })
-    }
+    
 
     buildVacationCalendar = () => {
         let days = {}
@@ -252,6 +239,26 @@ class VacationScreen extends Component {
         return (count) 
     }
 
+    refreshPage = () => {
+        let self = this
+        let rightPlan = null
+            this.state.plan.forEach(element => {
+                if(new Date(element.dateStart).getTime() <= new Date().getTime() && new Date(element.dateEnd).getTime() >= new Date().getTime()){
+                    rightPlan = element
+                }
+            })
+        new ProfileService().getVacations(this.state.profile.id, rightPlan.dateStart, rightPlan.dateEnd, rightPlan.id, function(vacations){
+            self.setState({
+                vacations: vacations
+            })
+            self.buildVacationCalendar()
+            if(this.state.visibleMonth == null){
+                self.onMonthUpdate(new Date().getMonth() + 1, new Date().getFullYear())
+            }else{
+                self.onMonthUpdate(this.state.visibleMonth, this.state.visibleYear)
+            }
+        })
+    }
 
     onMonthUpdate = (month, year) => {
         var monthList = [];
@@ -301,7 +308,9 @@ class VacationScreen extends Component {
             });
 
             this.setState({
-                currentList: monthList
+                currentList: monthList,
+                visibleMonth: month,
+                visibleYear: year
             })
         }
     }

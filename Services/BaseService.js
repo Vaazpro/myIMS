@@ -3,7 +3,7 @@ import {SecureStore} from 'expo';
 class BaseService {
 
     constructor() {
-        var _apiURL = 'https://ims.sparkleit.pt/api/v1/';
+        var _apiURL = 'https://ims-demoipvc.sparkleit.pt/api/v1/';
         var _tokenKey = 'access_token'
         var _profileKey = 'profile_key'
         var _acceptHeader = "application/json"

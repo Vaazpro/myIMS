@@ -95,7 +95,7 @@ class OrderVacationScreen extends Component {
             [
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_NO, onPress: () => {}},
                 {text: PT.ORDER_VACATIONS_ALERT_CONFIRMATION_YES, onPress: () => {
-                    console.log(self.state.plan)
+                    console.log(self.state)
                     new ProfileService().postVacationRequest(
                         self.state.plan, 
                         self.state.selectedStartDateFormated,
@@ -103,6 +103,7 @@ class OrderVacationScreen extends Component {
                         self.state.profile.id,
                         function(){
                             self.props.navigation.state.params.refreshPage()
+                            //self.props.navigation.state.params.onMonthChange()
                             self.props.navigation.goBack()
                         }
                     );
